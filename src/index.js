@@ -1,0 +1,1 @@
+var CONFIG = require('../config/config');
