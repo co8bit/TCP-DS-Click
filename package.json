@@ -1,0 +1,25 @@
+{
+  "name": "tcp-ds-click",
+  "version": "1.0.0",
+  "description": "a TCP-DS automatic test tool.  TCP-DS一键自动测试工具",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/co8bit/TCP-DS-Click.git"
+  },
+  "author": "co8bit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/co8bit/TCP-DS-Click/issues"
+  },
+  "homepage": "https://github.com/co8bit/TCP-DS-Click#readme",
+  "dependencies": {
+    "monetdb": "^1.1.2",
+    "monetdb-import": "^0.4.9",
+    "mysql": "github:felixge/node-mysql",
+    "nodemailer": "^2.4.1"
+  }
+}
