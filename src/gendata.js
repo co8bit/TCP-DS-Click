@@ -1,5 +1,6 @@
 var CONFIG = require('../config/config');
 var shell = require("shelljs");
+require('shelljs/global');
 
 /**
  * 生成tcp-ds数据
@@ -14,6 +15,7 @@ run = () => {
 	console.log('==2==');
 	console.log('cd ' + CONFIG.config.dsdgen_dir);
 	shell.exec('cd ' + CONFIG.config.dsdgen_dir);
+	cd(CONFIG.config.dsdgen_dir);
 	console.log('==3==');
 	shell.exec('ls');
 	console.log('==4==');
