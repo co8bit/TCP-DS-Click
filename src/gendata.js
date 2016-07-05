@@ -12,6 +12,7 @@ run = () => {
 	console.log('==1==');
 	shell.exec('ls');
 	console.log('==2==');
+	console.log('cd ' + CONFIG.config.dsdgen_dir);
 	shell.exec('cd ' + CONFIG.config.dsdgen_dir);
 	console.log('==3==');
 	shell.exec('ls');
