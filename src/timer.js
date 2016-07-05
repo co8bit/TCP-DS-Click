@@ -23,6 +23,4 @@ var Timer = {
 	}
 }
 
-
-
 exports.Timer = Timer;
