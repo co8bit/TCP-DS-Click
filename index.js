@@ -1,6 +1,6 @@
-var CONFIG = require('../config/config');
-var Timer = require('./timer');
-var gendata = require('./gendata');
+var CONFIG = require('./config/config');
+var Timer = require('./src/timer');
+var gendata = require('./src/gendata');
 
 var timer = Timer.Timer.create();
 

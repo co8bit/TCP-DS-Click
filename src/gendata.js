@@ -9,7 +9,8 @@ var shell = require("shelljs");
  * @date    2016-07-05
  */
 run = () => {
-	shell.exec('cd ../' + CONFIG.config.dsdgen_dir);
+	shell.exec('ls');
+	shell.exec('cd ' + CONFIG.config.dsdgen_dir);
 	shell.exec('ls');
 	// console.log('cd ../' + CONFIG.config.dsdgen_dir);
 }
