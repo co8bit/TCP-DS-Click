@@ -19,7 +19,7 @@ run = () => {
 	{
 		console.log('./dsdgen -force Y –scale ' + CONFIG.config.scale
 				+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
-				+ '-parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & ';
+				+ '-parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & ');
 		shell.exec('./dsdgen -force Y –scale ' + CONFIG.config.scale
 				+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
 				+ '-parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & '
