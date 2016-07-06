@@ -27,16 +27,18 @@ run = () => {
 		// 	);
 
 		var exec = require('child_process').exec; 
-		exec(cmdStr, function(err,stdout,stderr){
+		exec(cmdStr, function(err,stdout,stderr,i){
 		  if(err) {
 		    console.log('get weather api error:'+stderr);
 		  } else {
+		  	console.log('============');
 		  	console.log('i: '+i+' start');
 		  	console.log('stdout:');
 		  	console.log(stdout);
-		  	console.log('stderr');
+		  	console.log('stderr:');
 		  	console.log(stderr);
 		  	console.log('over');
+		  	console.log('============');
 		  }
 		});
 
