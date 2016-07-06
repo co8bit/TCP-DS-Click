@@ -17,13 +17,13 @@ run = () => {
 
 	for (var i = 0; i < CONFIG.config.parallel; i++)
 	{
-		shell.exec('./dsdgen –scale ' + CONFIG.config.scale
+		console.log('./dsdgen -force Y –scale ' + CONFIG.config.scale
+				+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
+				+ '-parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & ';
+		shell.exec('./dsdgen -force Y –scale ' + CONFIG.config.scale
 				+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
 				+ '-parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & '
 			);
-		console.log('./dsdgen –scale ' + CONFIG.config.scale
-				+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
-				+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & ');
 	}
 	// dsdgen –scale 100 –dir /tmp –parallel 4 –child 1 &	
 	// dsdgen –scale 100 –dir /tmp –parallel 4 –child 2 &
