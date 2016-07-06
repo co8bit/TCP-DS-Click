@@ -17,14 +17,24 @@ run = () => {
 
 	for (var i = 0; i < CONFIG.config.parallel; i++)
 	{
-		console.log('./dsdgen –scale ' + CONFIG.config.scale
+		var cmdStr = './dsdgen –scale ' + CONFIG.config.scale
 				+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
-				+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' &');
-		shell.exec('./dsdgen –scale ' + CONFIG.config.scale
-				+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
-				+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' &'
-			);
-		shell.exec('\n');
+				+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' &';
+		console.log('cmdStr:'+cmdStr);
+		// shell.exec('./dsdgen –scale ' + CONFIG.config.scale
+		// 		+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
+		// 		+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' &'
+		// 	);
+
+		var exec = require('child_process').exec; 
+		exec(cmdStr, function(err,stdout,stderr){
+		  if(err) {
+		    console.log('get weather api error:'+stderr);
+		  } else {
+		  	;
+		  }
+		});
+
 	}
 	// dsdgen –scale 100 –dir /tmp –parallel 4 –child 1 &	
 	// dsdgen –scale 100 –dir /tmp –parallel 4 –child 2 &
