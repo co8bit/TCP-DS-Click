@@ -12,9 +12,23 @@ require('shelljs/global');
 run = () => {
 	var rootPath = process.cwd();
 	console.log('rootPath:'+rootPath);
+
 	cd(CONFIG.config.dsdgen_dir);
-	shell.exec('./dsdgen –scale ' + CONFIG.config.scale + ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir);
-	console.log('./dsdgen –scale ' + CONFIG.config.scale + ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir);
+
+	for (var i = 0; i < CONFIG.config.parallel; i++)
+	{
+		shell.exec('./dsdgen –scale ' + CONFIG.config.scale
+				+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
+				+ '-parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & '
+			);
+		console.log('./dsdgen –scale ' + CONFIG.config.scale
+				+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
+				+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & ');
+	}
+	// dsdgen –scale 100 –dir /tmp –parallel 4 –child 1 &	
+	// dsdgen –scale 100 –dir /tmp –parallel 4 –child 2 &
+
+
 	//./dsqgen -input ../query_templates/templates.lst -directory ../query_templates -scale 1 -output_dir ../wbx
 	// shell.exec('./dsqgen -input ' + CONFIG.config.scale + ' -dir ' + CONFIG.config.dsdgen_output_dir);
 	// console.log('cd ../' + CONFIG.config.dsdgen_dir);
