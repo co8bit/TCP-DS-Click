@@ -31,7 +31,12 @@ run = () => {
 		  if(err) {
 		    console.log('get weather api error:'+stderr);
 		  } else {
-		  	console.log('stdout:'+stdout);
+		  	console.log('i: '+i+' start');
+		  	console.log('stdout:');
+		  	console.log(stdout);
+		  	console.log('stderr');
+		  	console.log(stderr);
+		  	console.log('over');
 		  }
 		});
 
