@@ -10,9 +10,11 @@ require('shelljs/global');
  * @date    2016-07-05
  */
 run = () => {
+	var rootPath = process.cwd();
+	console.log('rootPath:'+rootPath);
 	cd(CONFIG.config.dsdgen_dir);
-	shell.exec('./dsdgen –scale ' + CONFIG.config.scale + ' -dir ' + CONFIG.config.dsdgen_output_dir);
-	console.log('./dsdgen –scale ' + CONFIG.config.scale + ' -dir ' + CONFIG.config.dsdgen_output_dir);
+	shell.exec('./dsdgen –scale ' + CONFIG.config.scale + ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir);
+	console.log('./dsdgen –scale ' + CONFIG.config.scale + ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir);
 	//./dsqgen -input ../query_templates/templates.lst -directory ../query_templates -scale 1 -output_dir ../wbx
 	// shell.exec('./dsqgen -input ' + CONFIG.config.scale + ' -dir ' + CONFIG.config.dsdgen_output_dir);
 	// console.log('cd ../' + CONFIG.config.dsdgen_dir);
