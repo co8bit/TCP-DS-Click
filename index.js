@@ -6,6 +6,6 @@ var timer = Timer.Timer.create();
 
 
 console.log("<===========================>  TCP-DS Click Run  <===========================>");
-gendata.run.then(() => {
+gendata.run().then(() => {
 	// gensql.run;
 });
