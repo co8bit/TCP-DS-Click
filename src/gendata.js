@@ -9,7 +9,7 @@ require('shelljs/global');
  * @version 0.0.1
  * @date    2016-07-05
  */
-run = () => {
+run = new Promise ( (resolve,reject) => {
 	var dsdgenPromise = [];
 
 	var rootPath = process.cwd();
@@ -22,14 +22,14 @@ run = () => {
 			var cmdStr = './dsdgen –scale ' + CONFIG.config.scale
 				+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
 				+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & ';
-			console.log('命令:'+cmdStr);
+			console.log('命令'+i+':'+cmdStr);
 			// shell.exec('./dsdgen –scale ' + CONFIG.config.scale
 			// 		+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
 			// 		+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' &'
 			// 	);
 
 			var execAsyn = require('child_process').exec; 
-			execAsyn(cmdStr, function(err,stdout,stderr){
+			execAsyn(cmdStr, (err,stdout,stderr) => {
 				if(err)
 				{
 					reject(stderr);
@@ -51,8 +51,10 @@ run = () => {
 
 	Promise.all(dsdgenPromise).then((stdout) => {
 		console.log(stdout);
+		console.log('gendata..........OK');
+		resolve();
 	}).catch((error) => {
-		console.log('error:'+error);
+		console.log('gendata error:'+error);
 	});
 
 
@@ -62,6 +64,6 @@ run = () => {
 	//./dsqgen -input ../query_templates/templates.lst -directory ../query_templates -scale 1 -output_dir ../wbx
 	// shell.exec('./dsqgen -input ' + CONFIG.config.scale + ' -dir ' + CONFIG.config.dsdgen_output_dir);
 	// console.log('cd ../' + CONFIG.config.dsdgen_dir);
-}
+});
 
 exports.run = run;
