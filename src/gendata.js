@@ -19,10 +19,10 @@ run = () => {
 	for (var i = 0; i < CONFIG.config.parallel; i++)
 	{
 		dsdgenPromise[i] = new Promise( (resolve,reject) => {
-			var cmdStr = '命令：./dsdgen –scale ' + CONFIG.config.scale
+			var cmdStr = './dsdgen –scale ' + CONFIG.config.scale
 				+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
 				+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & ';
-			console.log('cmdStr:'+cmdStr);
+			console.log('命令:'+cmdStr);
 			// shell.exec('./dsdgen –scale ' + CONFIG.config.scale
 			// 		+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
 			// 		+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' &'
