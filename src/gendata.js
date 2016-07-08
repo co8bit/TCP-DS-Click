@@ -15,7 +15,7 @@ run = () => {
 
 		var rootPath = process.cwd();
 		console.log('rootPath:'+rootPath);
-		cd(CONFIG.config.dsdgen_dir);
+		cd(rootPath + CONFIG.config.dsdgen_dir);
 
 		for (var i = 0; i < CONFIG.config.parallel; i++)
 		{
@@ -52,19 +52,11 @@ run = () => {
 
 		Promise.all(dsdgenPromise).then((stdout) => {
 			console.log(stdout);
-			console.log('gendata..........OK');
+			console.log('gen DATA..........OK');
 			resolve();
 		}).catch((error) => {
 			console.log('gendata error:'+error);
 		});
-
-
-
-	
-
-	//./dsqgen -input ../query_templates/templates.lst -directory ../query_templates -scale 1 -output_dir ../wbx
-	// shell.exec('./dsqgen -input ' + CONFIG.config.scale + ' -dir ' + CONFIG.config.dsdgen_output_dir);
-	// console.log('cd ../' + CONFIG.config.dsdgen_dir);
 	});
 
 }
