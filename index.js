@@ -7,9 +7,12 @@ var timer = Timer.Timer.create();
 
 
 console.log("<===========================>  TCP-DS Click Run  <===========================>");
+var rootPath = process.cwd();
+console.log('rootPath:'+rootPath);
 var gensqlPromise = new Promise((resolve,reject) => {});
-gendata.run().then(() => {
-	gensqlPromise = gensql.run();
+
+gendata.run(rootPath).then(() => {
+	gensqlPromise = gensql.run(rootPath);
 });
 
 gensqlPromise.then(() => {

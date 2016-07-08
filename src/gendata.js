@@ -9,12 +9,10 @@ require('shelljs/global');
  * @version 0.0.1
  * @date    2016-07-05
  */
-run = () => {
+run = (rootPath) => {
 	return new Promise ( (resolve,reject) => {
 		var dsdgenPromise = [];
 
-		var rootPath = process.cwd();
-		console.log('rootPath:'+rootPath);
 		cd(rootPath + CONFIG.config.dsdgen_dir);
 
 		for (var i = 0; i < CONFIG.config.parallel; i++)
