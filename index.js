@@ -10,6 +10,7 @@ console.log("<===========================>  TCP-DS Click Run  <=================
 var rootPath = process.cwd();
 console.log('rootPath:'+rootPath);
 var gensqlPromise = new Promise((resolve,reject) => {});
+// var gensqlPromise = null;
 
 gendata.run(rootPath).then(() => {
 	gensqlPromise = gensql.run(rootPath);
