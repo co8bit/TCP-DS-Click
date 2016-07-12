@@ -18,4 +18,6 @@ gendata.run(rootPath).then(() => {
 
 gensqlPromise.then(() => {
 	console.log('gensql==--+++123');
+}).catch((error) => {
+	console.log('gensql error:'+error);
 });
