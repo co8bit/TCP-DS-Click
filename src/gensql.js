@@ -21,7 +21,7 @@ run = (rootPath) => {
 					+ ' -input ' + rootPath + CONFIG.config.query_templates_lst
 					+ ' -directory ' + rootPath + CONFIG.config.query_templates
 					+ ' -output_dir ' + rootPath + CONFIG.config.dsqgen_output_dir;
-		console.log('命令'+i+':'+cmdStr);
+		console.log('命令:'+cmdStr);
 		shell.exec(cmdStr);
 		console.log('gen SQL..........OK');
 		resolve();
