@@ -11,7 +11,8 @@ console.log("<===========================>  TCP-DS Click Run  <=================
 var rootPath = process.cwd();
 console.log('rootPath:'+rootPath);
 
-gendata.run(rootPath)
+Promise.resolve()
+// gendata.run(rootPath)
 .then( () => {
 	console.log('gen DATA ........................................OK');
 	return gensql.run(rootPath);
@@ -21,7 +22,7 @@ gendata.run(rootPath)
 	return load_monetdb.run(rootPath);
 })
 .then( () => {
-	console.log('load==--+++123');
+	console.log('load_monetdb.....................................OK');
 })
 .catch((error) => {
 	console.log('error:'+error);
