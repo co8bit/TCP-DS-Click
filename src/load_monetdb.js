@@ -19,8 +19,8 @@ run = (rootPath) => {
 							'Could not import file '+ path+'call_center_1_4.dat' +' Reason: '+err
 						));
 				}
-				console.console.log('importedRows :'+importedRows );
-				console.console.log('rejectedRows  :'+rejectedRows  );
+				console.log('importedRows :'+importedRows );
+				console.log('rejectedRows  :'+rejectedRows  );
 				console.log(path+'call_center_1_4.dat' + 'successfully imported into database table call_center');
 				resolve();
 			});
