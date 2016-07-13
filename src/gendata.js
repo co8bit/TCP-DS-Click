@@ -50,7 +50,6 @@ run = (rootPath) => {
 
 		Promise.all(dsdgenPromise).then((stdout) => {
 			console.log(stdout);
-			console.log('gen DATA..........OK');
 			resolve();
 		}).catch((error) => {
 			console.log('gendata error:'+error);

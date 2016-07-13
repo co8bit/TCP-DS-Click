@@ -11,9 +11,12 @@ console.log("<===========================>  TCP-DS Click Run  <=================
 var rootPath = process.cwd();
 console.log('rootPath:'+rootPath);
 
-gendata.run(rootPath).then(() => {
+gendata.run(rootPath)
+.then(() => {
+	console.log('gen DATA..........OK');
 	return gensql.run(rootPath);
-}).then(() => {
+})
+.then(() => {
 	load_monetdb.run();
 	console.log('gensql==--+++123');
 }).catch((error) => {

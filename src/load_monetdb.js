@@ -8,14 +8,17 @@ var dbOptions = {
 run = () => {
 	try {
 
-		var imp = new Importer(dbOptions, CONFIG.config.dsdgen_output_dir, 'call_center_1_4.dat');
+		cd(rootPath + CONFIG.config.dsdgen_output_dir);
+		console.log('path:'+rootPath + CONFIG.config.dsdgen_output_dir);
+
+		var imp = new Importer(dbOptions, './' , 'call_center_1_4.dat');
 	 
 		imp.import(function(err) {
 			if(err) {
-				console.log('Could not import file '+ CONFIG.config.dsdgen_output_dir+'call_center_1_4.dat' +' Reason: '+err);
+				console.log('Could not import file '+ 'call_center_1_4.dat' +' Reason: '+err);
 			}
 	 
-			console.log(CONFIG.config.dsdgen_output_dir+'call_center_1_4.dat' + 'successfully imported into database table call_center_1_4.dat');
+			console.log('call_center_1_4.dat' + 'successfully imported into database table call_center_1_4.dat');
 		});
 	} catch(e) {
 		// Could not construct the importer object. Possible reasons:  
