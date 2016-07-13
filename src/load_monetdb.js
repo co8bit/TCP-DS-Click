@@ -8,8 +8,6 @@ var dbOptions = {
 run = (rootPath) => {
 	return new Promise ( (resolve,reject) => {
 		try{
-			console.log('===============');
-			console.log('===============');
 
 			path = rootPath + CONFIG.config.dsdgen_output_dir;
 			var imp = new Importer(dbOptions,{locked:false},path+'call_center_1_4.dat' , 'call_center');
@@ -19,8 +17,9 @@ run = (rootPath) => {
 							'Could not import file '+ path+'call_center_1_4.dat' +' Reason: '+err
 						));
 				}
-				console.log('importedRows :'+importedRows );
-				console.log('rejectedRows  :'+rejectedRows  );
+				// console.log('===============');
+				// console.log(this);
+				// console.log('===============');
 				console.log(path+'call_center_1_4.dat' + 'successfully imported into database table call_center');
 				resolve();
 			});
