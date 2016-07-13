@@ -32,7 +32,7 @@ run = (rootPath) => {
 			// 3) file is binary 
 			console.log(e.message);
 		}
-	}
+	})
 }
 
 exports.run = run;
