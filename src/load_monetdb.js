@@ -22,7 +22,7 @@ run = (rootPath) => {
 				{
 					console.log('===============');
 					console.log('===============');
-					console.log(path+'call_center_1_4.dat' + '成功导入'+info.importedRows+'条，被拒绝'+info.rejectedRows+'条。'+"\n");
+					console.log(path+'call_center_1_4.dat' + '  成功导入'+info.importedRows+'条，被拒绝'+info.rejectedRows+'条。'+"\n");
 					resolve();
 				}
 			});
