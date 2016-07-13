@@ -5,9 +5,10 @@ var dbOptions = {
 	dbname: CONFIG.db.monetdb.dbName,
 }
 
-run = () => {
+run = (rootPath) => {
 	try {
 
+		console.log('root path:'+rootPath);
 		cd(rootPath + CONFIG.config.dsdgen_output_dir);
 		console.log('path:'+rootPath + CONFIG.config.dsdgen_output_dir);
 

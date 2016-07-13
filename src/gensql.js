@@ -20,7 +20,6 @@ run = (rootPath) => {
 					+ ' -output_dir ' + rootPath + CONFIG.config.dsqgen_output_dir;
 		console.log('命令:'+cmdStr);
 		shell.exec(cmdStr);
-		console.log('gen SQL..........OK');
 		resolve();
 	});
 
