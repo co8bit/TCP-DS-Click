@@ -12,14 +12,14 @@ run = (rootPath) => {
 		cd(rootPath + CONFIG.config.dsdgen_output_dir);
 		console.log('path:'+rootPath + CONFIG.config.dsdgen_output_dir);
 
-		var imp = new Importer(dbOptions, './' , 'call_center_1_4.dat');
+		var imp = new Importer(dbOptions, 'call_center_1_4.dat' , 'call_center');
 	 
 		imp.import(function(err) {
 			if(err) {
 				console.log('Could not import file '+ 'call_center_1_4.dat' +' Reason: '+err);
 			}
 	 
-			console.log('call_center_1_4.dat' + 'successfully imported into database table call_center_1_4.dat');
+			console.log('call_center_1_4.dat' + 'successfully imported into database table call_center');
 		});
 	} catch(e) {
 		// Could not construct the importer object. Possible reasons:  
