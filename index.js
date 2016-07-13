@@ -1,7 +1,8 @@
-var CONFIG = require('./config/config');
-var Timer = require('./src/timer');
+var CONFIG  = require('./config/config');
+var Timer   = require('./src/timer');
 var gendata = require('./src/gendata');
-var gensql = require('./src/gensql');
+var gensql  = require('./src/gensql');
+var load_monetdb  = require('./src/load_monetdb');
 
 var timer = Timer.Timer.create();
 
@@ -9,15 +10,12 @@ var timer = Timer.Timer.create();
 console.log("<===========================>  TCP-DS Click Run  <===========================>");
 var rootPath = process.cwd();
 console.log('rootPath:'+rootPath);
-var gensqlPromise = new Promise((resolve,reject) => {});
-// var gensqlPromise = null;
 
 gendata.run(rootPath).then(() => {
-	gensqlPromise = gensql.run(rootPath);
-});
-
-gensqlPromise.then(() => {
+	return gensql.run(rootPath);
+}).then(() => {
+	load_monetdb.run();
 	console.log('gensql==--+++123');
 }).catch((error) => {
-	console.log('gensql error:'+error);
+	console.log('error:'+error);
 });

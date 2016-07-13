@@ -11,10 +11,7 @@ require('shelljs/global');
  */
 run = (rootPath) => {
 	return new Promise ( (resolve,reject) => {
-		var dsdgenPromise = [];
-		
-		console.log('eneter');
-		console.log(rootPath + CONFIG.config.dsqgen_dir);
+
 		cd(rootPath + CONFIG.config.dsqgen_dir);
 
 		var cmdStr = './dsqgen –scale ' + CONFIG.config.scale
