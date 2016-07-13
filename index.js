@@ -12,13 +12,17 @@ var rootPath = process.cwd();
 console.log('rootPath:'+rootPath);
 
 gendata.run(rootPath)
-.then(() => {
-	console.log('gen DATA..........OK');
+.then( () => {
+	console.log('gen DATA ........................................OK');
 	return gensql.run(rootPath);
 })
-.then(() => {
-	load_monetdb.run();
-	console.log('gensql==--+++123');
-}).catch((error) => {
+.then( () => {
+	console.log('gen SQL  ........................................OK');
+	return load_monetdb.run(rootPath);
+})
+.then( () => {
+	console.log('load==--+++123');
+})
+.catch((error) => {
 	console.log('error:'+error);
 });
