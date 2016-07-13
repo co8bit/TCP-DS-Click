@@ -14,7 +14,7 @@ run = (rootPath) => {
 		// cd(rootPath + CONFIG.config.dsdgen_output_dir);
 		path = rootPath + CONFIG.config.dsdgen_output_dir;
 
-		var imp = new Importer(dbOptions, path+'call_center_1_42.dat' , 'call_center');
+		var imp = new Importer(dbOptions, path+'call_center_1_4.dat' , 'call_center');
 	 
 		imp.import(function(err) {
 			if(err) {
