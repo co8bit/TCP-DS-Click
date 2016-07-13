@@ -21,11 +21,8 @@ run = (rootPath) => {
 				else
 				{
 					console.log('===============');
-					console.log(info.importedRows);
-					console.log(info.rejectedRows );
-					console.log(info.rejects );
 					console.log('===============');
-					console.log(path+'call_center_1_4.dat' + ' successfully imported into database table call_center');
+					console.log(path+'call_center_1_4.dat' + '成功导入'+info.importedRows+'条，被拒绝'+info.rejectedRows+'条。'+"\n");
 					resolve();
 				}
 			});
