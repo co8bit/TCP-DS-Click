@@ -11,7 +11,7 @@ run = (rootPath) => {
 
 			path = rootPath + CONFIG.config.dsdgen_output_dir;
 			var imp = new Importer(dbOptions,{locked:false},path+'call_center_1_4.dat' , 'call_center');
-			imp.import(function(err) {
+			imp.import(function(err,info) {
 				if(err)
 				{
 					reject(new Error(
@@ -21,7 +21,9 @@ run = (rootPath) => {
 				else
 				{
 					console.log('===============');
-					console.log(this);
+					console.log(info.importedRows);
+					console.log(info.rejectedRows );
+					console.log(info.rejects );
 					console.log('===============');
 					console.log(path+'call_center_1_4.dat' + ' successfully imported into database table call_center');
 					resolve();
