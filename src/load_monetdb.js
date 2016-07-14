@@ -7,7 +7,7 @@ var dbOptions = {
 }
 
 run = (rootPath) => {
-	return new Promise ( (resolve,reject) => {
+	return new Promise( (resolve,reject) => {
 		var importPromise = [];
 		path = rootPath + CONFIG.config.dsdgen_output_dir;
 		for(var tableName of CONFIG.config._TABLE_NAME)
@@ -37,7 +37,6 @@ run = (rootPath) => {
 							// 1) Invalid parameters 
 							// 2) file not found  
 							// 3) file is binary 
-							console.log(e);
 							reject(new Error(e.message));
 						}
 					})
@@ -48,7 +47,8 @@ run = (rootPath) => {
 			resolve('all ok');
 		}).catch((error) => {
 			console.log('load_monetdb error:'+error.message);
-			reject(new Errror('load_monetdb error:'+error.message));
+			reject(error);
+			// reject(new Errror('load_monetdb error:'+error.message));
 		});
 	})
 }
