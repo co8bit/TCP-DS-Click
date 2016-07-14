@@ -17,7 +17,7 @@ run = (rootPath) => {
 					var file = path + tableName + '_' + i + '_' + CONFIG.config.parallel + '.dat';
 					if (!fs.existsSync(file))
 						continue;
-					importPromise[i-1] = new Promise ( (resolve,reject) => {
+					importPromise.push(new Promise ( (resolve,reject) => {
 						try{
 							var imp = new Importer(dbOptions,{locked:false},file,tableName,['|','\n']);
 							// imp.setSqlLogFn(null);//关闭monetdb-import log
@@ -39,7 +39,7 @@ run = (rootPath) => {
 							// 3) file is binary 
 							reject(new Error(e.message));
 						}
-					})
+					}));
 			}
 		}
 		
