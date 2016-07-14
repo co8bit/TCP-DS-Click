@@ -17,7 +17,7 @@ run = (rootPath) => {
 
 		for (var i = 0; i < CONFIG.config.parallel; i++)
 		{
-			dsdgenPromise.push(new Promise( (resolve,reject) => {
+			dsdgenPromise[i] = new Promise( (resolve,reject) => {
 				var cmdStr = './dsdgen –scale ' + CONFIG.config.scale
 					+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
 					+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & ';
@@ -45,10 +45,13 @@ run = (rootPath) => {
 					  	// console.log('============');
 					}
 				});//exeAsyn
-			}))//push promise
+			})//promise
 		}//for
 
 		Promise.all(dsdgenPromise).then( (stdout) => {
+			console.log('=============');
+			console.log(dsdgenPromise);
+			console.log('=============');
 			console.log(stdout);
 			resolve();
 		}).catch((error) => {
