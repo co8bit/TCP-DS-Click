@@ -21,8 +21,7 @@ Promise.resolve()
 	console.log('gen SQL  ........................................OK');
 	return load_monetdb.run(rootPath);
 })
-.then( (info) => {
-	console.log('info:'+info);
+.then( () => {
 	console.log('load_monetdb.....................................OK');
 })
 .catch((error) => {

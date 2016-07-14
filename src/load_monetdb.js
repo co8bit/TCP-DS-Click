@@ -37,9 +37,7 @@ run = (rootPath) => {
 							// 1) Invalid parameters 
 							// 2) file not found  
 							// 3) file is binary 
-								console.log('===============');
 							console.log(e);
-								console.log('===============');
 							reject(new Error(e.message));
 						}
 					})
@@ -49,7 +47,12 @@ run = (rootPath) => {
 		Promise.all(importPromise).then( () => {
 			resolve('all ok');
 		}).catch((error) => {
-			console.log(new Errror('gendata error:'+error));
+								console.log('===============');
+								console.log('error:');
+	console.log(error);
+	console.log('error message:'+error.message);
+								console.log('===============');
+			console.log(new Errror('gendata error:'+error.message));
 		});
 	})
 }
