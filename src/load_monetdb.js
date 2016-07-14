@@ -21,7 +21,7 @@ run = (rootPath) => {
 					importPromise[i-1] = new Promise ( (resolve,reject) => {
 						try{
 							var imp = new Importer(dbOptions,{locked:false},file,tableName);
-							imp.setSqlLogFn(null);
+							// imp.setSqlLogFn(null);//关闭monetdb-import log
 							imp.import(function(err,info) {
 								if(err)
 								{
