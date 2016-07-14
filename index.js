@@ -26,5 +26,7 @@ Promise.resolve()
 	console.log('load_monetdb.....................................OK');
 })
 .catch((error) => {
-	console.log('error:'+error);
+	console.log('error:');
+	console.log(error);
+	console.log('error message:'+error.message);
 });
