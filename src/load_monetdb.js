@@ -14,7 +14,6 @@ run = (rootPath) => {
 		{
 			for (var i = 1; i <= CONFIG.config.parallel; i++)
 			{
-					// console.log('===============');
 					var file = path + tableName + '_' + i + '_' + CONFIG.config.parallel + '.dat';
 					if (!fs.existsSync(file))
 						continue;
@@ -23,6 +22,9 @@ run = (rootPath) => {
 							var imp = new Importer(dbOptions,{locked:false},file,tableName,['|','\n']);
 							// imp.setSqlLogFn(null);//关闭monetdb-import log
 							imp.import(function(err,info) {
+								console.log('===============');
+								console.log(err);
+								console.log('===============');
 								if(err)
 								{
 									reject(new Error('Could not import file '+ file +' Reason: '+err));
