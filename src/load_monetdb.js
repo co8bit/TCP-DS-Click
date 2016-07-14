@@ -22,9 +22,6 @@ run = (rootPath) => {
 							var imp = new Importer(dbOptions,{locked:false},file,tableName,['|','\n']);
 							// imp.setSqlLogFn(null);//关闭monetdb-import log
 							imp.import(function(err,info) {
-								console.log('===============');
-								console.log(err);
-								console.log('===============');
 								if(err)
 								{
 									reject(new Error('Could not import file '+ file +' Reason: '+err));
@@ -40,6 +37,9 @@ run = (rootPath) => {
 							// 1) Invalid parameters 
 							// 2) file not found  
 							// 3) file is binary 
+								console.log('===============');
+							console.log(e);
+								console.log('===============');
 							reject(new Error(e.message));
 						}
 					})
