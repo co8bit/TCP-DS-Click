@@ -48,11 +48,11 @@ run = (rootPath) => {
 			})//promise
 		}//for
 
-		Promise.all(dsdgenPromise).then((stdout) => {
+		Promise.all(dsdgenPromise).then( (stdout) => {
 			console.log(stdout);
 			resolve();
 		}).catch((error) => {
-			console.log('gendata error:'+error);
+			console.log(new Errror('gendata error:'+error));
 		});
 	});
 
