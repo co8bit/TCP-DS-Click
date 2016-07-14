@@ -10,7 +10,10 @@ run = (rootPath) => {
 	return new Promise ( (resolve,reject) => {
 		var importPromise = [];
 		path = rootPath + CONFIG.config.dsdgen_output_dir;
-		
+		for(var tableName of CONFIG.config._TABLE_NAME)
+		{
+			
+		}
 		
 		Promise.all(importPromise).then( () => {
 			resolve('all ok');
