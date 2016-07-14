@@ -21,6 +21,7 @@ run = (rootPath) => {
 					importPromise[i-1] = new Promise ( (resolve,reject) => {
 						try{
 							var imp = new Importer(dbOptions,{locked:false},file,tableName);
+							imp.setSqlLogFn(null);
 							imp.import(function(err,info) {
 								if(err)
 								{
