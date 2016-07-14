@@ -12,9 +12,9 @@ var rootPath = process.cwd();
 console.log('rootPath:'+rootPath);
 
 Promise.resolve()
-.then( () => {
-	return gendata.run(rootPath)
-})
+// .then( () => {
+// 	return gendata.run(rootPath)
+// })
 .then( () => {
 	console.log('gen DATA ........................................OK');
 	return gensql.run(rootPath);

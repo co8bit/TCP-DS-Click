@@ -17,7 +17,7 @@ run = (rootPath) => {
 
 		for (var i = 0; i < CONFIG.config.parallel; i++)
 		{
-			dsdgenPromise[i] = new Promise( (resolve,reject) => {
+			dsdgenPromise.push(new Promise( (resolve,reject) => {
 				var cmdStr = './dsdgen –scale ' + CONFIG.config.scale
 					+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
 					+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & ';
@@ -31,7 +31,7 @@ run = (rootPath) => {
 				execAsyn(cmdStr, (err,stdout,stderr) => {
 					if(err)
 					{
-						reject(stderr);
+						reject(new Error(stderr));
 					}
 					else
 					{
@@ -45,17 +45,14 @@ run = (rootPath) => {
 					  	// console.log('============');
 					}
 				});//exeAsyn
-			})//promise
+			}))//push promise
 		}//for
 
 		Promise.all(dsdgenPromise).then( (stdout) => {
-			console.log('=============');
-			console.log(dsdgenPromise);
-			console.log('=============');
 			console.log(stdout);
 			resolve();
 		}).catch((error) => {
-			console.log(new Error('gendata error:'+error));
+			reject(new Error('gendata error:'+error.message));
 		});
 	});
 
