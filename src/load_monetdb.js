@@ -44,10 +44,11 @@ run = (rootPath) => {
 		}
 		
 		Promise.all(importPromise).then( () => {
+			console.log('======================');
+			console.log(importPromise);
+			console.log('======================');
 			resolve('all ok');
 		}).catch((error) => {
-			// console.log('load_monetdb error:'+error.message);
-			// reject(error);
 			reject(new Error('load_monetdb error:'+error.message));
 		});
 	})

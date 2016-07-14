@@ -52,7 +52,7 @@ run = (rootPath) => {
 			console.log(stdout);
 			resolve();
 		}).catch((error) => {
-			console.log(new Errror('gendata error:'+error));
+			console.log(new Error('gendata error:'+error));
 		});
 	});
 
