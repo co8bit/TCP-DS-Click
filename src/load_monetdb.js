@@ -47,6 +47,7 @@ run = (rootPath) => {
 		Promise.all(importPromise).then( () => {
 			resolve('all ok');
 		}).catch((error) => {
+			console.log('load_monetdb error:'+error.message);
 			reject(new Errror('load_monetdb error:'+error.message));
 		});
 	})
