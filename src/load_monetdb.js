@@ -47,12 +47,7 @@ run = (rootPath) => {
 		Promise.all(importPromise).then( () => {
 			resolve('all ok');
 		}).catch((error) => {
-								console.log('===============');
-								console.log('error:');
-	console.log(error);
-	console.log('error message:'+error.message);
-								console.log('===============');
-			console.log(new Errror('gendata error:'+error.message));
+			reject(new Errror('load_monetdb error:'+error.message));
 		});
 	})
 }
