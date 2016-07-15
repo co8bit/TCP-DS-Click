@@ -1,13 +1,16 @@
 var CONFIG = require('../config/config');
 var Importer = require('monetdb-import')();
 var fs = require('fs');
- 
+var Timer   = require('./timer');
+
 var dbOptions = {
 	dbname: CONFIG.db.monetdb.dbName,
 }
 
 run = (rootPath) => {
 	return new Promise( (resolve,reject) => {
+		var timer = Timer.Timer.create();
+
 		var importPromise = [];
 		path = rootPath + CONFIG.config.dsdgen_output_dir;
 		for(var tableName of CONFIG.config._TABLE_NAME)
@@ -45,7 +48,7 @@ run = (rootPath) => {
 		}
 		
 		Promise.all(importPromise).then( () => {
-			resolve('all ok');
+			resolve(timer.end());
 		}).catch((error) => {
 			reject(new Error('load_monetdb error:'+error.message));
 		});
