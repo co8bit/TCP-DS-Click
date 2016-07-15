@@ -20,7 +20,8 @@ run = (rootPath) => {
 					importPromise.push(new Promise ( (resolve,reject) => {
 						try{
 							var imp = new Importer(dbOptions,{locked:false},file,tableName,['|','\n']);
-							// imp.setSqlLogFn(null);//关闭monetdb-import log
+							if (!CONFIG.config.debug)
+								imp.setSqlLogFn(null);//关闭monetdb-import log
 							imp.import(function(err,info) {
 								if(err)
 								{
