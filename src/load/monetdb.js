@@ -39,7 +39,7 @@ run = (rootPath) => {
 									}
 									else
 									{
-										console.log(file + '  成功导入'+info.importedRows+'条，被拒绝'+info.rejectedRows+'条。'+"\n");
+										console.log(file + ' 成功导入'+info.importedRows+'条，被拒绝'+info.rejectedRows+'条。'+"\n");
 										resolve();
 									}
 								});
