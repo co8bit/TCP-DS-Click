@@ -5,7 +5,7 @@ var Timer   = require('../timer');
 var util   = require('../util');
 
 var dbOptions = {
-	dbname: CONFIG.db.monetdb.dbName,
+	dbname: CONFIG.db.monetdb.dbname,
 }
 
 run = (rootPath) => {
