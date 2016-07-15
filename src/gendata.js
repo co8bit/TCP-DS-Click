@@ -54,7 +54,7 @@ run = (rootPath) => {
 		}//for
 
 		Promise.all(dsdgenPromise).then( (stdout) => {
-			util.log(stdout,'gen data stdout:'+stdout);
+			util.log(stdout,'gen data stdout');
 			resolve(timer.end());
 		}).catch((error) => {
 			reject(new Error('gendata error:'+error.message));

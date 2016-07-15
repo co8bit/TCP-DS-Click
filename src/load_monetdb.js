@@ -31,12 +31,13 @@ run = (rootPath) => {
 								imp.import(function(err,info) {
 									if(err)
 									{
+										util.log(info.rejects,'失败的具体原因');
+										util.log(err,'err');
 										reject(new Error('Could not import file '+ file +' Reason: '+err));
 									}
 									else
 									{
 										console.log(file + '  成功导入'+info.importedRows+'条，被拒绝'+info.rejectedRows+'条。'+"\n");
-										util.log(info.rejects,'如遇失败的原因');
 										resolve();
 									}
 								});
@@ -55,8 +56,7 @@ run = (rootPath) => {
 		Promise.all(importPromise).then( () => {
 			resolve(timer.end());
 		}).catch((error) => {
-			util.log(error,'error');
-			reject(new Error('load_monetdb error:'+error.message));
+			reject(error);
 		});
 	})
 }
