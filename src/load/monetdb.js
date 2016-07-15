@@ -63,6 +63,7 @@ run = (rootPath) => {
 					}
 			})
 		});
+		util.log(impList,'impList');
 		
 		// impList.reduce(function(preResult, curValueInArray) {
 		// 	if (preResult == 0)
