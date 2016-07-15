@@ -1,8 +1,8 @@
-var CONFIG = require('../config/config');
+var CONFIG = require('../../config/config');
 var Importer = require('monetdb-import')();
 var fs = require('fs');
-var Timer   = require('./timer');
-var util   = require('./util');
+var Timer   = require('../timer');
+var util   = require('../util');
 
 var dbOptions = {
 	dbname: CONFIG.db.monetdb.dbName,
