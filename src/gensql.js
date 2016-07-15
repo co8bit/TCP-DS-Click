@@ -1,6 +1,7 @@
 var CONFIG = require('../config/config');
 var shell = require("shelljs");
 require('shelljs/global');
+var util   = require('./util');
 
 /**
  * 生成tcp-ds sql query查询
@@ -18,7 +19,7 @@ run = (rootPath) => {
 					+ ' -input ' + rootPath + CONFIG.config.query_templates_lst
 					+ ' -directory ' + rootPath + CONFIG.config.query_templates
 					+ ' -output_dir ' + rootPath + CONFIG.config.dsqgen_output_dir;
-		console.log('命令:'+cmdStr);
+		util.log(cmdStr,'命令');
 		shell.exec(cmdStr);
 		resolve();
 	});

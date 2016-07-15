@@ -2,6 +2,7 @@ var CONFIG = require('../config/config');
 var shell = require("shelljs");
 require('shelljs/global');
 var Timer   = require('./timer');
+var util   = require('./util');
 
 /**
  * 生成tcp-ds数据
@@ -25,7 +26,7 @@ run = (rootPath) => {
 				var cmdStr = './dsdgen –scale ' + CONFIG.config.scale
 					+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
 					+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' & ';
-				console.log('命令'+i+':'+cmdStr);
+				util.log(cmdStr,'命令'+i);
 				// shell.exec('./dsdgen –scale ' + CONFIG.config.scale
 				// 		+ ' -dir ' + rootPath + CONFIG.config.dsdgen_output_dir
 				// 		+ ' -parallel ' + CONFIG.config.parallel + ' -child ' + (i+1) + ' &'
@@ -53,7 +54,7 @@ run = (rootPath) => {
 		}//for
 
 		Promise.all(dsdgenPromise).then( (stdout) => {
-			console.log(stdout);
+			util.log(stdout,'gen data stdout:'+stdout);
 			resolve(timer.end());
 		}).catch((error) => {
 			reject(new Error('gendata error:'+error.message));

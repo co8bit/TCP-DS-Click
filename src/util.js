@@ -1,66 +1,13 @@
-/**
- * 查看LogCount数据类型里的东西
- * @param   LogCount   logCount
- * @return 控制台输出 logCount里的具体东西
- *
- * @author co8bit <me@co8bit.com>
- * @version 0.3.2
- * @date    2016-05-31
- */
-watchLogCount = (logCount) => {
-	console.log("========logCount:========");
-	console.log(logCount);
-	
+var CONFIG  = require('../config/config');
 
-	//这里是每层都展开看的代码
-	// console.log("========logCount.stat:========");
-	// console.log(logCount.stat);
-	// 
-	// for (var moduleName in logCount.stat.count)
-	// {
-	// 	console.log("<========moduleName:" + moduleName + "========>");
-	// 	console.log(logCount.stat.count[moduleName]);
-		
-	// 	for (var instanceGroup in logCount.stat.count[moduleName].count)
-	// 	{
-	// 		console.log("<========instanceGroup:" + instanceGroup + "========>");
-	// 		console.log(logCount.stat.count[moduleName].count[instanceGroup]);
-			
-	// 		for (var apiName in logCount.stat.count[moduleName].count[instanceGroup].apiName)
-	// 		{
-	// 			console.log("<========apiName:" + apiName + "========>");
-	// 			console.log(logCount.stat.count[moduleName].count[instanceGroup].apiName[apiName]);
-
-	// 			for (var result in logCount.stat.count[moduleName].count[instanceGroup].apiName[apiName].result)
-	// 			{
-	// 				console.log("<========result:" + result + "========>");
-	// 				console.log(logCount.stat.count[moduleName].count[instanceGroup].apiName[apiName].result[result]);
-	// 			}
-	// 		}
-	// 	}
-	// }
-
-
-	//这里是跳层展开看的代码（因为实际可以一次看2层的内容）
-	for (var moduleName in logCount.stat.count)
+log = (msg = '',title = '') => {
+	if (CONFIG.config.debug)
 	{
-		console.log("<========moduleName:" + moduleName + "========>");
-		console.log(logCount.stat.count[moduleName]);
-		
-		for (var instanceGroup in logCount.stat.count[moduleName].count)
-		{
-			console.log("<========apiName OBJECT" + "========>");
-			console.log(logCount.stat.count[moduleName].count[instanceGroup].apiName);
-
-			for (var apiName in logCount.stat.count[moduleName].count[instanceGroup].apiName)
-			{
-				console.log("<========APINAME:'" + apiName + "'========>");
-				console.log(logCount.stat.count[moduleName].count[instanceGroup].apiName[apiName]);
-			}
-		}
+		console.log('========== DEBUG: '+title+' start =========');
+		console.log(msg);
+		console.log('========== DEBUG: '+title+' end =========');
 	}
 }
-
 
 
 
@@ -121,7 +68,7 @@ function DateShortFormat(tmpDate)
     var output = dateArrayInfo[1] + "月" + dateArrayInfo[2] + "日" + dateArrayInfo[3] + ":"+ dateArrayInfo[4]+"分";
     return output;
 }
-exports.watchLogCount = watchLogCount;
+exports.log = log;
 exports.deepCopy = deepCopy;
 exports.DateFormat = DateFormat;
 exports.DateShortFormat = DateShortFormat;
