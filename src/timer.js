@@ -17,6 +17,7 @@ var Timer = {
 			// timer.time = timer.endTime.getTime() - timer.stTime.getTime();
 			timer.time = timer.endTime - timer.stTime;
 			// console.log('timer的间隔时间:'+timer.time);
+			return (timer.time/1000).toFixed(3);
 		}
 
 		return timer;

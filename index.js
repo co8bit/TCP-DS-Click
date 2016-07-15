@@ -25,7 +25,7 @@ Promise.resolve()
 })
 .then( (load_monetdb_time) => {
 	console.log('load_monetdb.....................................OK');
-	console.log('load_monetdb time :' + load_monetdb_time);
+	console.log('load_monetdb time :' + load_monetdb_time + 's');
 })
 .catch((error) => {
 	console.log('error:');
