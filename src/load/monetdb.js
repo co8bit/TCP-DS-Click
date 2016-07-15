@@ -27,17 +27,20 @@ run = (rootPath) => {
 							try{
 								var imp = new Importer(dbOptions,{locked:false},file,tableName,['|','\n']);
 								if (!CONFIG.config.debug)
+								{
 									imp.setSqlLogFn(null);//关闭monetdb-import log
+									imp.bestEffort(true);//打开best effort模式
+								}
 								imp.import(function(err,info) {
 									if(err)
 									{
-										util.log(info.rejects,'失败的具体原因');
 										util.log(err,'err');
 										reject(new Error('Could not import file '+ file +' Reason: '+err));
 									}
 									else
 									{
 										console.log(file + '  成功导入'+info.importedRows+'条，被拒绝'+info.rejectedRows+'条。'+"\n");
+										util.log(info.rejects,'失败的具体原因');
 										resolve();
 									}
 								});
