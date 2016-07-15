@@ -1,6 +1,7 @@
 var CONFIG = require('../config/config');
 var shell = require("shelljs");
 require('shelljs/global');
+var Timer   = require('./timer');
 
 /**
  * 生成tcp-ds数据
@@ -11,6 +12,9 @@ require('shelljs/global');
  */
 run = (rootPath) => {
 	return new Promise ( (resolve,reject) => {
+		var timer = Timer.Timer.create();
+
+
 		var dsdgenPromise = [];
 
 		cd(rootPath + CONFIG.config.dsdgen_dir);
@@ -50,7 +54,7 @@ run = (rootPath) => {
 
 		Promise.all(dsdgenPromise).then( (stdout) => {
 			console.log(stdout);
-			resolve();
+			resolve(timer.end());
 		}).catch((error) => {
 			reject(new Error('gendata error:'+error.message));
 		});

@@ -15,17 +15,18 @@ Promise.resolve()
 .then( () => {
 	return gendata.run(rootPath)
 })
-.then( () => {
+.then( (useTime) => {
 	console.log('gen DATA ........................................OK');
+	console.log('gen DATA time :' + useTime + 's');
 	return gensql.run(rootPath);
 })
 .then( () => {
 	console.log('gen SQL  ........................................OK');
 	return load_monetdb.run(rootPath);
 })
-.then( (load_monetdb_time) => {
+.then( (useTime) => {
 	console.log('load_monetdb.....................................OK');
-	console.log('load_monetdb time :' + load_monetdb_time + 's');
+	console.log('load_monetdb time :' + useTime + 's');
 })
 .catch((error) => {
 	console.log('error:');
