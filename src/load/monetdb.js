@@ -56,11 +56,11 @@ run = (rootPath) => {
 					var file = path + tableName + '_' + i + '_' + CONFIG.config.parallel + '.dat';
 					if (fs.existsSync(file))
 					{
-						console.log('importPromise.length:'+importPromise.length);
-						if (importPromise.length == 0)
+						Promise.all(importPromise).then( () => {
 							load(file,importPromise);
-						else
-							importPromise[importPromise.length-1].then( load(file,importPromise) );
+						}).catch((error) => {
+							reject('load error');
+						});
 					}
 			})
 		});
