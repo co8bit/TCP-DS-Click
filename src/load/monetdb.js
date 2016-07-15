@@ -9,9 +9,9 @@ var dbOptions = {
 }
 
 
-load = (file,importPromise) => {
+load = (file) => {
 	console.log('开始导入文件:'+file);
-	importPromise.push(new Promise ( (resolve,reject) => {
+	return new Promise ( (resolve,reject) => {
 		try{
 			var imp = new Importer(dbOptions,{locked:false},file,tableName,['|','\n']);
 			if (!CONFIG.config.debug)
@@ -38,7 +38,7 @@ load = (file,importPromise) => {
 			// 3) file is binary 
 			reject(new Error(e.message));
 		}
-	}));
+	});
 }
 
 
@@ -46,7 +46,7 @@ run = (rootPath) => {
 	return new Promise( (resolve,reject) => {
 		var timer = Timer.Timer.create();
 
-		var importPromise = [];
+		var impList = [];
 		path = rootPath + CONFIG.config.dsdgen_output_dir;
 		CONFIG.config._TABLE_NAME.forEach( (tableName) => {
 			var tmpIArray = [];
@@ -56,17 +56,25 @@ run = (rootPath) => {
 					var file = path + tableName + '_' + i + '_' + CONFIG.config.parallel + '.dat';
 					if (fs.existsSync(file))
 					{
-						Promise.all(importPromise).then( () => {
-							load(file,importPromise);
-						}).catch((error) => {
-							reject('load error');
+						impList.push( (file)=>{
+							console.log('file:'+file);
+							return load(file);
 						});
 					}
 			})
 		});
 		
-		Promise.all(importPromise).then( () => {
-			resolve(timer.end());
+		// impList.reduce(function(preResult, curValueInArray) {
+		// 	if (preResult == 0)
+		// 		return Promise.resolve().then(load(curValueInArray));
+		// 	else
+		//     	return preResult.then(load(curValueInArray));
+		// }, 0)
+		impList.reduce(function(preResult, curValueInArray) {
+	    	return preResult.then(curValueInArray);
+		}, Promise.resolve())
+		.then(function() {
+		    console.log('job finished');
 		}).catch((error) => {
 			reject('load error');
 		});
