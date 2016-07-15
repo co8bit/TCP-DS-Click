@@ -22,6 +22,7 @@ run = (rootPath) => {
 					var file = path + tableName + '_' + i + '_' + CONFIG.config.parallel + '.dat';
 					if (fs.existsSync(file))
 					{
+						console.log('开始导入文件:'+file);
 						importPromise.push(new Promise ( (resolve,reject) => {
 							try{
 								var imp = new Importer(dbOptions,{locked:false},file,tableName,['|','\n']);
@@ -54,6 +55,7 @@ run = (rootPath) => {
 		Promise.all(importPromise).then( () => {
 			resolve(timer.end());
 		}).catch((error) => {
+			util.log(error,'error');
 			reject(new Error('load_monetdb error:'+error.message));
 		});
 	})
