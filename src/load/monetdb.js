@@ -3,43 +3,44 @@ var Importer = require('monetdb-import')();
 var fs = require('fs');
 var Timer   = require('../timer');
 var util   = require('../util');
-
-var dbOptions = {
+var MDB = require('monetdb')();
+ 
+var options = {
 	dbname: CONFIG.db.monetdb.dbname,
 }
 
 
 load = (file,tableName) => {
 	console.log('开始导入文件:'+file);
-	return new Promise ( (resolve,reject) => {
-		try{
-			var imp = new Importer(dbOptions,{locked:false},file,tableName,['|','\n']);
-			if (!CONFIG.config.debug)
-			{
-				imp.setSqlLogFn(null);//关闭monetdb-import log
-				imp.bestEffort(true);//打开best effort模式
-			}
-			imp.import(function(err,info) {
-				if(err)
-				{
-					console.log('Could not import file '+ file + '原因：' + err);
-					reject();
-				}
-				else
-				{
-					console.log(file + ' 成功导入'+info.importedRows+'条，被拒绝'+info.rejectedRows+'条。'+"\n");
-					resolve();
-				}
-			});
-		}catch(e){
-			// Could not construct the importer object. Possible reasons:  
-			// 1) Invalid parameters 
-			// 2) file not found  
-			// 3) file is binary 
-			reject(new Error(e.message));
-		}
-	});
+	return new Promise( (resolve,reject) => {
+		var conn = new MDB(options);
+		conn.connect();
+		 
+		conn.query("COPY INTO "+ tableName +" FROM "+ file +" USING DELIMITERS '|','\n' NULL AS '';")
+		.then(function(result) {
+			conn.query("SELECT COUNT(DISTINCT rowid) FROM sys.rejects").then((res1) => {
+				conn.query("SELECT COUNT(*) FROM " + _getTablename()).then( (res2) => {
+					rejectedRows = res1.state === "fulfilled" ? res1 : -1;
+					importedRows = res2.state === "fulfilled" ? res2 : -1;
+					
+					
+					util.log(res1,'res1');
+					util.log(res2,'res2');
+					util.log(rejectedRows,'rejectedRows');
+					util.log(importedRows,'importedRows');
+					resolve(timer.end());
+				})
+			})
+                    
+                    // result.rejectedRows = d[0].state === "fulfilled" ? d[0].value.data[0][0] : -1;
+                    // result.importedRows = d[1].state === "fulfilled" ? d[1].value.data[0][0] : -1;
+		});
+		 
+		conn.close();
+	})
 }
+
+
 
 
 run = (rootPath) => {
@@ -70,7 +71,7 @@ run = (rootPath) => {
 		//     	return preResult.then(load(curValueInArray));
 		// }, 0)
 		impList.reduce(function(preResult, curValueInArray) {
-	    	return preResult.then(curValueInArray).catch(curValueInArray);
+	    	return preResult.then(curValueInArray);//.catch(curValueInArray);
 		}, Promise.resolve())
 		.then(function() {
 		    resolve(timer.end());
