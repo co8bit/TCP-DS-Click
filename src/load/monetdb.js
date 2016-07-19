@@ -16,7 +16,9 @@ load = (file,tableName) => {
 		var conn = new MDB(options);
 		conn.connect();
 		util.log('jinru1','jinru1');
-		conn.query("COPY INTO "+ tableName +" FROM "+ file +" USING DELIMITERS '|','\n' NULL AS '';")
+		var sql = "COPY INTO "+ tableName +" FROM '"+ file +"' USING DELIMITERS '|','\n' NULL AS '';";
+		util.log(sql,'sql');
+		conn.query(sql)
 		.then(function(result) {
 			// conn.query("SELECT COUNT(DISTINCT rowid) FROM sys.rejects").then((res1) => {
 			// 	conn.query("SELECT COUNT(*) FROM " + _getTablename()).then( (res2) => {
