@@ -9,12 +9,12 @@ var options = {
 	dbname: CONFIG.db.monetdb.dbname,
 }
 
+var conn = new MDB(options);
+conn.connect();
 
 load = (file,tableName) => {
 	console.log('开始导入文件:'+file);
 	return new Promise( (resolve,reject) => {
-		var conn = new MDB(options);
-		conn.connect();
 		var sql = "COPY INTO "+ tableName +" FROM '"+ file +"' USING DELIMITERS '|','\n' NULL AS '';";
 		util.log(sql,'sql');
 		conn.query(sql)
@@ -43,7 +43,6 @@ load = (file,tableName) => {
 			reject(error);
 		});
 		 
-		// conn.close();
 	})
 }
 
@@ -82,8 +81,10 @@ run = (rootPath) => {
 		}, Promise.resolve())
 		.then(function() {
 		    resolve(timer.end());
+		    conn.close();
 		}).catch((error) => {
 			reject('load error');
+			conn.close();
 		});
 	})
 }
