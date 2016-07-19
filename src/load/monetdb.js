@@ -31,7 +31,7 @@ load = (file,tableName) => {
 			// 		util.log(rejectedRows,'rejectedRows');
 			// 		util.log(importedRows,'importedRows');
 			// 		util.log(tableName+'ok',tableName+'ok');
-					util.log(resule,'resule');
+					util.log(result,'result');
 					resolve();
 			// 	})
 			// })
