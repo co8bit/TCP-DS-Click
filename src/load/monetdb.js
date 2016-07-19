@@ -48,19 +48,19 @@ run = (rootPath) => {
 
 		var impList = [];
 		path = rootPath + CONFIG.config.dsdgen_output_dir;
+		var tmpIArray = [];
+		for (var i = 1; i <= CONFIG.config.parallel; i++)
+			tmpIArray.push(i);
 		CONFIG.config._TABLE_NAME.forEach( (tableName) => {
-			var tmpIArray = [];
-			for (var i = 1; i <= CONFIG.config.parallel; i++)
-				tmpIArray.push(i);
 			tmpIArray.forEach( (i) => {
-					var file = path + tableName + '_' + i + '_' + CONFIG.config.parallel + '.dat';
-					if (fs.existsSync(file))
-					{
-						impList.push( ()=>{
-							console.log('file:'+file);
-							return load(file);
-						});
-					}
+				var file = path + tableName + '_' + i + '_' + CONFIG.config.parallel + '.dat';
+				if (fs.existsSync(file))
+				{
+					console.log('file:'+file);
+					impList.push( ()=>{
+						return load(file);
+					});
+				}
 			})
 		});
 		util.log(impList,'impList');
