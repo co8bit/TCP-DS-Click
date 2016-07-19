@@ -1,6 +1,6 @@
 var CONFIG  = require('../config/config');
 
-log = (msg = '',title = '') => {
+log = (msg,title = '') => {
 	if (CONFIG.config.debug)
 	{
 		console.log('========== DEBUG: '+title+' start =========');

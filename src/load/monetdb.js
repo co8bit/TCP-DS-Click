@@ -47,6 +47,7 @@ run = (rootPath) => {
 		var timer = Timer.Timer.create();
 
 		var impList = [];
+		util.log(null,'null');
 		util.log(impList,'impList');
 		path = rootPath + CONFIG.config.dsdgen_output_dir;
 		var tmpIArray = [];
