@@ -16,6 +16,7 @@ load = (file,tableName) => {
 		var conn = new MDB(options);
 		conn.connect();
 		var sql = "COPY INTO "+ tableName +" FROM '"+ file +"' USING DELIMITERS '|','\n' NULL AS '';";
+		util.log(sql,'sql');
 		conn.query(sql)
 		.then(function(result) {
 			// conn.query("SELECT COUNT(DISTINCT rowid) FROM sys.rejects").then((res1) => {
@@ -37,11 +38,11 @@ load = (file,tableName) => {
                     
                     // result.rejectedRows = d[0].state === "fulfilled" ? d[0].value.data[0][0] : -1;
                     // result.importedRows = d[1].state === "fulfilled" ? d[1].value.data[0][0] : -1;
-		// }).catch((error) => {
-		// 	util.log(error,'error');
-		// 	reject(error);
-		// });
-		 })
+		}).catch((error) => {
+			util.log(error,'error');
+			reject(error);
+		});
+		 
 		conn.close();
 	})
 }
