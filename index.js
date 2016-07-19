@@ -16,7 +16,7 @@ var statistics = {};
 
 Promise.resolve()
 .then( () => {
-	// return gendata.run(rootPath)
+	return gendata.run(rootPath)
 })
 .then( (useTime) => {
 	console.log('gen DATA ........................................OK');
