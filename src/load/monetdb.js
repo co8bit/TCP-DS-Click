@@ -23,12 +23,11 @@ load = (file,tableName) => {
 				conn.query("SELECT COUNT(*) FROM " + tableName).then( (res2) => {
 					rejectedRows = res1.data[0];
 					importedRows = res2.data[0];
-					
 
-					util.log(res1,'res1');
-					util.log(res2,'res2');
-					util.log(rejectedRows,'rejectedRows');
-					util.log(importedRows,'importedRows');
+					// util.log(res1,'res1');
+					// util.log(res2,'res2');
+					// util.log(rejectedRows,'rejectedRows');
+					// util.log(importedRows,'importedRows');
 					console.log(file + ' 成功导入'+importedRows+'条，被拒绝'+rejectedRows+'条。'+"\n");
 					resolve();
 				})
