@@ -38,6 +38,7 @@ load = (file,tableName) => {
                     // result.rejectedRows = d[0].state === "fulfilled" ? d[0].value.data[0][0] : -1;
                     // result.importedRows = d[1].state === "fulfilled" ? d[1].value.data[0][0] : -1;
 		}).catch((error) => {
+			util.log(error,'error');
 			reject(error);
 		});
 		 
