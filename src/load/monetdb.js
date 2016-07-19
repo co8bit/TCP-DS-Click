@@ -19,6 +19,7 @@ load = (file) => {
 				imp.setSqlLogFn(null);//关闭monetdb-import log
 				imp.bestEffort(true);//打开best effort模式
 			}
+			util.log('jinru','jinru');
 			imp.import(function(err,info) {
 				if(err)
 				{
@@ -47,8 +48,6 @@ run = (rootPath) => {
 		var timer = Timer.Timer.create();
 
 		var impList = [];
-		util.log(null,'null');
-		util.log(impList,'impList');
 		path = rootPath + CONFIG.config.dsdgen_output_dir;
 		var tmpIArray = [];
 		for (var i = 1; i <= CONFIG.config.parallel; i++)
