@@ -1,0 +1,56 @@
+SELECT COUNT(*) FROM "sys"."call_center";
+SELECT COUNT(*) FROM "sys"."customer_demographics";
+SELECT COUNT(*) FROM "sys"."inventory";
+SELECT COUNT(*) FROM "sys"."web_returns";
+SELECT COUNT(*) FROM "sys"."store";
+SELECT COUNT(*) FROM "sys"."web_sales";
+SELECT COUNT(*) FROM "sys"."catalog_returns";
+SELECT COUNT(*) FROM "sys"."store_returns";
+SELECT COUNT(*) FROM "sys"."web_site";
+SELECT COUNT(*) FROM "sys"."catalog_sales";
+SELECT COUNT(*) FROM "sys"."date_dim";
+SELECT COUNT(*) FROM "sys"."store_sales";
+SELECT COUNT(*) FROM "sys"."customer";
+SELECT COUNT(*) FROM "sys"."dbgen_version";
+SELECT COUNT(*) FROM "sys"."item";
+SELECT COUNT(*) FROM "sys"."time_dim";
+SELECT COUNT(*) FROM "sys"."customer_address"
+SELECT COUNT(*) FROM "sys"."household_demographics";
+SELECT COUNT(*) FROM "sys"."promotion";
+SELECT COUNT(*) FROM "sys"."warehouse";
+SELECT COUNT(*) FROM "sys"."income_band";
+SELECT COUNT(*) FROM "sys"."reason";
+SELECT COUNT(*) FROM "sys"."web_page";
+
+
+
+SELECT COUNT(*) FROM "sys"."call_center";
+SELECT COUNT(*) FROM "sys"."web_returns";
+SELECT COUNT(*) FROM "sys"."store";
+
+
+drop table sys.dbgen_version;
+drop table sys.customer_address;
+drop table sys.customer_demographics;
+drop table sys.date_dim;
+drop table sys.warehouse;
+drop table sys.ship_mode;
+drop table sys.time_dim;
+drop table sys.reason;
+drop table sys.income_band;
+drop table sys.item;
+drop table sys.store;
+drop table sys.call_center;
+drop table sys.customer;
+drop table sys.web_site;
+drop table sys.store_returns;
+drop table sys.household_demographics;
+drop table sys.web_page;
+drop table sys.promotion;
+drop table sys.catalog_page;
+drop table sys.inventory;
+drop table sys.catalog_returns;
+drop table sys.web_returns;
+drop table sys.web_sales;
+drop table sys.catalog_sales;
+drop table sys.store_sales;

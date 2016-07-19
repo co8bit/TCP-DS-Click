@@ -14,14 +14,16 @@ run = (rootPath) => {
 		var conn = new MDB(options);
 		conn.connect();
 		 
-		conn.query('SELECT * FROM call_center').then(function(result) {
+		conn.query("COPY INTO store_sales FROM '/home/youdata/TCP-DS-Click/output/data/store_sales_1_4.dat' USING DELIMITERS '|','\n' NULL AS '';")
+		.then(function(result) {
 		    // Do something with the result 
 		    util.log(result,'result');
+			resolve(timer.end());
 		});
 		 
 		conn.close();
-		resolve(timer.end());
 	})
 }
 
 exports.run = run;
+

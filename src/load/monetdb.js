@@ -62,7 +62,6 @@ run = (rootPath) => {
 				}
 			})
 		});
-		util.log(impList,'impList');
 		
 		// impList.reduce(function(preResult, curValueInArray) {
 		// 	if (preResult == 0)
@@ -71,10 +70,10 @@ run = (rootPath) => {
 		//     	return preResult.then(load(curValueInArray));
 		// }, 0)
 		impList.reduce(function(preResult, curValueInArray) {
-	    	return preResult.then(curValueInArray);
+	    	return preResult.then(curValueInArray).catch(curValueInArray);
 		}, Promise.resolve())
 		.then(function() {
-		    console.log('job finished');
+		    resolve(timer.end());
 		}).catch((error) => {
 			reject('load error');
 		});
