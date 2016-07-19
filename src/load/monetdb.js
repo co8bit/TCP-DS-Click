@@ -43,7 +43,7 @@ load = (file,tableName) => {
 			reject(error);
 		});
 		 
-		conn.close();
+		// conn.close();
 	})
 }
 
