@@ -9,7 +9,7 @@ var dbOptions = {
 }
 
 
-load = (file) => {
+load = (file,tableName) => {
 	console.log('开始导入文件:'+file);
 	return new Promise ( (resolve,reject) => {
 		try{
@@ -59,7 +59,7 @@ run = (rootPath) => {
 				if (fs.existsSync(file))
 				{
 					impList.push( ()=>{
-						return load(file);
+						return load(file,tableName);
 					});
 				}
 			})
