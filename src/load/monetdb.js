@@ -15,25 +15,23 @@ load = (file,tableName) => {
 	return new Promise( (resolve,reject) => {
 		var conn = new MDB(options);
 		conn.connect();
-		util.log('jinru1','jinru1');
 		var sql = "COPY INTO "+ tableName +" FROM '"+ file +"' USING DELIMITERS '|','\n' NULL AS '';";
-		util.log(sql,'sql');
 		conn.query(sql)
 		.then(function(result) {
-			// conn.query("SELECT COUNT(DISTINCT rowid) FROM sys.rejects").then((res1) => {
-			// 	conn.query("SELECT COUNT(*) FROM " + _getTablename()).then( (res2) => {
-			// 		rejectedRows = res1.state === "fulfilled" ? res1 : -1;
-			// 		importedRows = res2.state === "fulfilled" ? res2 : -1;
+			conn.query("SELECT COUNT(DISTINCT rowid) FROM sys.rejects").then((res1) => {
+				conn.query("SELECT COUNT(*) FROM " + _getTablename()).then( (res2) => {
+					rejectedRows = res1.state === "fulfilled" ? res1 : -1;
+					importedRows = res2.state === "fulfilled" ? res2 : -1;
 					
 
-			// 		util.log(res1,'res1');
-			// 		util.log(res2,'res2');
-			// 		util.log(rejectedRows,'rejectedRows');
-			// 		util.log(importedRows,'importedRows');
+					util.log(res1,'res1');
+					util.log(res2,'res2');
+					util.log(rejectedRows,'rejectedRows');
+					util.log(importedRows,'importedRows');
 					util.log(tableName+'ok',tableName+'ok');
 					resolve();
-				// })
-			// })
+				})
+			})
                     
                     // result.rejectedRows = d[0].state === "fulfilled" ? d[0].value.data[0][0] : -1;
                     // result.importedRows = d[1].state === "fulfilled" ? d[1].value.data[0][0] : -1;
