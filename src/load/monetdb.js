@@ -13,14 +13,12 @@ load = (file,tableName) => {
 	console.log('开始导入文件:'+file);
 	return new Promise ( (resolve,reject) => {
 		try{
-			util.log('jinru','jinru');
 			var imp = new Importer(dbOptions,{locked:false},file,tableName,['|','\n']);
 			if (!CONFIG.config.debug)
 			{
 				imp.setSqlLogFn(null);//关闭monetdb-import log
 				imp.bestEffort(true);//打开best effort模式
 			}
-			util.log('jinru2','jinru2');
 			imp.import(function(err,info) {
 				if(err)
 				{
