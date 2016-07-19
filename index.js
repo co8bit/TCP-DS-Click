@@ -43,6 +43,7 @@ Promise.resolve()
 	console.log('powerTest_monetdb time :' + useTime + 's');
 	statistics.powerTest_monetdb = useTime;
 })
+.then( console.log('====================RUN OVER===================='))
 .catch((error) => {
 	console.log('error:');
 	console.log(error);

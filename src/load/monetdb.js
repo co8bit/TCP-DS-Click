@@ -20,26 +20,21 @@ load = (file,tableName) => {
 		conn.query(sql)
 		.then(function(result) {
 			conn.query("SELECT COUNT(DISTINCT rowid) FROM sys.rejects").then((res1) => {
-				util.log(res1,'res1');
 				conn.query("SELECT COUNT(*) FROM " + tableName).then( (res2) => {
-					rejectedRows = res1.state === "fulfilled" ? res1 : -1;
-					importedRows = res2.state === "fulfilled" ? res2 : -1;
+					rejectedRows = res1.data[0];
+					importedRows = res2.data[0];
 					
 
 					util.log(res1,'res1');
 					util.log(res2,'res2');
 					util.log(rejectedRows,'rejectedRows');
 					util.log(importedRows,'importedRows');
-					util.log(tableName+'ok',tableName+'ok');
-					util.log(result,'result');
+					console.log(file + ' 成功导入'+importedRows+'条，被拒绝'+rejectedRows+'条。'+"\n");
 					resolve();
 				})
 			})
-                    
-                    // result.rejectedRows = d[0].state === "fulfilled" ? d[0].value.data[0][0] : -1;
-                    // result.importedRows = d[1].state === "fulfilled" ? d[1].value.data[0][0] : -1;
-		}).catch((error) => {
-			util.log(error,'error');
+		}).catch((err) => {
+			console.log('Could not import file '+ file + '原因：' + err);
 			reject(error);
 		});
 		 
