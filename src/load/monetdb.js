@@ -20,6 +20,7 @@ load = (file) => {
 				imp.setSqlLogFn(null);//关闭monetdb-import log
 				imp.bestEffort(true);//打开best effort模式
 			}
+			util.log('jinru2','jinru2');
 			imp.import(function(err,info) {
 				if(err)
 				{
