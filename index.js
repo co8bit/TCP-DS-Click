@@ -16,7 +16,7 @@ var statistics = {};
 
 Promise.resolve()
 .then( () => {
-	// return gendata.run(rootPath)
+	return gendata.run(rootPath)
 })
 .then( (useTime) => {
 	console.log('gen DATA ........................................OK');
@@ -34,7 +34,7 @@ Promise.resolve()
 	console.log('load_monetdb.....................................OK');
 	console.log('load_monetdb time :' + useTime + 's');
 	statistics.load_monetdb = useTime;
-	return powerTest_monetdb.run(rootPath);
+	// return powerTest_monetdb.run(rootPath);
 })
 //power test module ---------------
 //monetdb
