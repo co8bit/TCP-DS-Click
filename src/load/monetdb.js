@@ -17,7 +17,9 @@ load = (file,tableName) => {
 	return new Promise( (resolve,reject) => {
 		var sql = "COPY INTO "+ tableName +" FROM '"+ file +"' USING DELIMITERS '|','\n' NULL AS '';";
 		util.log(sql,'sql');
-		conn.query(sql)
+		conn.query('CALL sys.clearrejects();').then( () => {
+			return conn.query(sql);
+		})
 		.then(function(result) {
 			conn.query("SELECT COUNT(DISTINCT rowid) FROM sys.rejects").then((res1) => {
 				conn.query("SELECT COUNT(*) FROM " + tableName).then( (res2) => {
@@ -32,7 +34,8 @@ load = (file,tableName) => {
 					resolve();
 				})
 			})
-		}).catch((err) => {
+		})
+		.catch((err) => {
 			console.log('Could not import file '+ file + '原因：' + err);
 			reject(error);
 		});
@@ -57,6 +60,7 @@ run = (rootPath) => {
 				var file = path + tableName + '_' + i + '_' + CONFIG.config.parallel + '.dat';
 				if (fs.existsSync(file))
 				{
+					console.log('file:'+file);
 					impList.push( ()=>{
 						return load(file,tableName);
 					});
