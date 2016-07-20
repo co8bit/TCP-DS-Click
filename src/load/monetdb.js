@@ -17,7 +17,7 @@ load = (file,tableName) => {
 	return new Promise( (resolve,reject) => {
 		var sql = "COPY INTO "+ tableName +" FROM '"+ file +"' USING DELIMITERS '|','\n' NULL AS '';";
 		util.log(sql,'sql');
-		conn.query('CALL sys.clearrejects();').then( () => {
+		conn.query('CALL sys.clearrejects();').then( (res) => {
 			console.log('jinru:');
 			return conn.query(sql);
 		})
