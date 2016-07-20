@@ -9,6 +9,8 @@ var options = {
 	dbname: CONFIG.db.monetdb.dbname,
 }
 
+var success=0;
+var falt=0;
 var conn = new MDB(options);
 conn.connect();
 
@@ -19,7 +21,6 @@ load = (file,tableName) => {
 		util.log(sql,'sql');
 		conn.query(sql)
 		.then(function(result) {
-			console.log('jinru2:');
 			conn.query("SELECT COUNT(DISTINCT rowid) FROM sys.rejects").then((res1) => {
 				conn.query("SELECT COUNT(*) FROM " + tableName).then( (res2) => {
 					rejectedRows = res1.data[0];
@@ -30,12 +31,14 @@ load = (file,tableName) => {
 					// util.log(rejectedRows,'rejectedRows');
 					// util.log(importedRows,'importedRows');
 					console.log(file + ' 成功导入'+importedRows+'条，被拒绝'+rejectedRows+'条。'+"\n");
+					success++;
 					resolve();
 				})
 			})
 		})
 		.catch((err) => {
 			console.log('Could not import file '+ file + '原因：' + err);
+			falt++;
 			reject(error);
 		});
 		 
@@ -73,21 +76,13 @@ run = (rootPath) => {
 		// 	else
 		//     	return preResult.then(load(curValueInArray));
 		// }, 0)|
-		success=0;
-		falt=0;
+		
 		impList.reduce(function(preResult, curValueInArray) {
-	    	return preResult.then( () => {
-	    		success++;
-	    		return curValueInArray();
-	    	})
-	    	.catch( () => {
-	    		falt++;
-	    		return curValueInArray();
-	    	});
+	    	return preResult.then(curValueInArray).catch(curValueInArray);
 		}, Promise.resolve())
 		.then(function() {
 			console.log('success:'+success);
-			console.log('falt:'+falt);
+			console.log('falt:'+(falt/2));
 		    resolve(timer.end());
 		    conn.close();
 		}).catch((error) => {
