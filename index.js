@@ -15,33 +15,45 @@ console.log('rootPath:'+rootPath);
 var statistics = {};
 
 Promise.resolve()
+// gen DATA model ---------------
 .then( () => {
-	// return gendata.run(rootPath)
+	var tmpPromise = gendata.run(rootPath);
+	tmpPromise.then( (useTime) => {
+		console.log('gen DATA ........................................OK');
+		console.log('gen DATA time :' + useTime + 's');
+		statistics.genDataTime = useTime;
+	});
+	return tmpPromise;
 })
+// gen SQL model ---------------
 .then( (useTime) => {
-	console.log('gen DATA ........................................OK');
-	console.log('gen DATA time :' + useTime + 's');
-	statistics.genDataTime = useTime;
-	return gensql.run(rootPath);
+	var tmpPromise = gensql.run(rootPath);
+	tmpPromise.then( () => {
+		console.log('gen SQL  ........................................OK');
+	});
+	return tmpPromise;
 })
+// load module ---------------
 .then( () => {
-	console.log('gen SQL  ........................................OK');
-	return load_monetdb.run(rootPath);
+	// monetdb
+	var tmpPromise = load_monetdb.run(rootPath);
+	tmpPromise.then( (useTime) => {
+		console.log('load_monetdb.....................................OK');
+		console.log('load_monetdb time :' + useTime + 's');
+		statistics.load_monetdb = useTime;
+	});
+	return tmpPromise;
 })
-//load module ---------------
-//monetdb
+// power test module ---------------
 .then( (useTime) => {
-	console.log('load_monetdb.....................................OK');
-	console.log('load_monetdb time :' + useTime + 's');
-	statistics.load_monetdb = useTime;
-	// return powerTest_monetdb.run(rootPath);
-})
-//power test module ---------------
-//monetdb
-.then ( (useTime) => {
-	console.log('powerTest_monetdb................................OK');
-	console.log('powerTest_monetdb time :' + useTime + 's');
-	statistics.powerTest_monetdb = useTime;
+	//monetdb
+	var tmpPromise = powerTest_monetdb.run(rootPath);
+	tmpPromise.then( (useTime) => {
+		console.log('powerTest_monetdb................................OK');
+		console.log('powerTest_monetdb time :' + useTime + 's');
+		statistics.powerTest_monetdb = useTime;
+	});
+	return tmpPromise;
 })
 .then( console.log('====================RUN OVER===================='))
 .catch((error) => {

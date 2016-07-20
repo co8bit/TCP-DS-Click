@@ -18,7 +18,6 @@
   "homepage": "https://github.com/co8bit/TCP-DS-Click#readme",
   "dependencies": {
     "monetdb": "^1.1.2",
-    "monetdb-import": "^0.4.9",
     "mysql": "github:felixge/node-mysql",
     "nodemailer": "^2.4.1",
     "shelljs": "^0.7.0"

@@ -61,9 +61,9 @@ run = (rootPath) => {
 		CONFIG.config._TABLE_NAME.forEach( (tableName) => {
 			tmpIArray.forEach( (i) => {
 				var file = path + tableName + '_' + i + '_' + CONFIG.config.parallel + '.dat';
-				fileNum++;
 				if (fs.existsSync(file))
 				{
+					fileNum++;
 					impList.push( ()=>{
 						return load(file,tableName);
 					});
@@ -82,7 +82,7 @@ run = (rootPath) => {
 	    	return preResult.then(curValueInArray);//.catch(curValueInArray);
 		}, Promise.resolve())
 		.then(function() {
-			console.log('fileNum:'+fileNum);
+			console.log('dataFileNum:'+fileNum);
 			console.log('success:'+success);
 			// console.log('fail:'+(fail/2));
 			console.log('fail:'+fail);
