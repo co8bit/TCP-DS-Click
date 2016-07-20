@@ -73,7 +73,14 @@ run = (rootPath) => {
 		success=0;
 		falt=0;
 		impList.reduce(function(preResult, curValueInArray) {
-	    	return preResult.then( () => {curValueInArray;success++;}).catch( () => {curValueInArray;falt++});
+	    	return preResult.then( () => {
+	    		success++;
+	    		curValueInArray();
+	    	})
+	    	.catch( () => {
+	    		falt++;
+	    		curValueInArray();
+	    	});
 		}, Promise.resolve())
 		.then(function() {
 			console.log('success:'+success);
