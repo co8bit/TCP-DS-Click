@@ -69,11 +69,15 @@ run = (rootPath) => {
 		// 		return Promise.resolve().then(load(curValueInArray));
 		// 	else
 		//     	return preResult.then(load(curValueInArray));
-		// }, 0)
+		// }, 0)|
+		success=0;
+		falt=0;
 		impList.reduce(function(preResult, curValueInArray) {
-	    	return preResult.then(curValueInArray);//.catch(curValueInArray);
+	    	return preResult.then( () => {curValueInArray;success++;}).catch( () => {curValueInArray;falt++});
 		}, Promise.resolve())
 		.then(function() {
+			console.log('success:'+success);
+			console.log('falt:'+falt);
 		    resolve(timer.end());
 		    conn.close();
 		}).catch((error) => {
