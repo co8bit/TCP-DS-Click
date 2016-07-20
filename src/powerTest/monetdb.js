@@ -14,7 +14,9 @@ run = (rootPath) => {
 		var conn = new MDB(options);
 		conn.connect();
 		 
-		conn.query("COPY INTO call_center FROM '/home/youdata/TCP-DS-Click/output/data/call_center_1_4.dat' USING DELIMITERS '|','\n' NULL AS '';")
+		util.log('jinru','jinru');
+		// conn.query("select * from call_center;")
+		conn.query("select * from call_center;CALL sys.clearrejects();")
 		.then(function(result) {
 		    // Do something with the result 
 		    util.log(result,'result');

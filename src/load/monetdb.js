@@ -15,12 +15,9 @@ conn.connect();
 load = (file,tableName) => {
 	console.log('开始导入文件:'+file);
 	return new Promise( (resolve,reject) => {
-		var sql = "COPY INTO "+ tableName +" FROM '"+ file +"' USING DELIMITERS '|','\n' NULL AS '';";
+		var sql = "CALL sys.clearrejects();COPY INTO "+ tableName +" FROM '"+ file +"' USING DELIMITERS '|','\n' NULL AS '';";
 		util.log(sql,'sql');
-		conn.query('CALL sys.clearrejects();').then( (res) => {
-			console.log('jinru:');
-			return conn.query(sql);
-		})
+		conn.query(sql)
 		.then(function(result) {
 			console.log('jinru2:');
 			conn.query("SELECT COUNT(DISTINCT rowid) FROM sys.rejects").then((res1) => {
