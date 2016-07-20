@@ -18,9 +18,11 @@ load = (file,tableName) => {
 		var sql = "COPY INTO "+ tableName +" FROM '"+ file +"' USING DELIMITERS '|','\n' NULL AS '';";
 		util.log(sql,'sql');
 		conn.query('CALL sys.clearrejects();').then( () => {
+			console.log('jinru:');
 			return conn.query(sql);
 		})
 		.then(function(result) {
+			console.log('jinru2:');
 			conn.query("SELECT COUNT(DISTINCT rowid) FROM sys.rejects").then((res1) => {
 				conn.query("SELECT COUNT(*) FROM " + tableName).then( (res2) => {
 					rejectedRows = res1.data[0];
