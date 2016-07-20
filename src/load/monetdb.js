@@ -62,7 +62,6 @@ run = (rootPath) => {
 				var file = path + tableName + '_' + i + '_' + CONFIG.config.parallel + '.dat';
 				if (fs.existsSync(file))
 				{
-					console.log('file:'+file);
 					impList.push( ()=>{
 						return load(file,tableName);
 					});
