@@ -10,7 +10,7 @@ var options = {
 }
 
 var success=0;
-var falt=0;
+var fail=0;
 var conn = new MDB(options);
 conn.connect();
 
@@ -38,7 +38,7 @@ load = (file,tableName) => {
 		})
 		.catch((err) => {
 			console.log('Could not import file '+ file + '原因：' + err);
-			falt++;
+			fail++;
 			reject(error);
 		});
 		 
@@ -78,11 +78,12 @@ run = (rootPath) => {
 		// }, 0)|
 		
 		impList.reduce(function(preResult, curValueInArray) {
-	    	return preResult.then(curValueInArray).catch(curValueInArray);
+	    	return preResult.then(curValueInArray);//.catch(curValueInArray);
 		}, Promise.resolve())
 		.then(function() {
 			console.log('success:'+success);
-			console.log('falt:'+(falt/2));
+			// console.log('fail:'+(fail/2));
+			console.log('fail:'+fail);
 		    resolve(timer.end());
 		    conn.close();
 		}).catch((error) => {
