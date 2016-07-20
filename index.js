@@ -22,18 +22,16 @@ Promise.resolve()
 		console.log('gen DATA ........................................OK');
 		console.log('gen DATA time :' + useTime + 's');
 		statistics.genDataTime = useTime;
-		return tmpPromise;
 	});
-	
+	return tmpPromise;
 })
 // gen SQL model ---------------
 .then( (useTime) => {
 	var tmpPromise = gensql.run(rootPath);
 	tmpPromise.then( () => {
 		console.log('gen SQL  ........................................OK');
-		return tmpPromise;
 	});
-	
+	return tmpPromise;
 })
 // load module ---------------
 .then( () => {
@@ -43,9 +41,8 @@ Promise.resolve()
 		console.log('load_monetdb.....................................OK');
 		console.log('load_monetdb time :' + useTime + 's');
 		statistics.load_monetdb = useTime;
-		return tmpPromise;
 	});
-	
+	return tmpPromise;
 })
 // power test module ---------------
 .then( (useTime) => {
@@ -55,11 +52,12 @@ Promise.resolve()
 		console.log('powerTest_monetdb................................OK');
 		console.log('powerTest_monetdb time :' + useTime + 's');
 		statistics.powerTest_monetdb = useTime;
-		return tmpPromise;
 	});
-	
+	return tmpPromise;
 })
-.then( console.log('====================RUN OVER===================='))
+.then( () => {
+	console.log('====================RUN OVER====================')
+})
 .catch((error) => {
 	console.log('error:');
 	console.log(error);
