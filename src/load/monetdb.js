@@ -9,9 +9,10 @@ var options = {
 	dbname: CONFIG.db.monetdb.dbname,
 }
 
-var success=0;
-var fail=0;
-var conn = new MDB(options);
+var success =0;//成功数
+var fail    =0;//失败数
+var fileNum =0;//总文件数
+var conn    = new MDB(options);
 conn.connect();
 
 load = (file,tableName) => {
@@ -60,6 +61,7 @@ run = (rootPath) => {
 		CONFIG.config._TABLE_NAME.forEach( (tableName) => {
 			tmpIArray.forEach( (i) => {
 				var file = path + tableName + '_' + i + '_' + CONFIG.config.parallel + '.dat';
+				fileNum++;
 				if (fs.existsSync(file))
 				{
 					impList.push( ()=>{
@@ -80,6 +82,7 @@ run = (rootPath) => {
 	    	return preResult.then(curValueInArray);//.catch(curValueInArray);
 		}, Promise.resolve())
 		.then(function() {
+			console.log('fileNum:'+fileNum);
 			console.log('success:'+success);
 			// console.log('fail:'+(fail/2));
 			console.log('fail:'+fail);
