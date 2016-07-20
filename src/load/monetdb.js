@@ -75,11 +75,11 @@ run = (rootPath) => {
 		impList.reduce(function(preResult, curValueInArray) {
 	    	return preResult.then( () => {
 	    		success++;
-	    		curValueInArray();
+	    		return curValueInArray();
 	    	})
 	    	.catch( () => {
 	    		falt++;
-	    		curValueInArray();
+	    		return curValueInArray();
 	    	});
 		}, Promise.resolve())
 		.then(function() {
