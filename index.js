@@ -5,7 +5,6 @@ var gensql            = require('./src/gensql');
 var load_monetdb      = require('./src/load/monetdb');
 var powerTest_monetdb = require('./src/powerTest/monetdb');
 
-var timer = Timer.Timer.create();
 
 
 console.log("<===========================>  TCP-DS Click Run  <===========================>");

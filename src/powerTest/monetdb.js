@@ -14,14 +14,8 @@ var ReadF = {
 		ReadF.rootPath = rootPath;
 		ReadF.readFile = (file) => {
 			console.log('ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file:'+ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file);
-			fs.readFileSync(ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
-				if (err) {
-					console.error(err);
-					return;
-				}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-				console.log(data);
-			});
+			data = fs.readFileSync(ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file, {flag: 'r+', encoding: 'utf8'});
+			console.log('data:'+data);
 		}
 		ReadF.getSQL = () => {
 
@@ -41,26 +35,26 @@ run = (rootPath) => {
 	var readf = ReadF.createNew(rootPath);
 	readf.readFile('query_0.sql');
 
-	return new Promise( (resolve,reject) => {
-		var timer = Timer.Timer.create();
+	return new Promise( (resolve,reject) => {});
+	// return new Promise( (resolve,reject) => {
+	// 	var timer = Timer.Timer.create();
 
-		var conn = new MDB(options);
-		conn.connect();
+	// 	var conn = new MDB(options);
+	// 	conn.connect();
 		 
-		util.log('jinru','jinru');
-		// conn.query("select * from call_center;")
-		conn.query("select * from call_center;CALL sys.clearrejects();")
-		.then(function(result) {
-		    // Do something with the result 
-		    util.log(result,'result');
-			resolve(timer.end());
-		}).catch((error) => {
-			util.log(error,'error');
-			reject(error);
-		});
+	// 	// conn.query("select * from call_center;")
+	// 	conn.query("select * from call_center;CALL sys.clearrejects();")
+	// 	.then(function(result) {
+	// 	    // Do something with the result 
+	// 	    util.log(result,'result');
+	// 		resolve(timer.end());
+	// 	}).catch((error) => {
+	// 		util.log(error,'error');
+	// 		reject(error);
+	// 	});
 		 
-		conn.close();
-	})
+	// 	conn.close();
+	// })
 }
 
 exports.run = run;
