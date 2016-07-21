@@ -13,12 +13,11 @@ var ReadF = {
 		var ReadF = {};
 		ReadF.rootPath = rootPath;
 		ReadF.readFile = (file) => {
-			console.log('ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file:'+ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file);
-			data = fs.readFileSync(ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file, {flag: 'r+', encoding: 'utf8'});
-			console.log('data:'+data);
+			ReadF.oData = fs.readFileSync(ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file, {flag: 'r+', encoding: 'utf8'});
+			
 		}
 		ReadF.getSQL = () => {
-
+			return ReadF.data = ReadF.oData.split(';');
 		}
 		return ReadF;
 	}
@@ -34,6 +33,8 @@ var ReadF = {
 run = (rootPath) => {
 	var readf = ReadF.createNew(rootPath);
 	readf.readFile('query_0.sql');
+	var data =  readf.getSQL();
+	console.log('data[0]:'+data[0]);
 
 	return new Promise( (resolve,reject) => {});
 	// return new Promise( (resolve,reject) => {
