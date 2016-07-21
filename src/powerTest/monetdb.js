@@ -13,6 +13,7 @@ var ReadF = {
 		var ReadF = {};
 		ReadF.rootPath = rootPath;
 		ReadF.readFile = (file) => {
+			console.log('ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file:'+ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file);
 			fs.readFileSync(ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
 				if (err) {
 					console.error(err);
