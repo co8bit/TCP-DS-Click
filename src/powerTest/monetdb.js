@@ -7,7 +7,39 @@ var MDB = require('monetdb')();
  
 var options = CONFIG.db.monetdb;
 
+
+var ReadF = {
+	createNew: function(rootPath){
+		var ReadF = {};
+		ReadF.rootPath = rootPath;
+		ReadF.readFile = (file) => {
+			fs.readFileSync(ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file, {flag: 'r+', encoding: 'utf8'}, function (err, data) {
+				if (err) {
+					console.error(err);
+					return;
+				}
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+				console.log(data);
+			});
+		}
+		ReadF.getSQL = () => {
+
+		}
+		return ReadF;
+	}
+};
+
+
+
+
+
+
+
+
 run = (rootPath) => {
+	var readf = ReadF.createNew(rootPath);
+	readf.readFile('query_0.sql');
+
 	return new Promise( (resolve,reject) => {
 		var timer = Timer.Timer.create();
 

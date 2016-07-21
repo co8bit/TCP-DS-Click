@@ -15,36 +15,53 @@ console.log('rootPath:'+rootPath);
 var statistics = {};
 
 Promise.resolve()
-// gen DATA model ---------------
-.then( () => {
-	var tmpPromise = gendata.run(rootPath);
-	tmpPromise.then( (useTime) => {
-		console.log('gen DATA ........................................OK');
-		console.log('gen DATA time :' + useTime + 's');
-		statistics.genDataTime = useTime;
-	});
-	return tmpPromise;
-})
-// gen SQL model ---------------
-.then( (useTime) => {
-	var tmpPromise = gensql.run(rootPath);
-	tmpPromise.then( () => {
-		console.log('gen SQL  ........................................OK');
-	});
-	return tmpPromise;
-})
-// load module ---------------
-.then( () => {
-	// monetdb
-	var tmpPromise = load_monetdb.run(rootPath);
-	tmpPromise.then( (useTime) => {
-		console.log('load_monetdb.....................................OK');
-		console.log('load_monetdb time :' + useTime + 's');
-		statistics.load_monetdb = useTime;
-	});
-	return tmpPromise;
-})
-// power test module ---------------
+/**
+ * gen DATA model ---------------
+ */
+// .then( () => {
+// 	var tmpPromise = gendata.run(rootPath);
+// 	tmpPromise.then( (useTime) => {
+// 		console.log('gen DATA ........................................OK');
+// 		console.log('gen DATA time :' + useTime + 's');
+// 		statistics.genDataTime = useTime;
+// 	});
+// 	return tmpPromise;
+// })
+
+
+
+/**
+ * gen SQL model ---------------
+ */
+// .then( (useTime) => {
+// 	var tmpPromise = gensql.run(rootPath);
+// 	tmpPromise.then( () => {
+// 		console.log('gen SQL  ........................................OK');
+// 	});
+// 	return tmpPromise;
+// })
+
+
+
+/**
+ * load module ---------------
+ */
+// .then( () => {
+// 	// monetdb
+// 	var tmpPromise = load_monetdb.run(rootPath);
+// 	tmpPromise.then( (useTime) => {
+// 		console.log('load_monetdb.....................................OK');
+// 		console.log('load_monetdb time :' + useTime + 's');
+// 		statistics.load_monetdb = useTime;
+// 	});
+// 	return tmpPromise;
+// })
+
+
+
+/**
+ * power test module ---------------
+ */
 .then( (useTime) => {
 	//monetdb
 	var tmpPromise = powerTest_monetdb.run(rootPath);
@@ -55,6 +72,9 @@ Promise.resolve()
 	});
 	return tmpPromise;
 })
+
+
+
 .then( () => {
 	console.log('====================RUN OVER====================')
 })
