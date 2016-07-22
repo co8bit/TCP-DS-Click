@@ -17,7 +17,9 @@ var ReadF = {
 			
 		}
 		ReadF.getSQL = () => {
-			return ReadF.data = ReadF.oData.split(';');
+			ReadF.data = ReadF.oData.split(';');
+			ReadF.data.pop();
+			return ReadF.data;
 		}
 		return ReadF;
 	}
@@ -25,18 +27,25 @@ var ReadF = {
 
 
 
-test = (i,sql) => {
+test = (i,sql,statistics) => {
 	console.log('开始测试第'+(i+1)+'条SQL');
-	// util.log(sql+';','sql');
+	var timer = Timer.Timer.create();
+	util.log(sql+';','sql');
 
 	return new Promise( (resolve,reject) => {
 		conn.query(sql+';')
 		.then(function(res) {
 			success++;
-			resolve(timer.end());
+			statistics.powerTest_monetdbArray.push({"i":i,"time":timer.end()});
+			resolve();
 		}).catch((error) => {
 			fail++;
-			util.log(sql+';','sql');
+			// util.log(sql+';','error sql');
+			if (statistics.powerTest_monetdbArray.length - 1 < 0)
+				statistics.powerTest_monetdbArray.push({"i":i,"time":-1});
+			else
+				if (statistics.powerTest_monetdbArray[statistics.powerTest_monetdbArray.length - 1].i != i)
+					statistics.powerTest_monetdbArray.push({"i":i,"time":-1});
 			reject(error);
 		});
 	});
@@ -51,20 +60,29 @@ var success = 0;
 var totalSql = 0;
 
 
-run = (rootPath) => {
+run = (rootPath,statistics) => {
 	conn    = new MDB(options);
 	conn.connect();
 
+	//标准用法：
+	// var readf = ReadF.createNew(rootPath);
+	// readf.readFile('query_0.sql');
+	// var sqlArray =  readf.getSQL();
+	
 	var readf = ReadF.createNew(rootPath);
-	readf.readFile('query_0.sql');
+	if (CONFIG.config.scale == 1)
+		readf.readFile('query_monetdb/small/1.sql');
+	else
+		readf.readFile('query_monetdb/1.sql');
 	var sqlArray =  readf.getSQL();
 
-	var sqlArray2 = [];
-	sqlArray2.push(sqlArray[0]);
-	sqlArray2.push(sqlArray[1]);
+	// var sqlArray2 = [];
+	// sqlArray2.push(sqlArray[0]);
+	// sqlArray2.push(sqlArray[1]);
 
 	var iArray = [];
-	for (v of sqlArray2)
+	for (v of sqlArray)
+	// for (v of sqlArray2)
 	{
 		iArray.push(totalSql);
 		totalSql++;
@@ -78,7 +96,7 @@ run = (rootPath) => {
 		var opList = [];
 		iArray.forEach( (i) => {
 			opList.push( () => {
-				return test(i,sqlArray[i]);
+				return test(i,sqlArray[i],statistics);
 			});
 		});
 		// console.log(opList);
