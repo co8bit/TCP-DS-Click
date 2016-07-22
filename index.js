@@ -76,6 +76,27 @@ Promise.resolve()
 
 
 
+
+/**
+ * throughput test module ---------------
+ */
+// .then( (useTime) => {
+// 	//monetdb
+// 	var tmpPromise = powerTest_monetdb.run(rootPath,statistics);
+// 	tmpPromise.then( (useTime) => {
+// 		console.log('powerTest_monetdb................................OK');
+// 		console.log('powerTest_monetdb time :' + useTime + 's');
+// 		statistics.powerTest_monetdb = useTime;
+// 		console.log('powerTest_monetdbArray:');
+// 		console.log(statistics.powerTest_monetdbArray);
+// 	});
+// 	return tmpPromise;
+// })
+
+
+
+
+
 .then( () => {
 	console.log('====================RUN OVER====================')
 })
