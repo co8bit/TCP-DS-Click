@@ -33,30 +33,29 @@ var ReadF = {
 run = (rootPath) => {
 	var readf = ReadF.createNew(rootPath);
 	readf.readFile('query_0.sql');
-	var data =  readf.getSQL();
-	console.log('data[0]:'+data[0]);
+	var sqlArray =  readf.getSQL();
 
-	return new Promise( (resolve,reject) => {});
-	// return new Promise( (resolve,reject) => {
-	// 	var timer = Timer.Timer.create();
+	return new Promise( (resolve,reject) => {
+		var timer = Timer.Timer.create();
 
-	// 	var conn = new MDB(options);
-	// 	conn.connect();
-		 
-	// 	// conn.query("select * from call_center;")
-	// 	conn.query("select * from call_center;CALL sys.clearrejects();")
-	// 	.then(function(result) {
-	// 	    // Do something with the result 
-	// 	    util.log(result,'result');
-	// 		resolve(timer.end());
-	// 	}).catch((error) => {
-	// 		util.log(error,'error');
-	// 		reject(error);
-	// 	});
-		 
-	// 	conn.close();
-	// })
+		var conn = new MDB(options);
+		conn.connect();
+
+		sqlArray.forEach( (sql) => {
+			// util.log(sql,'sql');
+			conn.query(sql)
+			.then(function(res) {
+			    util.log(result,'res');
+				resolve(timer.end());
+			}).catch((error) => {
+				util.log(sql,'sql');
+				util.log(error,'error');
+				reject(error);
+			});
+		});
+
+		conn.close();
+	})
 }
 
 exports.run = run;
-

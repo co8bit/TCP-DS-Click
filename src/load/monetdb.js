@@ -12,8 +12,7 @@ var options = {
 var success =0;//成功数
 var fail    =0;//失败数
 var fileNum =0;//总文件数
-var conn    = new MDB(options);
-conn.connect();
+var conn    = null;
 
 load = (file,tableName) => {
 	console.log('开始导入文件:'+file);
@@ -50,6 +49,9 @@ load = (file,tableName) => {
 
 
 run = (rootPath) => {
+	conn    = new MDB(options);
+	conn.connect();
+	
 	return new Promise( (resolve,reject) => {
 		var timer = Timer.Timer.create();
 
