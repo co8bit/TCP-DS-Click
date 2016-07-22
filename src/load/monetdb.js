@@ -51,7 +51,7 @@ load = (file,tableName) => {
 run = (rootPath) => {
 	conn    = new MDB(options);
 	conn.connect();
-	
+
 	return new Promise( (resolve,reject) => {
 		var timer = Timer.Timer.create();
 
@@ -73,6 +73,7 @@ run = (rootPath) => {
 			})
 		});
 		
+		// console.log(impList);
 		// impList.reduce(function(preResult, curValueInArray) {
 		// 	if (preResult == 0)
 		// 		return Promise.resolve().then(load(curValueInArray));
@@ -86,11 +87,13 @@ run = (rootPath) => {
 		.then(function() {
 			console.log('dataFileNum:'+fileNum);
 			console.log('success:'+success);
-			// console.log('fail:'+(fail/2));
-			console.log('fail:'+fail);
+			console.log('fail:'+(fileNum - success));
 		    resolve(timer.end());
 		    conn.close();
 		}).catch((error) => {
+			console.log('dataFileNum:'+fileNum);
+			console.log('success:'+success);
+			console.log('fail:'+(fileNum - success));
 			reject('load error');
 			conn.close();
 		});
