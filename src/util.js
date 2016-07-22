@@ -1,4 +1,5 @@
 var CONFIG  = require('../config/config');
+var fs = require('fs');
 
 log = (msg,title = '') => {
 	if (CONFIG.config.debug)
@@ -68,7 +69,36 @@ function DateShortFormat(tmpDate)
     var output = dateArrayInfo[1] + "月" + dateArrayInfo[2] + "日" + dateArrayInfo[3] + ":"+ dateArrayInfo[4]+"分";
     return output;
 }
+
+var ReadF = {
+	createNew: function(rootPath){
+		var ReadF = {};
+		ReadF.rootPath = rootPath;
+		ReadF.readFile = (file) => {
+			ReadF.oData = fs.readFileSync(ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file, {flag: 'r+', encoding: 'utf8'});
+			
+		}
+		ReadF.getSQL = () => {
+			ReadF.data = ReadF.oData.split(';');
+			ReadF.data.pop();
+			return ReadF.data;
+		}
+		return ReadF;
+	}
+};
+
+
+
+
+
+
+
+
+
+
+
 exports.log = log;
 exports.deepCopy = deepCopy;
 exports.DateFormat = DateFormat;
 exports.DateShortFormat = DateShortFormat;
+exports.ReadF = ReadF;
