@@ -13,14 +13,12 @@ var options = CONFIG.db.monetdb;
 test = (i,sql,statistics) => {
 	console.log('开始测试第'+(i+1)+'条SQL');
 	var timer = Timer.Timer.create();
-	console.log(sql);
-	util.log(sql+';','sql');
+	// util.log(sql+';','sql');
 
 	return new Promise( (resolve,reject) => {
 		conn.query(sql+';')
 		.then(function(res) {
 			success++;
-			console.log('jinru:');
 			var time = timer.end();
 			console.log('耗时:'+time);
 			statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"success"});
@@ -28,7 +26,6 @@ test = (i,sql,statistics) => {
 		}).catch((error) => {
 			fail++;
 			var time = timer.end();
-			console.log('jinru2:');
 			console.log('耗时:'+time);
 			util.log(error,'error');
 			if (statistics.powerTest_monetdbArray.length - 1 < 0)
@@ -54,11 +51,6 @@ run = (rootPath,statistics) => {
 	conn    = new MDB(options);
 	conn.connect();
 	
-	//标准用法：
-	// var readf = ReadF.createNew(rootPath);
-	// readf.readFile('query_0.sql');
-	// var sqlArray =  readf.getSQL();
-
 	var readf = util.ReadF.createNew(rootPath);
 	if (CONFIG.config.scale == 1)
 		readf.readFile('query_monetdb/small/1.sql');
