@@ -1,9 +1,9 @@
-var CONFIG            = require('./config/config');
-var Timer             = require('./src/timer');
-var gendata           = require('./src/gendata');
-var gensql            = require('./src/gensql');
-var load_monetdb      = require('./src/load/monetdb');
-var powerTest_monetdb = require('./src/powerTest/monetdb');
+var CONFIG                 = require('./config/config');
+var Timer                  = require('./src/timer');
+var gendata                = require('./src/gendata');
+var gensql                 = require('./src/gensql');
+var load_monetdb           = require('./src/load/monetdb');
+var powerTest_monetdb      = require('./src/powerTest/monetdb');
 var throughputTest_monetdb = require('./src/throughputTest/monetdb');
 
 
@@ -12,7 +12,10 @@ console.log("<===========================>  TCP-DS Click Run  <=================
 var rootPath = process.cwd();
 console.log('rootPath:'+rootPath);
 
-var statistics = {powerTest_monetdbArray:[]};
+var statistics = {
+	powerTest_monetdbArray:[],
+	throughputTest_monetdbArray:[],
+};
 
 Promise.resolve()
 /**
@@ -34,14 +37,14 @@ Promise.resolve()
 /**
  * gen SQL model ---------------
  */
-// .then( (useTime) => {
-	// console.log('gen SQL................................RUN');
-// 	var tmpPromise = gensql.run(rootPath);
-// 	tmpPromise.then( () => {
-// 		console.log('gen SQL  ........................................OK');
-// 	});
-// 	return tmpPromise;
-// })
+.then( (useTime) => {
+	console.log('gen SQL................................RUN');
+	var tmpPromise = gensql.run(rootPath);
+	tmpPromise.then( () => {
+		console.log('gen SQL  ........................................OK');
+	});
+	return tmpPromise;
+})
 
 
 
@@ -65,19 +68,19 @@ Promise.resolve()
 /**
  * power test module ---------------
  */
-.then( (useTime) => {
-	//monetdb
-	console.log('powerTest_monetdb................................RUN');
-	var tmpPromise = powerTest_monetdb.run(rootPath,statistics);
-	tmpPromise.then( (useTime) => {
-		console.log('powerTest_monetdb................................OK');
-		console.log('powerTest_monetdb time :' + useTime + 's');
-		statistics.powerTest_monetdb = useTime;
-		console.log('powerTest_monetdbArray:');
-		console.log(statistics.powerTest_monetdbArray);
-	});
-	return tmpPromise;
-})
+// .then( (useTime) => {
+// 	//monetdb
+// 	console.log('powerTest_monetdb................................RUN');
+// 	var tmpPromise = powerTest_monetdb.run(rootPath,statistics);
+// 	tmpPromise.then( (useTime) => {
+// 		console.log('powerTest_monetdb................................OK');
+// 		console.log('powerTest_monetdb time :' + useTime + 's');
+// 		statistics.powerTest_monetdb = useTime;
+// 		console.log('powerTest_monetdbArray:');
+// 		console.log(statistics.powerTest_monetdbArray);
+// 	});
+// 	return tmpPromise;
+// })
 
 
 

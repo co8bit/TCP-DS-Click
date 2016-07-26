@@ -20,6 +20,7 @@ var run = (rootPath) => {
 					+ ' -directory ' + rootPath + CONFIG.config.query_templates
 					+ ' -output_dir ' + rootPath + CONFIG.config.dsqgen_output_dir;
 		util.log(cmdStr,'命令');
+		console.log('cmdStr:'+cmdStr);
 		shell.exec(cmdStr);
 		resolve();
 	});
