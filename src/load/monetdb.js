@@ -14,7 +14,7 @@ var fail    =0;//失败数
 var fileNum =0;//总文件数
 var conn    = null;
 
-load = (file,tableName) => {
+var load = (file,tableName) => {
 	console.log('开始导入文件:'+file);
 	return new Promise( (resolve,reject) => {
 		var sql = "CALL sys.clearrejects();COPY INTO "+ tableName +" FROM '"+ file +"' USING DELIMITERS '|','\n' NULL AS '';";
@@ -48,7 +48,7 @@ load = (file,tableName) => {
 
 
 
-run = (rootPath) => {
+var run = (rootPath) => {
 	conn    = new MDB(options);
 	conn.connect();
 

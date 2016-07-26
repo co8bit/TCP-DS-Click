@@ -11,7 +11,7 @@ var util   = require('./util');
  * @version 0.0.1
  * @date    2016-07-05
  */
-run = (rootPath) => {
+var run = (rootPath) => {
 	return new Promise ( (resolve,reject) => {
 		var timer = Timer.Timer.create();
 

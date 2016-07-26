@@ -10,7 +10,7 @@ var util   = require('./util');
  * @version 0.0.1
  * @date    2016-07-08
  */
-run = (rootPath) => {
+var run = (rootPath) => {
 	return new Promise ( (resolve,reject) => {
 
 		cd(rootPath + CONFIG.config.dsqgen_dir);

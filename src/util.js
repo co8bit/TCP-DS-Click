@@ -1,7 +1,7 @@
 var CONFIG  = require('../config/config');
 var fs = require('fs');
 
-log = (msg,title = '') => {
+var log = (msg,title = '') => {
 	if (CONFIG.config.debug)
 	{
 		console.log('========== DEBUG: '+title+' start =========');
@@ -12,7 +12,7 @@ log = (msg,title = '') => {
 
 
 
-deepCopy = (source) => { 
+var deepCopy = (source) => { 
     var result = {};
     for (var key in source)
     {
@@ -28,7 +28,7 @@ deepCopy = (source) => {
 }
 
 
-getoutputArray = (tmpDate) => {
+var getoutputArray = (tmpDate) => {
 	var dateArray = [
 		tmpDate.getFullYear(),
 		(tmpDate.getMonth() + 1),

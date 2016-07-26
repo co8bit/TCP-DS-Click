@@ -10,7 +10,7 @@ var options = CONFIG.db.monetdb;
 
 
 
-test = (i,sql,statistics) => {
+var test = (i,sql,statistics) => {
 	console.log('开始测试第'+(i+1)+'条SQL');
 	var timer = Timer.Timer.create();
 	// util.log(sql+';','sql');
@@ -47,7 +47,7 @@ var success = 0;
 var totalSql = 0;
 
 
-run = (rootPath,statistics) => {
+var run = (rootPath,statistics) => {
 	conn    = new MDB(options);
 	conn.connect();
 	
