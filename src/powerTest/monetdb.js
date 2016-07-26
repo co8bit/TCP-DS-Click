@@ -58,9 +58,9 @@ var run = (rootPath,statistics) => {
 
 	var readf = util.ReadF.createNew(rootPath);
 	if (CONFIG.config.scale == 1)
-		readf.readFile('query_monetdb/small/1.sql');
+		readf.readFile('query_monetdb/small/0.sql');
 	else
-		readf.readFile('query_monetdb/1.sql');
+		readf.readFile('query_monetdb/0.sql');
 	var sqlArray =  readf.getSQL();
 
 	// var sqlArray2 = [];

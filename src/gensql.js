@@ -20,7 +20,14 @@ var run = (rootPath) => {
 					+ ' -directory ' + rootPath + CONFIG.config.query_templates
 					+ ' -output_dir ' + rootPath + CONFIG.config.dsqgen_output_dir;
 		util.log(cmdStr,'命令');
-		console.log('cmdStr:'+cmdStr);
+		shell.exec(cmdStr);
+
+		var cmdStrStream = './dsqgen –scale ' + CONFIG.config.scale
+					+ ' -input ' + rootPath + CONFIG.config.query_templates_lst
+					+ ' -directory ' + rootPath + CONFIG.config.query_templates
+					+ ' -output_dir ' + rootPath + CONFIG.config.dsqgenStream_output_dir
+					+ ' -streams ' + CONFIG.config.stream_num;
+		util.log(cmdStrStream,'stream命令');
 		shell.exec(cmdStr);
 		resolve();
 	});

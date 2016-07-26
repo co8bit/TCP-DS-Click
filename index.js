@@ -37,14 +37,14 @@ Promise.resolve()
 /**
  * gen SQL model ---------------
  */
-.then( (useTime) => {
-	console.log('gen SQL................................RUN');
-	var tmpPromise = gensql.run(rootPath);
-	tmpPromise.then( () => {
-		console.log('gen SQL  ........................................OK');
-	});
-	return tmpPromise;
-})
+// .then( (useTime) => {
+// 	console.log('gen SQL................................RUN');
+// 	var tmpPromise = gensql.run(rootPath);
+// 	tmpPromise.then( () => {
+// 		console.log('gen SQL  ........................................OK');
+// 	});
+// 	return tmpPromise;
+// })
 
 
 
