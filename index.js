@@ -19,6 +19,7 @@ Promise.resolve()
  * gen DATA model ---------------
  */
 // .then( () => {
+	// console.log('gen DATA................................RUN');
 // 	var tmpPromise = gendata.run(rootPath);
 // 	tmpPromise.then( (useTime) => {
 // 		console.log('gen DATA ........................................OK');
@@ -34,6 +35,7 @@ Promise.resolve()
  * gen SQL model ---------------
  */
 // .then( (useTime) => {
+	// console.log('gen SQL................................RUN');
 // 	var tmpPromise = gensql.run(rootPath);
 // 	tmpPromise.then( () => {
 // 		console.log('gen SQL  ........................................OK');
@@ -48,6 +50,7 @@ Promise.resolve()
  */
 // .then( () => {
 // 	// monetdb
+	// console.log('load_monetdb................................RUN');
 // 	var tmpPromise = load_monetdb.run(rootPath);
 // 	tmpPromise.then( (useTime) => {
 // 		console.log('load_monetdb.....................................OK');
@@ -64,6 +67,7 @@ Promise.resolve()
  */
 .then( (useTime) => {
 	//monetdb
+	console.log('powerTest_monetdb................................RUN');
 	var tmpPromise = powerTest_monetdb.run(rootPath,statistics);
 	tmpPromise.then( (useTime) => {
 		console.log('powerTest_monetdb................................OK');
@@ -83,6 +87,7 @@ Promise.resolve()
  */
 .then( (useTime) => {
 	//monetdb
+	console.log('throughputTest_monetdb................................RUN');
 	var tmpPromise = throughputTest_monetdb.run(rootPath,statistics);
 	tmpPromise.then( (useTime) => {
 		console.log('throughputTest_monetdb................................OK');
