@@ -19,6 +19,7 @@ test = (i,sql,statistics) => {
 		conn.query(sql+';')
 		.then(function(res) {
 			success++;
+			console.log('jinru:');
 			var time = timer.end();
 			console.log('耗时:'+time);
 			statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"success"});
@@ -26,6 +27,7 @@ test = (i,sql,statistics) => {
 		}).catch((error) => {
 			fail++;
 			var time = timer.end();
+			console.log('jinru2:');
 			console.log('耗时:'+time);
 			util.log(error,'error');
 			if (statistics.powerTest_monetdbArray.length - 1 < 0)

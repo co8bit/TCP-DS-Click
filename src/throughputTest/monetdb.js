@@ -27,7 +27,7 @@ test = (i,sql,statistics) => {
 			fail++;
 			var time = timer.end();
 			console.log('耗时:'+time);
-			// util.log(sql+';','error sql');
+			util.log(error,'error');
 			if (statistics.powerTest_monetdbArray.length - 1 < 0)
 				statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"fail"});
 			else
