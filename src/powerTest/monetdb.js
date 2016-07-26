@@ -2,28 +2,11 @@ var CONFIG = require('../../config/config');
 var fs = require('fs');
 var Timer   = require('../timer');
 var util   = require('../util');
-
 var MDB = require('monetdb')();
  
 var options = CONFIG.db.monetdb;
 
 
-var ReadF = {
-	createNew: function(rootPath){
-		var ReadF = {};
-		ReadF.rootPath = rootPath;
-		ReadF.readFile = (file) => {
-			ReadF.oData = fs.readFileSync(ReadF.rootPath + CONFIG.config.dsqgen_output_dir + file, {flag: 'r+', encoding: 'utf8'});
-			
-		}
-		ReadF.getSQL = () => {
-			ReadF.data = ReadF.oData.split(';');
-			ReadF.data.pop();
-			return ReadF.data;
-		}
-		return ReadF;
-	}
-};
 
 
 
@@ -67,13 +50,13 @@ var totalSql = 0;
 run = (rootPath,statistics) => {
 	conn    = new MDB(options);
 	conn.connect();
-
+	
 	//标准用法：
 	// var readf = ReadF.createNew(rootPath);
 	// readf.readFile('query_0.sql');
 	// var sqlArray =  readf.getSQL();
 	
-	var readf = ReadF.createNew(rootPath);
+	var readf = util.ReadF.createNew(rootPath);
 	if (CONFIG.config.scale == 1)
 		readf.readFile('query_monetdb/small/1.sql');
 	else
