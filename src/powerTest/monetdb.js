@@ -20,13 +20,13 @@ var test = (i,sql,statistics) => {
 		.then(function(res) {
 			success++;
 			var time = timer.end();
-			console.log('耗时:'+time);
+			console.log('成功耗时:'+time);
 			statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"success"});
 			resolve();
 		}).catch((error) => {
 			fail++;
 			var time = timer.end();
-			console.log('耗时:'+time);
+			console.log('失败耗时:'+time);
 			util.log(error,'error');
 			if (statistics.powerTest_monetdbArray.length - 1 < 0)
 				statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"fail"});
