@@ -13,7 +13,7 @@ var options = CONFIG.db.monetdb;
 var test = (streamNo,i,sql,statistics) => {
 	console.log('开始测试'+streamNo+'文件的第'+(i+1)+'条SQL');
 	var timer = Timer.Timer.create();
-	// util.log(sql+';','sql');
+	util.log(sql+';','sql');
 	// console.log('sql:'+sql+';');
 
 	return new Promise( (resolve,reject) => {
@@ -21,19 +21,19 @@ var test = (streamNo,i,sql,statistics) => {
 		.then(function(res) {
 			success++;
 			var time = timer.end();
-			console.log('成功，耗时:'+time);
-			// statistics.throughputTest_monetdbArray.push({"i":i,"time":time,"type":"success"});
+			console.log(time);
+			statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"success"});
 			resolve();
 		}).catch((error) => {
 			fail++;
 			var time = timer.end();
-			console.log('失败，耗时:'+time);
+			console.log('fail，耗时:'+time);
 			util.log(error,'error');
-			// if (statistics.throughputTest_monetdbArray.length - 1 < 0)
-			// 	statistics.throughputTest_monetdbArray.push({"i":i,"time":time,"type":"fail"});
-			// else
-			// 	if (statistics.throughputTest_monetdbArray[statistics.throughputTest_monetdbArray.length - 1].i != i)
-			// 		statistics.throughputTest_monetdbArray.push({"i":i,"time":time,"type":"fail"});
+			if (statistics.throughputTest_monetdbArray.length - 1 < 0)
+				statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"fail"});
+			else
+				if (statistics.throughputTest_monetdbArray[statistics.throughputTest_monetdbArray.length - 1].i != i)//失败的时候的去重
+					statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"fail"});
 			reject(error);
 		});
 	});
@@ -99,7 +99,7 @@ var run = (rootPath,statistics) => {
 				});
 			});
 		});
-		console.log(opList);
+		// console.log(opList);
 
 		streamNumArray.forEach( (streamNo) => {
 			opList[streamNo].reduce(function(preResult, curValueInArray) {
