@@ -14,6 +14,7 @@ var test = (streamNo,i,sql,statistics) => {
 	console.log('开始测试'+streamNo+'文件的第'+(i+1)+'条SQL');
 	var timer = Timer.Timer.create();
 	// util.log(sql+';','sql');
+	console.log('sql:'+sql+';');
 
 	return new Promise( (resolve,reject) => {
 		conn.query(sql+';')
@@ -100,9 +101,8 @@ var run = (rootPath,statistics) => {
 		});
 		console.log(opList);
 
-		for(var i = 0; i < CONFIG.config.stream_num; i++)
-		{
-			opList[i].reduce(function(preResult, curValueInArray) {
+		streamNumArray.forEach( (streamNo) => {
+			opList[streamNo].reduce(function(preResult, curValueInArray) {
 		    	return preResult.then(curValueInArray).catch(curValueInArray);
 			}, Promise.resolve())
 			.then(function() {
@@ -120,8 +120,8 @@ var run = (rootPath,statistics) => {
 				resolve(timer.end());
 				conn.close();
 			});
-		}
-	})
+		});
+	});
 }
 
 exports.run = run;
