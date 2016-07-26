@@ -10,7 +10,7 @@ var options = CONFIG.db.monetdb;
 
 
 
-var test = (streamNo,i,sql,statistics) => {
+var test = (streamNo,i,conn,sql,statistics) => {
 	console.log('开始测试'+streamNo+'文件的第'+(i+1)+'条SQL');
 	var timer = Timer.Timer.create();
 	util.log(sql+';','sql');
@@ -42,16 +42,13 @@ var test = (streamNo,i,sql,statistics) => {
 
 
 
-var conn    = null;
 var fail    = 0;
 var success = 0;
 var totalSql = [];
 
 
 var run = (rootPath,statistics) => {
-	conn    = new MDB(options);
-	conn.connect();
-	
+	var conn           = [];
 	var sqlArray       = [];
 	var streamNumArray = [];
 	for(var i = 0; i < CONFIG.config.stream_num; i++)
@@ -91,15 +88,18 @@ var run = (rootPath,statistics) => {
 		
 		//生成流的操作队列
 		streamNumArray.forEach( (streamNo) => {
+			conn.push(new MDB(options));
+			conn[streamNo].connect();
 			iArray[streamNo].forEach( (i) => {
 				if (typeof(opList[streamNo]) === 'undefined')
 					opList[streamNo] = [];
 				opList[streamNo].push( () => {
-					return test(streamNo,i,sqlArray[streamNo][i],statistics);
+					return test(streamNo,i,conn[streamNo],sqlArray[streamNo][i],statistics);
 				});
 			});
 		});
 		// console.log(opList);
+		console.log(conn);
 
 		streamNumArray.forEach( (streamNo) => {
 			opList[streamNo].reduce(function(preResult, curValueInArray) {
