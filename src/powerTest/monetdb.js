@@ -51,6 +51,11 @@ var run = (rootPath,statistics) => {
 	conn    = new MDB(options);
 	conn.connect();
 	
+	//获得sql的标准用法：
+	// var readf = util.ReadF.createNew(rootPath);
+	// readf.readFile('query_0.sql');
+	// var sqlArray =  readf.getSQL();
+
 	var readf = util.ReadF.createNew(rootPath);
 	if (CONFIG.config.scale == 1)
 		readf.readFile('query_monetdb/small/1.sql');
