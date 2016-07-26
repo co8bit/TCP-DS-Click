@@ -11,7 +11,7 @@ var options = CONFIG.db.monetdb;
 
 
 var test = (streamNo,i,conn,sql,statistics) => {
-	console.log('开始测试'+streamNo+'文件的第'+(i+1)+'条SQL');
+	console.log('开始测试    '+streamNo+'    文件的第    '+(i+1)+'    条SQL');
 	var timer = Timer.Timer.create();
 	util.log(sql+';','sql');
 	// console.log('sql:'+sql+';');
@@ -28,7 +28,9 @@ var test = (streamNo,i,conn,sql,statistics) => {
 			fail++;
 			var time = timer.end();
 			console.log('fail，耗时:'+time);
-			util.log(error,'error');
+			// util.log(error,'error');
+			console.log('sql:'+sql);
+			console.log('error:'+error);
 			if (statistics.throughputTest_monetdbArray.length - 1 < 0)
 				statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"fail"});
 			else
