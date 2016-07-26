@@ -19,16 +19,20 @@ test = (i,sql,statistics) => {
 		conn.query(sql+';')
 		.then(function(res) {
 			success++;
-			statistics.powerTest_monetdbArray.push({"i":i,"time":timer.end(),"type":"success"});
+			var time = timer.end();
+			console.log('耗时:'+time);
+			statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"success"});
 			resolve();
 		}).catch((error) => {
 			fail++;
+			var time = timer.end();
+			console.log('耗时:'+time);
 			// util.log(sql+';','error sql');
 			if (statistics.powerTest_monetdbArray.length - 1 < 0)
-				statistics.powerTest_monetdbArray.push({"i":i,"time":timer.end(),"type":"fail"});
+				statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"fail"});
 			else
 				if (statistics.powerTest_monetdbArray[statistics.powerTest_monetdbArray.length - 1].i != i)
-					statistics.powerTest_monetdbArray.push({"i":i,"time":timer.end(),"type":"fail"});
+					statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"fail"});
 			reject(error);
 		});
 	});
