@@ -68,38 +68,38 @@ Promise.resolve()
 /**
  * power test module ---------------
  */
-// .then( (useTime) => {
-// 	//monetdb
-// 	console.log('powerTest_monetdb................................RUN');
-// 	var tmpPromise = powerTest_monetdb.run(rootPath,statistics);
-// 	tmpPromise.then( (useTime) => {
-// 		console.log('powerTest_monetdb................................OK');
-// 		console.log('powerTest_monetdb time :' + useTime + 's');
-// 		statistics.powerTest_monetdb = useTime;
-// 		console.log('powerTest_monetdbArray:');
-// 		console.log(statistics.powerTest_monetdbArray);
-// 	});
-// 	return tmpPromise;
-// })
+.then( (useTime) => {
+	//monetdb
+	console.log('powerTest_monetdb................................RUN');
+	var tmpPromise = powerTest_monetdb.run(rootPath,statistics);
+	tmpPromise.then( (useTime) => {
+		console.log('powerTest_monetdb................................OK');
+		console.log('powerTest_monetdb time :' + useTime + 's');
+		statistics.powerTest_monetdb = useTime;
+		console.log('powerTest_monetdbArray:');
+		console.log(statistics.powerTest_monetdbArray);
+	});
+	return tmpPromise;
+})
 
 
 
 /**
  * throughput test module ---------------
  */
-.then( (useTime) => {
-	//monetdb
-	console.log('throughputTest_monetdb................................RUN');
-	var tmpPromise = throughputTest_monetdb.run(rootPath,statistics);
-	tmpPromise.then( (useTime) => {
-		console.log('throughputTest_monetdb................................OK');
-		console.log('throughputTest_monetdb time :' + useTime + 's');
-		statistics.throughputTest_monetdb = useTime;
-		console.log('throughputTest_monetdbArray:');
-		console.log(statistics.throughputTest_monetdbArray);
-	});
-	return tmpPromise;
-})
+// .then( (useTime) => {
+// 	//monetdb
+// 	console.log('throughputTest_monetdb................................RUN');
+// 	var tmpPromise = throughputTest_monetdb.run(rootPath,statistics);
+// 	tmpPromise.then( (useTime) => {
+// 		console.log('throughputTest_monetdb................................OK');
+// 		console.log('throughputTest_monetdb time :' + useTime + 's');
+// 		statistics.throughputTest_monetdb = useTime;
+// 		console.log('throughputTest_monetdbArray:');
+// 		console.log(statistics.throughputTest_monetdbArray);
+// 	});
+// 	return tmpPromise;
+// })
 
 
 
