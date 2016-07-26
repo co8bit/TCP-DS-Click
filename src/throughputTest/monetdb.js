@@ -101,7 +101,7 @@ var run = (rootPath,statistics) => {
 			});
 		});
 		// console.log(opList);
-		console.log(conn);
+		// console.log(conn);
 
 		streamNumArray.forEach( (streamNo) => {
 			opList[streamNo].reduce(function(preResult, curValueInArray) {
