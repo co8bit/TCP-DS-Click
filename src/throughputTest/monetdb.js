@@ -88,13 +88,15 @@ var run = (rootPath,statistics) => {
 		
 		//生成流的操作队列
 		streamNumArray.forEach( (streamNo) => {
-			conn.push(new MDB(options));
-			conn[streamNo].connect();
+			var tmp = null;
+			tmp = new MDB(options);
+			conn.push(tmp);
+			tmp.connect();
 			iArray[streamNo].forEach( (i) => {
 				if (typeof(opList[streamNo]) === 'undefined')
 					opList[streamNo] = [];
 				opList[streamNo].push( () => {
-					return test(streamNo,i,conn[streamNo],sqlArray[streamNo][i],statistics);
+					return test(streamNo,i,tmp,sqlArray[streamNo][i],statistics);
 				});
 			});
 		});
