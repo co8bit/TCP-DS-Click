@@ -1,8 +1,8 @@
 var CONFIG = require('../../config/config');
-var fs = require('fs');
-var Timer   = require('../timer');
+var fs     = require('fs');
+var Timer  = require('../timer');
 var util   = require('../util');
-var MDB = require('monetdb')();
+var MDB    = require('monetdb')();
  
 var options = CONFIG.db.monetdb;
 
@@ -27,7 +27,7 @@ test = (i,sql,statistics) => {
 			fail++;
 			var time = timer.end();
 			console.log('耗时:'+time);
-			// util.log(sql+';','error sql');
+			util.log(error,'error');
 			if (statistics.powerTest_monetdbArray.length - 1 < 0)
 				statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"fail"});
 			else
@@ -55,7 +55,7 @@ run = (rootPath,statistics) => {
 	// var readf = ReadF.createNew(rootPath);
 	// readf.readFile('query_0.sql');
 	// var sqlArray =  readf.getSQL();
-	
+
 	var readf = util.ReadF.createNew(rootPath);
 	if (CONFIG.config.scale == 1)
 		readf.readFile('query_monetdb/small/1.sql');

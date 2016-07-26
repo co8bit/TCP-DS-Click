@@ -1,8 +1,8 @@
 var CONFIG = require('../../config/config');
-var fs = require('fs');
-var Timer   = require('../timer');
+var fs     = require('fs');
+var Timer  = require('../timer');
 var util   = require('../util');
-var MDB = require('monetdb')();
+var MDB    = require('monetdb')();
  
 var options = CONFIG.db.monetdb;
 
