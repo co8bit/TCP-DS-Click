@@ -13,7 +13,7 @@ var options = CONFIG.db.monetdb;
 test = (i,sql,statistics) => {
 	console.log('开始测试第'+(i+1)+'条SQL');
 	var timer = Timer.Timer.create();
-	util.log(sql+';','sql');
+	// util.log(sql+';','sql');
 
 	return new Promise( (resolve,reject) => {
 		conn.query(sql+';')
