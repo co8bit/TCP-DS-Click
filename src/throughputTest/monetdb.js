@@ -23,7 +23,7 @@ var test = (streamNo,i,conn,sql,statistics) => {
 				success[streamNo] = 0;
 			success[streamNo]++;
 			var time = timer.end();
-			console.log(time);
+			console.log('................................................................ok,  '+time);
 			statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"success"});
 			resolve();
 		}).catch((error) => {
@@ -31,12 +31,12 @@ var test = (streamNo,i,conn,sql,statistics) => {
 				fail[streamNo] = 0;
 			fail[streamNo]++;
 			var time = timer.end();
-			console.log('fail，耗时:'+time);
+			console.log('................................................................fail,  '+time);
 			
-			util.log(error,'error');
 			// console.log('sql:'+sql);
-			console.log('error:'+error);
-			
+			// console.log('error:'+error);
+			util.log(error,'error');
+
 			if (statistics.throughputTest_monetdbArray.length - 1 < 0)
 				statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"fail"});
 			else
