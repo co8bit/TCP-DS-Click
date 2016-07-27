@@ -14,6 +14,7 @@ var test = (i,sql,statistics) => {
 	console.log('开始测试第'+(i+1)+'条SQL');
 	var timer = Timer.Timer.create();
 	// util.log(sql+';','sql');
+	console.log(sql+';');
 
 	return new Promise( (resolve,reject) => {
 		conn.query(sql+';')
