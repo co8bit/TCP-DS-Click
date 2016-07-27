@@ -95,16 +95,16 @@ var run = (rootPath,statistics) => {
 			console.log('总共测试:'+totalSql);
 			console.log('success:'+success);
 			console.log('fail:'+(totalSql - success));
-		    resolve(timer.end());
 		    conn.close();
+		    resolve(timer.end());
 		})
 		.catch((error) => {
 			console.log('总共测试:'+totalSql);
 			console.log('success:'+success);
 			console.log('fail:'+(totalSql - success));
 			// reject('test error');//测试不管是否有单个失败，都算成功
-			resolve(timer.end());
 			conn.close();
+			resolve(timer.end());
 		});
 	})
 }
