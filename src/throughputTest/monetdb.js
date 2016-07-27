@@ -37,10 +37,10 @@ var test = (streamNo,i,conn,sql,statistics) => {
 			// console.log('error:'+error);
 			util.log(error,'error');
 
-			if (statistics.throughputTest_monetdbArray.length - 1 < 0)
-				statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"fail"});
-			else
-				if (statistics.throughputTest_monetdbArray[statistics.throughputTest_monetdbArray.length - 1].i != i)//失败的时候的去重
+			// if (statistics.throughputTest_monetdbArray.length - 1 < 0)
+			// 	statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"fail"});
+			// else
+			// 	if (statistics.throughputTest_monetdbArray[statistics.throughputTest_monetdbArray.length - 1].i != i)//失败的时候的去重
 					statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"fail"});
 			reject(error);
 		});
@@ -134,7 +134,7 @@ var run = (rootPath,statistics) => {
 		streamNumArray.forEach( (streamNo) => {
 			opListRun(streamNo,opList[streamNo]);
 		});
-
+		console.log(statistics.throughputTest_monetdbArray);
 
 		// .then(function() {
 		// 	console.log('总共测试:'+totalSql[streamNo]);
