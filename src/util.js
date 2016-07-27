@@ -10,6 +10,14 @@ var log = (msg,title = '') => {
 	}
 }
 
+var logSqlTestResult = (streamNo,i,re = 'fail',time) => {
+	var msg = '第  '+streamNo+'  文件的第  '+(i+1)+'  条SQL测试完毕';
+	var postfix = '';
+	if (re == 'fail')
+		postfix = '--------FAIL';
+	console.log('................................................................'+msg+re+':  '+time+'s'+postfix);
+}
+
 
 
 var deepCopy = (source) => { 
@@ -97,8 +105,9 @@ var ReadF = {
 
 
 
-exports.log = log;
-exports.deepCopy = deepCopy;
-exports.DateFormat = DateFormat;
-exports.DateShortFormat = DateShortFormat;
-exports.ReadF = ReadF;
+exports.log              = log;
+exports.logSqlTestResult = logSqlTestResult;
+exports.deepCopy         = deepCopy;
+exports.DateFormat       = DateFormat;
+exports.DateShortFormat  = DateShortFormat;
+exports.ReadF            = ReadF;
