@@ -19,6 +19,14 @@ var logSqlTestResult = (streamNo,i,re = 'fail',time) => {
 }
 
 
+var logModuleTitle = (name) => {
+	console.log('================================================================================');
+	console.log('================================================================================');
+	console.log(name+'................................RUN');
+	console.log('================================================================================');
+	console.log('================================================================================');
+}
+
 
 var deepCopy = (source) => { 
     var result = {};
@@ -107,6 +115,8 @@ var ReadF = {
 
 exports.log              = log;
 exports.logSqlTestResult = logSqlTestResult;
+exports.logModuleTitle   = logModuleTitle;
+
 exports.deepCopy         = deepCopy;
 exports.DateFormat       = DateFormat;
 exports.DateShortFormat  = DateShortFormat;

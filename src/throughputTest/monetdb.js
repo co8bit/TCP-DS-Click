@@ -37,11 +37,7 @@ var test = (streamNo,i,conn,sql,statistics) => {
 			// console.log('error:'+error);
 			util.log(error,'error');
 
-			// if (statistics.throughputTest_monetdbArray.length - 1 < 0)
-			// 	statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"fail"});
-			// else
-			// 	if (statistics.throughputTest_monetdbArray[statistics.throughputTest_monetdbArray.length - 1].i != i)//失败的时候的去重
-					statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"fail"});
+			statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"fail"});
 			reject(error);
 		});
 	});
