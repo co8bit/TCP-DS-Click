@@ -51,7 +51,13 @@ var test = (streamNo,i,conn,sql,statistics) => {
 
 var opListRun = (streamNo,opList) => {
 	opList.reduce(function(preResult, curValueInArray) {
-    	return preResult.catch(curValueInArray).then(curValueInArray);
+		var p = preResult.then( () => {
+			return Promise.resolve();
+		}).catch( () => {
+			return Promise.resolve();
+		});
+		return p.then(curValueInArray);
+    	// return preResult.catch(curValueInArray).then(curValueInArray);
     	// return preResult.then(curValueInArray).catch(curValueInArray);
 	}, Promise.resolve())
 	.then(function() {
@@ -61,6 +67,15 @@ var opListRun = (streamNo,opList) => {
 		console.log('fail:'+(totalSql[streamNo] - success[streamNo]));
 	    resolve(timer.end());
 	    conn.close();
+	})
+	.catch((error) => {
+		console.log('第    '+streamNo+'    文件测试................................OK');
+		console.log('总共测试:'+totalSql[streamNo]);
+		console.log('success:'+success[streamNo]);
+		console.log('fail:'+(totalSql[streamNo] - success[streamNo]));
+		// reject('test error');//测试不管是否有单个失败，都算成功
+		resolve(timer.end());
+		conn.close();
 	});
 }
 
