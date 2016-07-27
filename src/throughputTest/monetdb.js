@@ -24,7 +24,7 @@ var test = (streamNo,i,conn,sql,statistics) => {
 			success[streamNo]++;
 			var time = timer.end();
 			util.logSqlTestResult(streamNo,i,'succ',time);
-			statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"success"});
+			statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"succ"});
 			resolve();
 		}).catch((error) => {
 			if (typeof(fail[streamNo]) === 'undefined')
@@ -49,7 +49,7 @@ var test = (streamNo,i,conn,sql,statistics) => {
 
 
 
-var opListRun = (streamNo,opList,conn,opListPromiseList) => {
+var opListRun = (streamNo,opList,conn) => {
 	return new Promise( (resolve,reject) => {
 		var timer = Timer.Timer.create();
 		opList.reduce(function(preResult, curValueInArray) {
@@ -63,21 +63,18 @@ var opListRun = (streamNo,opList,conn,opListPromiseList) => {
 		.then(function() {
 			console.log('第    '+streamNo+'    文件测试...............................t.OK');
 			console.log('总共测试:'+totalSql[streamNo]);
-			console.log('success:'+success[streamNo]);
+			console.log('succ:'+success[streamNo]);
 			console.log('fail:'+fail[streamNo]);
-			console.log(opListPromiseList);
 		    conn.close();
 		    resolve(timer.end());
 		})
 		.catch((error) => {
 			console.log('第    '+streamNo+'    文件测试...............................c.OK');
 			console.log('总共测试:'+totalSql[streamNo]);
-			console.log('success:'+success[streamNo]);
+			console.log('succ:'+success[streamNo]);
 			console.log('fail:'+fail[streamNo]);
-			console.log(opListPromiseList);
 			// reject('test error');//测试不管是否有单个失败，都算成功
 		    conn.close();
-		    // conn[streamNo].close();
 			resolve(timer.end());
 		});
 	});
@@ -152,14 +149,14 @@ var run = (rootPath,statistics) => {
 
 		var opListPromiseList = [];
 		streamNumArray.forEach( (streamNo) => {
-			opListPromiseList.push(opListRun(streamNo,opList[streamNo],conn[streamNo],opListPromiseList));
+			opListPromiseList.push(opListRun(streamNo,opList[streamNo],conn[streamNo]));
 		});
 		Promise.all(opListPromiseList)
-		.then( () => {
+		.then( (timeRe) => {
 			console.log('总共测试:'+totalSql);
-			console.log('success:'+success);
+			console.log('succ:'+success);
 			console.log('fail:'+fail);
-			// console.log('timeRe:'+timeRe);
+			console.log('各组耗费时间:'+timeRe);
 		    resolve(timer.end());
 		})
 		.catch(()=>{

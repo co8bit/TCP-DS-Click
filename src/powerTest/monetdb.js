@@ -22,18 +22,14 @@ var test = (i,sql,statistics) => {
 			success++;
 			var time = timer.end();
 			util.logSqlTestResult(0,i,'succ',time);
-			statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"success"});
+			statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"succ"});
 			resolve();
 		}).catch((error) => {
 			fail++;
 			var time = timer.end();
 			util.logSqlTestResult(0,i,'fail',time);
+			statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"fail"});
 			util.log(error,'error');
-			if (statistics.powerTest_monetdbArray.length - 1 < 0)
-				statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"fail"});
-			else
-				if (statistics.powerTest_monetdbArray[statistics.powerTest_monetdbArray.length - 1].i != i)
-					statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"fail"});
 			reject(error);
 		});
 	});
@@ -89,19 +85,24 @@ var run = (rootPath,statistics) => {
 		});
 		// console.log(opList);
 		opList.reduce(function(preResult, curValueInArray) {
-	    	return preResult.then(curValueInArray).catch(curValueInArray);
+	    	var p = preResult.then( () => {
+				return Promise.resolve();
+			}).catch( () => {
+				return Promise.resolve();
+			});
+			return p.then(curValueInArray);
 		}, Promise.resolve())
 		.then(function() {
 			console.log('总共测试:'+totalSql);
-			console.log('success:'+success);
-			console.log('fail:'+(totalSql - success));
+			console.log('succ:'+success);
+			console.log('fail:'+fail);
 		    conn.close();
 		    resolve(timer.end());
 		})
 		.catch((error) => {
 			console.log('总共测试:'+totalSql);
-			console.log('success:'+success);
-			console.log('fail:'+(totalSql - success));
+			console.log('succ:'+success);
+			console.log('fail:'+fail);
 			// reject('test error');//测试不管是否有单个失败，都算成功
 			conn.close();
 			resolve(timer.end());
