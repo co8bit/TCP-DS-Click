@@ -57,24 +57,22 @@ var opListRun = (streamNo,opList) => {
 			return Promise.resolve();
 		});
 		return p.then(curValueInArray);
-    	// return preResult.catch(curValueInArray).then(curValueInArray);
-    	// return preResult.then(curValueInArray).catch(curValueInArray);
-	}, Promise.resolve())
+	}, Promise.resolve())//todo：为什么then和catch会同时触发?
 	.then(function() {
-		console.log('第    '+streamNo+'    文件测试................................OK');
+		console.log('第    '+streamNo+'    文件测试...............................t.OK');
 		console.log('总共测试:'+totalSql[streamNo]);
 		console.log('success:'+success[streamNo]);
 		console.log('fail:'+fail[streamNo]);
-	    resolve(timer.end());
+	    return Promise.resolve(timer.end());
 	    conn.close();
 	})
 	.catch((error) => {
-		console.log('第    '+streamNo+'    文件测试................................OK');
+		console.log('第    '+streamNo+'    文件测试...............................c.OK');
 		console.log('总共测试:'+totalSql[streamNo]);
 		console.log('success:'+success[streamNo]);
 		console.log('fail:'+fail[streamNo]);
 		// reject('test error');//测试不管是否有单个失败，都算成功
-		resolve(timer.end());
+		return Promise.resolve(timer.end());
 		conn.close();
 	});
 }
@@ -146,26 +144,23 @@ var run = (rootPath,statistics) => {
 		// console.log(opList);
 		// console.log(conn);
 
+		var opListPromiseList = [];
 		streamNumArray.forEach( (streamNo) => {
-			opListRun(streamNo,opList[streamNo]);
+			opListPromiseList.push(opListRun(streamNo,opList[streamNo]));
 		});
-		console.log(statistics.throughputTest_monetdbArray);
 
-		// .then(function() {
-		// 	console.log('总共测试:'+totalSql[streamNo]);
-		// 	console.log('success:'+success[streamNo]);
-		// 	console.log('fail:'+(totalSql[streamNo] - success[streamNo]));
-		//     resolve(timer.end());
-		//     conn.close();
-		// })
-		// .catch((error) => {
-		// 	console.log('总共测试:'+totalSql[streamNo]);
-		// 	console.log('success:'+success[streamNo]);
-		// 	console.log('fail:'+(totalSql[streamNo] - success[streamNo]));
-		// 	// reject('test error');//测试不管是否有单个失败，都算成功
-		// 	resolve(timer.end());
-		// 	conn.close();
-		// });
+		Promise.all(opListPromiseList)
+		.then( (timeRe) => {
+			console.log('总共测试:'+totalSql);
+			console.log('success:'+success);
+			console.log('fail:'+fail);
+			console.log('timeRe:'+timeRe);
+		    resolve(timer.end());
+		    conn.close();
+		})
+		.catch(()=>{
+			reject('throughputTest unkonwn error');
+		});
 	});
 }
 

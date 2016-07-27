@@ -21,13 +21,13 @@ var test = (i,sql,statistics) => {
 		.then(function(res) {
 			success++;
 			var time = timer.end();
-			console.log('................................................................ok,  '+time);
+			util.logSqlTestResult(0,i,'succ',time);
 			statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"success"});
 			resolve();
 		}).catch((error) => {
 			fail++;
 			var time = timer.end();
-			console.log('................................................................fail,  '+time);
+			util.logSqlTestResult(0,i,'fail',time);
 			util.log(error,'error');
 			if (statistics.powerTest_monetdbArray.length - 1 < 0)
 				statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"fail"});
