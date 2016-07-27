@@ -64,7 +64,7 @@ var opListRun = (streamNo,opList) => {
 		console.log('第    '+streamNo+'    文件测试................................OK');
 		console.log('总共测试:'+totalSql[streamNo]);
 		console.log('success:'+success[streamNo]);
-		console.log('fail:'+(totalSql[streamNo] - success[streamNo]));
+		console.log('fail:'+fail[streamNo]);
 	    resolve(timer.end());
 	    conn.close();
 	})
@@ -72,7 +72,7 @@ var opListRun = (streamNo,opList) => {
 		console.log('第    '+streamNo+'    文件测试................................OK');
 		console.log('总共测试:'+totalSql[streamNo]);
 		console.log('success:'+success[streamNo]);
-		console.log('fail:'+(totalSql[streamNo] - success[streamNo]));
+		console.log('fail:'+fail[streamNo]);
 		// reject('test error');//测试不管是否有单个失败，都算成功
 		resolve(timer.end());
 		conn.close();
