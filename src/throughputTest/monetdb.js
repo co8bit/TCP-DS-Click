@@ -32,9 +32,11 @@ var test = (streamNo,i,conn,sql,statistics) => {
 			fail[streamNo]++;
 			var time = timer.end();
 			console.log('fail，耗时:'+time);
-			// util.log(error,'error');
-			console.log('sql:'+sql);
+			
+			util.log(error,'error');
+			// console.log('sql:'+sql);
 			console.log('error:'+error);
+			
 			if (statistics.throughputTest_monetdbArray.length - 1 < 0)
 				statistics.throughputTest_monetdbArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"fail"});
 			else
