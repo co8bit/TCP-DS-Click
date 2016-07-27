@@ -1,5 +1,5 @@
+var MAIL_CONFIG = require('../config/config').mail;
 var nodemailer = require('nodemailer');
-var ACCOUNT_CONFIG = require('../config/accountConfig').mail;
 
 /**
  * 初始化nodemailer
@@ -11,11 +11,11 @@ var ACCOUNT_CONFIG = require('../config/accountConfig').mail;
 function init()
 {
 	transporter = nodemailer.createTransport({
-		host: ACCOUNT_CONFIG.host,
-		port: ACCOUNT_CONFIG.port,
+		host: MAIL_CONFIG.host,
+		port: MAIL_CONFIG.port,
 		auth: {
-			user: ACCOUNT_CONFIG.user,
-			pass: ACCOUNT_CONFIG.pass
+			user: MAIL_CONFIG.user,
+			pass: MAIL_CONFIG.pass
 		}
 	});
 }
@@ -23,7 +23,6 @@ function init()
 
 /**
  * 发送邮件
- * @param   {string}   to      发送到的邮箱地址
  * @param   {string}   subject 主题
  * @param   {string}   content 内容
  *
@@ -31,14 +30,20 @@ function init()
  * @version 0.0.1
  * @date    2016-05-24
  */
-function send(to,subject,content,CONFIG)
+function send(subject,content)
 {
 	// setup e-mail data with unicode symbols
 	var mailOptions = {
-	    from: '"'+ CONFIG.mail.username +'" <' + ACCOUNT_CONFIG.user + '>', //sender address
-	    to: to, // list of receivers
-	    subject: CONFIG.mail.prefixSubject + ":" + subject, // Subject line
-	    html:  content + "<br><br><br>------------------------------------------------<br>" + CONFIG.mail.sign// html body
+	    from: '"'+ MAIL_CONFIG.username +'" <' + MAIL_CONFIG.user + '>', //sender address
+	    to: MAIL_CONFIG.mailList, // list of receivers
+	    subject: MAIL_CONFIG.prefixSubject + "---" + subject, // Subject line
+	    html:  "详情见附件。<br><br>请下载到本地然后打开。<br><br><br>------------------------------------------------<br>" + MAIL_CONFIG.sign,// html body
+	    attachments: [
+	        {   // utf-8 string as an attachment
+	            filename: MAIL_CONFIG.attachmentsName+'.html',
+	            content: content,
+	        },
+        ]
 	};
 
 	// send mail with defined transport object

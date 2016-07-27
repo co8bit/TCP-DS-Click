@@ -39,31 +39,31 @@ Promise.resolve()
 /**
  * gen SQL model ---------------
  */
-.then( (useTime) => {
-	util.logModuleTitle('gen SQL');
-	var tmpPromise = genSql.run(rootPath);
-	tmpPromise.then( () => {
-		console.log('gen SQL  ........................................OK');
-	});
-	return tmpPromise;
-})
+// .then( (useTime) => {
+// 	util.logModuleTitle('gen SQL');
+// 	var tmpPromise = genSql.run(rootPath);
+// 	tmpPromise.then( () => {
+// 		console.log('gen SQL  ........................................OK');
+// 	});
+// 	return tmpPromise;
+// })
 
 
 
 /**
  * load module ---------------
  */
-.then( () => {
-	// monetdb
-	util.logModuleTitle('load_monetdb');
-	var tmpPromise = load_monetdb.run(rootPath);
-	tmpPromise.then( (useTime) => {
-		console.log('load_monetdb.....................................OK');
-		console.log('load_monetdb time :' + useTime + 's');
-		statistics.load_monetdb = useTime;
-	});
-	return tmpPromise;
-})
+// .then( () => {
+// 	// monetdb
+// 	util.logModuleTitle('load_monetdb');
+// 	var tmpPromise = load_monetdb.run(rootPath);
+// 	tmpPromise.then( (useTime) => {
+// 		console.log('load_monetdb.....................................OK');
+// 		console.log('load_monetdb time :' + useTime + 's');
+// 		statistics.load_monetdb = useTime;
+// 	});
+// 	return tmpPromise;
+// })
 
 
 
@@ -77,8 +77,6 @@ Promise.resolve()
 	tmpPromise.then( (useTime) => {
 		console.log('powerTest_monetdb................................OK');
 		console.log('powerTest_monetdb time :' + useTime + 's');
-		console.log('powerTest_monetdbArray:');
-		console.log(statistics.powerTest_monetdbArray);
 	});
 	return tmpPromise;
 })
@@ -88,18 +86,16 @@ Promise.resolve()
 /**
  * throughput test module ---------------
  */
-.then( (useTime) => {
-	//monetdb
-	util.logModuleTitle('throughputTest_monetdb');
-	var tmpPromise = throughputTest_monetdb.run(rootPath,statistics);
-	tmpPromise.then( (useTime) => {
-		console.log('throughputTest_monetdb................................OK');
-		console.log('throughputTest_monetdb time :' + useTime + 's');
-		console.log('throughputTest_monetdbArray:');
-		console.log(statistics.throughputTest_monetdbArray);
-	});
-	return tmpPromise;
-})
+// .then( (useTime) => {
+// 	//monetdb
+// 	util.logModuleTitle('throughputTest_monetdb');
+// 	var tmpPromise = throughputTest_monetdb.run(rootPath,statistics);
+// 	tmpPromise.then( (useTime) => {
+// 		console.log('throughputTest_monetdb................................OK');
+// 		console.log('throughputTest_monetdb time :' + useTime + 's');
+// 	});
+// 	return tmpPromise;
+// })
 
 
 /**
@@ -111,7 +107,7 @@ Promise.resolve()
 	tmpPromise.then( (useTime) => {
 		console.log('genResult................................OK');
 		console.log('result:');
-		console.log(statistics);
+		// console.log(statistics);
 	});
 	return tmpPromise;
 })
