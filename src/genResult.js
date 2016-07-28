@@ -14,6 +14,8 @@ var run = (statistics) => {
 			powerTest_monetdbFailArray:[],
 		};
 
+		stat.load_monetdb = statistics.load_monetdb;
+
 		//powerTest calc
 		stat.powerTest_monetdb = 0;
 		for (v of statistics.powerTest_monetdbArray)
