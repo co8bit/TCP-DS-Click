@@ -19,16 +19,18 @@ var notify = (stat) => {
 		<body>';
 	
 
-	//total result
+
+
+	//QphDS result
 	htmlView += '\
 		    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->\
-		    <div id="result" style="width: 1800px;height:800px;"></div>\
+		    <div id="QphDS" style="width: 1800px;height:800px;"></div>\
 		    <script type="text/javascript">\
-		        var resultChart = echarts.init(document.getElementById(\'result\'));\
+		        var QphDSChart = echarts.init(document.getElementById(\'QphDS\'));\
 	';
-	var resultOption = {
+	var QphDSOption = {
 	    title : {
-	        text: 'TCP-DS Click : 总结果图',
+	        text: 'TCP-DS Click : 性能指标',
 	        subtext: '作者：me@co8bit.com'
 	    },
 	    tooltip : {
@@ -50,7 +52,7 @@ var notify = (stat) => {
 	    xAxis : [
 	        {
 	            type : 'category',
-	            data : ['Load Test','Power Test','Throughput Test','QphDS@SF'],
+	            data : ['QphDS@SF'],
 	        }
 	    ],
 	    yAxis : [
@@ -62,12 +64,115 @@ var notify = (stat) => {
 	        {
 	            type:'bar',
 	            name:'monetdb',
-	            data:[stat.load_monetdb,stat.powerTest_monetdb,stat.throughputTest_monetdb,stat.QphDS],
+	            data:[stat.QphDS],
+	            markPoint : {
+	                data : [
+	                    {type : 'max', name: '最大值'},
+	                    {type : 'min', name: '最小值'}
+	                ]
+	            },
+	            markLine : {
+	                data : [
+	                    {type : 'average', name: '平均值'}
+	                ]
+	            },
 	        },
 	        {
 	            type:'bar',
 	            name:'mysql',
-	            data:[2,50,3,1],
+	            data:[5000],
+	            markPoint : {
+	                data : [
+	                    {type : 'max', name: '最大值'},
+	                    {type : 'min', name: '最小值'}
+	                ]
+	            },
+	            markLine : {
+	                data : [
+	                    {type : 'average', name: '平均值'}
+	                ]
+	            },
+	        }
+	    ]
+	};
+	htmlView += 'QphDSOption = '+JSON.stringify(QphDSOption)+';';
+	htmlView += 'QphDSChart.setOption(QphDSOption);';
+	htmlView += '</script>';
+
+
+
+
+	//total result
+	htmlView += '\
+		    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->\
+		    <div id="result" style="width: 1800px;height:800px;"></div>\
+		    <script type="text/javascript">\
+		        var resultChart = echarts.init(document.getElementById(\'result\'));\
+	';
+	var resultOption = {
+	    title : {
+	        text: 'TCP-DS Click : 各项测试耗时',
+	        subtext: '作者：me@co8bit.com'
+	    },
+	    tooltip : {
+	        trigger: 'axis'
+	    },
+	    legend: {
+	        data:['monetdb','mysql']
+	    },
+	    toolbox: {
+	        show : true,
+	        feature : {
+	            dataView : {show: true, readOnly: false},
+	            magicType : {show: true, type: ['line', 'bar']},
+	            restore : {show: true},
+	            saveAsImage : {show: true}
+	        }
+	    },
+	    calculable : true,
+	    xAxis : [
+	        {
+	            type : 'category',
+	            data : ['Load Test','Power Test','Throughput Test'],
+	        }
+	    ],
+	    yAxis : [
+	        {
+	            type : 'value'
+	        }
+	    ],
+	    series : [
+	        {
+	            type:'bar',
+	            name:'monetdb',
+	            data:[stat.load_monetdb,stat.powerTest_monetdb,stat.throughputTest_monetdb],
+	            markPoint : {
+	                data : [
+	                    {type : 'max', name: '最大值'},
+	                    {type : 'min', name: '最小值'}
+	                ]
+	            },
+	            markLine : {
+	                data : [
+	                    {type : 'average', name: '平均值'}
+	                ]
+	            },
+	        },
+	        {
+	            type:'bar',
+	            name:'mysql',
+	            data:[2,50,3],
+	            markPoint : {
+	                data : [
+	                    {type : 'max', name: '最大值'},
+	                    {type : 'min', name: '最小值'}
+	                ]
+	            },
+	            markLine : {
+	                data : [
+	                    {type : 'average', name: '平均值'}
+	                ]
+	            },
 	        }
 	    ]
 	};
