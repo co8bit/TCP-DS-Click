@@ -64,7 +64,7 @@ var notify = (stat) => {
 	        {
 	            type:'bar',
 	            name:'monetdb',
-	            data:[stat.QphDS],
+	            data:[stat.monetdbQphDS],
 	            markPoint : {
 	                data : [
 	                    {type : 'max', name: '最大值'},
@@ -80,7 +80,7 @@ var notify = (stat) => {
 	        {
 	            type:'bar',
 	            name:'mysql',
-	            data:[5000],
+	            data:[stat.mysqlQphDS],
 	            markPoint : {
 	                data : [
 	                    {type : 'max', name: '最大值'},
@@ -155,7 +155,7 @@ var notify = (stat) => {
 	        {
 	            type:'bar',
 	            name:'mysql',
-	            data:[2,50,3],
+	            data:[stat.load_mysql,stat.powerTest_mysql,stat.throughputTest_mysql],
 	            markLine : {
 	                data : [
 	                    {type : 'average', name: '平均值'}
@@ -209,7 +209,7 @@ var notify = (stat) => {
 	    ],
 	    yAxis : [
 	        {
-	        	max : CONFIG.config.draw_yAxis_max,
+	        	//max : CONFIG.config.draw_yAxis_max,
 	            type : 'value'
 	        }
 	    ],
@@ -236,12 +236,21 @@ var notify = (stat) => {
 	        {
 	            type:'bar',
 	            name:'mysql',
-	            data:[0.025,0.045,0.109,0.162,0.003,0.019,0.169,0.003,0.051,0.086,0.046,0.084,0.004,0.101,30.643,0.002,0.069,0.035,0.003,0.074,0.08,0.054,0.271,0.554,0.025,0.389,0.09,0.13,0.019,0.045,0.036,0.004,0.071,0.197,0.048,0.003,0.116,0.023,1.493,0.032],
+	            data:stat.powerTest_mysqlArray_Y,
+	            markPoint : {
+	                data : [
+	                    {type : 'max', name: '最大值'},
+	                    {type : 'min', name: '最小值'}
+	                ]
+	            },
 	            markLine : {
 	                data : [
-	                    {type : 'average', name : '平均值'}
+	                    {type : 'average', name: '平均值'}
 	                ]
-	            }
+	            },
+	            markArea : {
+	                data : stat.powerTest_mysqlFailArray,
+	            },
 	        }
 	    ]
 	};
@@ -291,7 +300,7 @@ var notify = (stat) => {
 		    ],
 		    yAxis : [
 		        {
-		        	max : CONFIG.config.draw_yAxis_max,
+		        	//max : CONFIG.config.draw_yAxis_max,
 		            type : 'value'
 		        }
 		    ],
@@ -318,12 +327,21 @@ var notify = (stat) => {
 		        {
 		            type:'bar',
 		            name:'mysql',
-		            data:[0.033,0.063,0.308,0.411,0.003,0.069,0.468,0.003,0.131,0.206,0.12,0.23,0.004,0.306,0.006,0.128,0.072,0.006,0.17,0.107,0.14,0.312,1.684,0.054,1.434,0.383,0.34,0.024,0.254,0.158,0.004,0.415,0.803,0.146,0.004,0.417,0.112,3.902,0.151],
+		            data:stat.throughputTest_mysqlArray_Y[streamNo],
+		            markPoint : {
+		                data : [
+		                    {type : 'max', name: '最大值'},
+		                    {type : 'min', name: '最小值'}
+		                ]
+		            },
 		            markLine : {
 		                data : [
-		                    {type : 'average', name : '平均值'}
+		                    {type : 'average', name: '平均值'}
 		                ]
-		            }
+		            },
+		            markArea : {
+		                data : stat.throughputTest_mysqlFailArray[streamNo],
+		            },
 		        }
 		    ]
 		};

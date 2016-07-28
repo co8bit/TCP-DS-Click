@@ -29,11 +29,11 @@ var test = (streamNo,i,conn,sql,statistics) => {
 				util.logSqlTestResult(streamNo,i,'fail',time);
 				
 				// console.log('sql:'+sql);
-				// console.log('error:'+error);
-				util.log(error,'error');
+				// console.log('err:'+err);
+				util.log(err,'err');
 
 				statistics.throughputTest_mysqlArray.push({"streamNo":streamNo,"i":i,"time":time,"type":"fail"});
-				reject(error);
+				reject(err);
 			}
 			else
 			{
@@ -153,9 +153,11 @@ var run = (rootPath,statistics) => {
 			console.log('fail:'+fail);
 			console.log('各组耗费时间:'+timeRe);
 		    resolve(timer.end());
+		    pool.end();
 		})
 		.catch(()=>{
 			reject('throughputTest unkonwn error');
+		    pool.end();
 		});
 	});
 }

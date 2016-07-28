@@ -21,8 +21,13 @@ var rootPath = process.cwd();
 console.log('rootPath:'+rootPath);
 
 var statistics = {
+	//monetdb
+	load_monetdb : 0,
 	powerTest_monetdbArray:[],
 	powerTest_mysqlArray:[],
+
+	//mysql
+	load_mysql : 0,
 	throughputTest_monetdbArray:[],
 	throughputTest_mysqlArray:[],
 };
@@ -83,64 +88,65 @@ Promise.resolve()
 // })
 
 
+
 /**
  * power test module ---------------
  */
-// .then( (useTime) => {//monetdb
-// 	util.logModuleTitle('powerTest_monetdb');
-// 	var tmpPromise = powerTest_monetdb.run(rootPath,statistics);
-// 	tmpPromise.then( (useTime) => {
-// 		console.log('powerTest_monetdb................................OK');
-// 		console.log('powerTest_monetdb time :' + useTime + 's');
-// 	});
-// 	return tmpPromise;
-// })
-.then( (useTime) => {//mysql
-	util.logModuleTitle('powerTest_mysql');
-	var tmpPromise = powerTest_mysql.run(rootPath,statistics);
+.then( (useTime) => {//monetdb
+	util.logModuleTitle('powerTest_monetdb');
+	var tmpPromise = powerTest_monetdb.run(rootPath,statistics);
 	tmpPromise.then( (useTime) => {
-		console.log('powerTest_mysql..................................OK');
-		console.log('powerTest_mysql time :' + useTime + 's');
+		console.log('powerTest_monetdb................................OK');
+		console.log('powerTest_monetdb time :' + useTime + 's');
 	});
 	return tmpPromise;
 })
+// .then( (useTime) => {//mysql
+// 	util.logModuleTitle('powerTest_mysql');
+// 	var tmpPromise = powerTest_mysql.run(rootPath,statistics);
+// 	tmpPromise.then( (useTime) => {
+// 		console.log('powerTest_mysql..................................OK');
+// 		console.log('powerTest_mysql time :' + useTime + 's');
+// 	});
+// 	return tmpPromise;
+// })
 
 
 
 /**
  * throughput test module ---------------
  */
-// .then( (useTime) => {//monetdb
-// 	util.logModuleTitle('throughputTest_monetdb');
-// 	var tmpPromise = throughputTest_monetdb.run(rootPath,statistics);
-// 	tmpPromise.then( (useTime) => {
-// 		console.log('throughputTest_monetdb................................OK');
-// 		console.log('throughputTest_monetdb time :' + useTime + 's');
-// 	});
-// 	return tmpPromise;
-// })
-.then( (useTime) => {//mysql
-	util.logModuleTitle('throughputTest_mysql');
-	var tmpPromise = throughputTest_mysql.run(rootPath,statistics);
+.then( (useTime) => {//monetdb
+	util.logModuleTitle('throughputTest_monetdb');
+	var tmpPromise = throughputTest_monetdb.run(rootPath,statistics);
 	tmpPromise.then( (useTime) => {
-		console.log('throughputTest_mysql.................................OK');
-		console.log('throughputTest_mysql time :' + useTime + 's');
+		console.log('throughputTest_monetdb................................OK');
+		console.log('throughputTest_monetdb time :' + useTime + 's');
 	});
 	return tmpPromise;
 })
+// .then( (useTime) => {//mysql
+// 	util.logModuleTitle('throughputTest_mysql');
+// 	var tmpPromise = throughputTest_mysql.run(rootPath,statistics);
+// 	tmpPromise.then( (useTime) => {
+// 		console.log('throughputTest_mysql.................................OK');
+// 		console.log('throughputTest_mysql time :' + useTime + 's');
+// 	});
+// 	return tmpPromise;
+// })
 
 
 /**
  * generate result module
  */
-// .then( (useTime) => {
-// 	util.logModuleTitle('genResult');
-// 	var tmpPromise = genResult.run(statistics);
-// 	tmpPromise.then( (useTime) => {
-// 		console.log('genResult................................OK');
-// 	});
-// 	return tmpPromise;
-// })
+.then( (useTime) => {
+	util.logModuleTitle('genResult');
+	var tmpPromise = genResult.run(statistics);
+	tmpPromise.then( (useTime) => {
+		console.log('genResult................................OK');
+	});
+	return tmpPromise;
+})
 
 
 
