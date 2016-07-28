@@ -2,7 +2,6 @@ var CONFIG = require('../../config/config');
 var fs     = require('fs');
 var Timer  = require('../timer');
 var util   = require('../util');
-
 var Mysql    = require('mysql');
 
 var fail    = 0;
@@ -26,8 +25,8 @@ var test = (i,sql,statistics) => {
 				var time = timer.end();
 				util.logSqlTestResult(0,i,'fail',time);
 				statistics.powerTest_mysqlArray.push({"i":i,"time":time,"type":"fail"});
-				util.log(error,'error');
-				reject(error);
+				util.log(err,'err');
+				reject(err);
 			}
 			else
 			{
@@ -35,7 +34,6 @@ var test = (i,sql,statistics) => {
 				var time = timer.end();
 				util.logSqlTestResult(0,i,'succ',time);
 				statistics.powerTest_mysqlArray.push({"i":i,"time":time,"type":"succ"});
-				util.log(res,'res');
 				resolve();
 			}
 		});

@@ -12,7 +12,7 @@ var throughputTest_monetdb = require('./src/throughputTest/monetdb');
 //mysql
 var load_mysql           = require('./src/load/mysql');
 var powerTest_mysql      = require('./src/powerTest/mysql');
-// var throughputTest_monetdb = require('./src/throughputTest/mysql');
+var throughputTest_mysql = require('./src/throughputTest/mysql');
 
 
 
@@ -110,8 +110,7 @@ Promise.resolve()
 /**
  * throughput test module ---------------
  */
-// .then( (useTime) => {
-// 	//monetdb
+// .then( (useTime) => {//monetdb
 // 	util.logModuleTitle('throughputTest_monetdb');
 // 	var tmpPromise = throughputTest_monetdb.run(rootPath,statistics);
 // 	tmpPromise.then( (useTime) => {
@@ -120,6 +119,15 @@ Promise.resolve()
 // 	});
 // 	return tmpPromise;
 // })
+.then( (useTime) => {//mysql
+	util.logModuleTitle('throughputTest_mysql');
+	var tmpPromise = throughputTest_mysql.run(rootPath,statistics);
+	tmpPromise.then( (useTime) => {
+		console.log('throughputTest_mysql.................................OK');
+		console.log('throughputTest_mysql time :' + useTime + 's');
+	});
+	return tmpPromise;
+})
 
 
 /**
