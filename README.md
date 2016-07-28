@@ -15,7 +15,7 @@ a TCP-DS automatic test tool.  TCP-DS一键自动测试工具。
 
 
 备注
-==============
+----------
 monetdb下因为形如以下sql会导致崩溃，所以被我从sql文件里剔除了。
 
 ```sql
@@ -139,3 +139,8 @@ limit 100;
 
 等等等等
 ```
+
+TODO List
+------------
+- TCP-DS的dsdgen生成的.dat文件编码方式用的不是utf-8（如customer.dat用的是latin），需要手动用vim转换为utf-8。不过奇怪的是只有customer导入会出错，需要手动转换编码。
+- mysql的文件导入认为`\N`为null，而TCP-DS生成的.dat文件里，以`||`表示空，所以这里需要转换。不过我觉得鉴于TCP-DS的初衷是为了测量数据库性能，这里这个应该不会影响结果，所以未作修改。

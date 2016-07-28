@@ -39,7 +39,7 @@ var load = (file,tableName) => {
 		.catch((err) => {
 			console.log('Could not import file '+ file + '原因：' + err);
 			fail++;
-			reject(error);
+			reject(err);
 		});
 		 
 	})
@@ -55,7 +55,7 @@ var run = (rootPath) => {
 	return new Promise( (resolve,reject) => {
 		var timer = Timer.Timer.create();
 
-		var impList = [];
+		var opList = [];
 		path = rootPath + CONFIG.config.dsdgen_output_dir;
 		var tmpIArray = [];
 		for (var i = 1; i <= CONFIG.config.parallel; i++)
@@ -66,34 +66,34 @@ var run = (rootPath) => {
 				if (fs.existsSync(file))
 				{
 					fileNum++;
-					impList.push( ()=>{
+					opList.push( ()=>{
 						return load(file,tableName);
 					});
 				}
 			})
 		});
 		
-		// console.log(impList);
-		// impList.reduce(function(preResult, curValueInArray) {
+		// console.log(opList);
+		// opList.reduce(function(preResult, curValueInArray) {
 		// 	if (preResult == 0)
 		// 		return Promise.resolve().then(load(curValueInArray));
 		// 	else
 		//     	return preResult.then(load(curValueInArray));
 		// }, 0)|
 		
-		impList.reduce(function(preResult, curValueInArray) {
+		opList.reduce(function(preResult, curValueInArray) {
 	    	return preResult.then(curValueInArray);//.catch(curValueInArray);
 		}, Promise.resolve())
 		.then(function() {
 			console.log('dataFileNum:'+fileNum);
 			console.log('success:'+success);
-			console.log('fail:'+(fileNum - success));
+			console.log('fail:'+fail);
 		    resolve(timer.end());
 		    conn.close();
 		}).catch((error) => {
 			console.log('dataFileNum:'+fileNum);
 			console.log('success:'+success);
-			console.log('fail:'+(fileNum - success));
+			console.log('fail:'+fail);
 			reject('load error');
 			conn.close();
 		});
