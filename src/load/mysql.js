@@ -24,13 +24,16 @@ var load = (file,tableName) => {
 			{
 				console.log('Could not import file '+ file + '原因：' + err);
 				fail++;
+				util.log(fields,'fields');
 				reject(err);
 			}
-
-			console.log(file + ' 成功导入。'+"\n");//monetdb这里还去数据库里做了个count，得到了成功导入多少条这个数据，这里没做
-			util.log(res,'res');
-			success++;
-			resolve();
+			else
+			{
+				console.log(file + ' 成功导入。具体情况：'+res.message+"\n");//monetdb这里还去数据库里做了个count，得到了成功导入多少条这个数据，这里没做
+				util.log(res,'res');
+				success++;
+				resolve();
+			}
 		});
 	})
 }

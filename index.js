@@ -71,16 +71,16 @@ Promise.resolve()
 // 	});
 // 	return tmpPromise;
 // })
-.then( () => {// mysql
-	util.logModuleTitle('load_mysql');
-	var tmpPromise = load_mysql.run(rootPath);
-	tmpPromise.then( (useTime) => {
-		console.log('load_mysql.......................................OK');
-		console.log('load_mysql time :' + useTime + 's');
-		statistics.load_mysql = useTime;
-	});
-	return tmpPromise;
-})
+// .then( () => {// mysql
+// 	util.logModuleTitle('load_mysql');
+// 	var tmpPromise = load_mysql.run(rootPath);
+// 	tmpPromise.then( (useTime) => {
+// 		console.log('load_mysql.......................................OK');
+// 		console.log('load_mysql time :' + useTime + 's');
+// 		statistics.load_mysql = useTime;
+// 	});
+// 	return tmpPromise;
+// })
 
 
 /**

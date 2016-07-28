@@ -19,8 +19,6 @@ var test = (i,sql,statistics) => {
 	// console.log(sql+';');
 
 	return new Promise( (resolve,reject) => {
-
-
 		pool.query(sql, function(err, res, fields) {
 			if (err)
 			{
@@ -31,13 +29,15 @@ var test = (i,sql,statistics) => {
 				util.log(error,'error');
 				reject(error);
 			}
-
-			success++;
-			var time = timer.end();
-			util.logSqlTestResult(0,i,'succ',time);
-			statistics.powerTest_mysqlArray.push({"i":i,"time":time,"type":"succ"});
-			util.log(res,'res');
-			resolve();
+			else
+			{
+				success++;
+				var time = timer.end();
+				util.logSqlTestResult(0,i,'succ',time);
+				statistics.powerTest_mysqlArray.push({"i":i,"time":time,"type":"succ"});
+				util.log(res,'res');
+				resolve();
+			}
 		});
 	});
 };
