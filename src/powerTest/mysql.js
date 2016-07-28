@@ -2,53 +2,49 @@ var CONFIG = require('../../config/config');
 var fs     = require('fs');
 var Timer  = require('../timer');
 var util   = require('../util');
-var MDB    = require('monetdb')();
- 
-var options = CONFIG.db.monetdb;
 
+var Mysql    = require('mysql');
 
-var conn    = null;
 var fail    = 0;
 var success = 0;
 var totalSql = 0;
 
+var pool  = Mysql.createPool(CONFIG.db.mysql);
 
 var test = (i,sql,statistics) => {
 	console.log('开始测试第'+(i+1)+'条SQL');
 	var timer = Timer.Timer.create();
-	util.log(sql+';','sql');
+	sql = sql + ';';
+	util.log(sql,'sql');
 	// console.log(sql+';');
 
 	return new Promise( (resolve,reject) => {
-		conn.query(sql+';')
-		.then(function(res) {
+
+
+		pool.query(sql, function(err, res, fields) {
+			if (err)
+			{
+				fail++;
+				var time = timer.end();
+				util.logSqlTestResult(0,i,'fail',time);
+				statistics.powerTest_mysqlArray.push({"i":i,"time":time,"type":"fail"});
+				util.log(error,'error');
+				reject(error);
+			}
+
 			success++;
 			var time = timer.end();
 			util.logSqlTestResult(0,i,'succ',time);
-			statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"succ"});
+			statistics.powerTest_mysqlArray.push({"i":i,"time":time,"type":"succ"});
+			util.log(res,'res');
 			resolve();
-		}).catch((error) => {
-			fail++;
-			var time = timer.end();
-			util.logSqlTestResult(0,i,'fail',time);
-			statistics.powerTest_monetdbArray.push({"i":i,"time":time,"type":"fail"});
-			util.log(error,'error');
-			reject(error);
 		});
 	});
 };
 
 
 
-
 var run = (rootPath,statistics) => {
-	conn    = new MDB(options);
-	conn.connect();
-	
-	//获得sql的标准用法：
-	// var readf = util.ReadF.createNew(rootPath);
-	// readf.readFile('query_0.sql');
-	// var sqlArray =  readf.getSQL();
 
 	var readf = util.ReadF.createNew(rootPath);
 	if (CONFIG.config.scale == 1)
@@ -57,13 +53,8 @@ var run = (rootPath,statistics) => {
 		readf.readFile('query_monetdb/0.sql');
 	var sqlArray =  readf.getSQL();
 
-	// var sqlArray2 = [];
-	// sqlArray2.push(sqlArray[0]);
-	// sqlArray2.push(sqlArray[1]);
-
 	var iArray = [];
 	for (v of sqlArray)
-	// for (v of sqlArray2)
 	{
 		iArray.push(totalSql);
 		totalSql++;
@@ -93,7 +84,7 @@ var run = (rootPath,statistics) => {
 			console.log('总共测试:'+totalSql);
 			console.log('succ:'+success);
 			console.log('fail:'+fail);
-		    conn.close();
+		    pool.end();
 		    resolve(timer.end());
 		})
 		.catch((error) => {
@@ -101,7 +92,7 @@ var run = (rootPath,statistics) => {
 			console.log('succ:'+success);
 			console.log('fail:'+fail);
 			// reject('test error');//测试不管是否有单个失败，都算成功
-			conn.close();
+			pool.end();
 			resolve(timer.end());
 		});
 	})

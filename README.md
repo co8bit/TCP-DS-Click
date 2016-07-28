@@ -7,6 +7,40 @@ a TCP-DS automatic test tool.  TCP-DS一键自动测试工具。
 
 如有问题欢迎和我讨论<me@co8bit.com>
 
+已知问题列表
+----------
+Q：mysql导入dat的时候出现`ERROR 1045 (28000): Access denied for user 'xxx'@'localhost' (using password: YES)`权限拒绝。
+A：给相应用户开`load data`权限。
+
+
+
+
+其他
+-----------
+获得文件的标准写法：
+
+```js
+//获得sql的标准用法：
+var readf = util.ReadF.createNew(rootPath);
+readf.readFile('query_0.sql');
+var sqlArray =  readf.getSQL();
+```
+
+
+
+
+
+TODO List
+------------
+- TCP-DS的dsdgen生成的.dat文件编码方式用的不是utf-8（如customer.dat用的是latin），需要手动用vim转换为utf-8。不过奇怪的是只有customer导入会出错，需要手动转换编码。
+- mysql的文件导入认为`\N`为null，而TCP-DS生成的.dat文件里，以`||`表示空，所以这里需要转换。不过我觉得鉴于TCP-DS的初衷是为了测量数据库性能，这里这个应该不会影响结果，所以未作修改。
+
+
+
+
+
+
+
 
 
 
@@ -139,8 +173,3 @@ limit 100;
 
 等等等等
 ```
-
-TODO List
-------------
-- TCP-DS的dsdgen生成的.dat文件编码方式用的不是utf-8（如customer.dat用的是latin），需要手动用vim转换为utf-8。不过奇怪的是只有customer导入会出错，需要手动转换编码。
-- mysql的文件导入认为`\N`为null，而TCP-DS生成的.dat文件里，以`||`表示空，所以这里需要转换。不过我觉得鉴于TCP-DS的初衷是为了测量数据库性能，这里这个应该不会影响结果，所以未作修改。

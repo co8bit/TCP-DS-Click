@@ -16,7 +16,7 @@ var pool  = Mysql.createPool(CONFIG.db.mysql);
 var load = (file,tableName) => {
 	console.log('开始导入文件:'+file);
 	return new Promise( (resolve,reject) => {
-		var sql = "LOAD DATA INFILE "+ file +" INTO TABLE "+ tableName +" FIELDS TERMINATED BY '|' LINES TERMINATED BY '\n';";
+		var sql = "LOAD DATA INFILE '"+ file +"' INTO TABLE "+ tableName +" FIELDS TERMINATED BY '|' LINES TERMINATED BY \'\n\';";
 		util.log(sql,'sql');
 
 		pool.query(sql, function(err, res, fields) {
@@ -27,11 +27,9 @@ var load = (file,tableName) => {
 				reject(err);
 			}
 
-			console.log(file + ' 成功导入'+"\n");//monetdb这里还去数据库里做了个count，得到了成功导入多少条这个数据，这里没做
+			console.log(file + ' 成功导入。'+res+"\n");//monetdb这里还去数据库里做了个count，得到了成功导入多少条这个数据，这里没做
 			success++;
 			resolve();
-
-		  resolve(res);
 		});
 	})
 }
