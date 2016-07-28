@@ -14,7 +14,7 @@ var run = (statistics) => {
 		};
 
 		//powerTest calc
-		statistics.powerTest_monetdb = 0;
+		stat.powerTest_monetdb = 0;
 		for (v of statistics.powerTest_monetdbArray)
 		{
 			time = parseFloat(v.time);
@@ -34,22 +34,67 @@ var run = (statistics) => {
 				});
 				stat.powerTest_monetdbFailArray.push(tmp);
 			}
-			statistics.powerTest_monetdb += parseFloat(time);
+			stat.powerTest_monetdb += time;
 		}
-		statistics.powerTest_monetdb = statistics.powerTest_monetdb.toFixed(3);
+		stat.powerTest_monetdb = stat.powerTest_monetdb.toFixed(3);
 
 		//throughput calc
-		statistics.throughputTest_monetdb = 0;
+		var streamNumArray = [];
+		for(var i = 0; i < CONFIG.config.stream_num; i++)
+		{
+			streamNumArray.push(i);
+		}
+		stat.throughputTest_monetdb          = 0;//总时间
+		stat.throughputTest_monetdb_stream   = [];//每个流的总时间
+		stat.throughputTest_monetdbArray_X   = [];
+		stat.throughputTest_monetdbArray_Y   = [];
+		stat.throughputTest_monetdbFailArray = [];
+
 		for (v of statistics.throughputTest_monetdbArray)
 		{
-			statistics.throughputTest_monetdb += parseFloat(v.time);
+			if (typeof(stat.throughputTest_monetdbArray_X[v.streamNo]) === 'undefined')
+			{
+				stat.throughputTest_monetdb_stream[v.streamNo]   = 0;
+				stat.throughputTest_monetdbArray_X[v.streamNo]   = [];
+				stat.throughputTest_monetdbArray_Y[v.streamNo]   = [];
+				stat.throughputTest_monetdbFailArray[v.streamNo] = [];
+			}
+
+			time = parseFloat(v.time);
+			stat.throughputTest_monetdbArray_X[v.streamNo].push(v.i);
+			stat.throughputTest_monetdbArray_Y[v.streamNo].push(time);
+			if (v.type == 'fail')
+			{
+				var tmp = [];
+				tmp.push({
+					name:'失败',
+					xAxis:v.i,
+					yAxis:time,
+				});
+				tmp.push({
+					xAxis:v.i,
+					yAxis:0,
+				});
+				stat.throughputTest_monetdbFailArray[v.streamNo].push(tmp);
+			}
+			stat.throughputTest_monetdb += time;
+			stat.throughputTest_monetdb_stream[v.streamNo] += time;
 		}
-		statistics.throughputTest_monetdb = statistics.throughputTest_monetdb.toFixed(3);
-		
+		stat.throughputTest_monetdb = stat.throughputTest_monetdb.toFixed(3);
+		streamNumArray.forEach( (streamNo) => {
+			if (typeof(stat.throughputTest_monetdb_stream[v.streamNo]) !== 'undefined')//允许部分执行
+			{
+				stat.throughputTest_monetdb_stream[streamNo] = stat.throughputTest_monetdb_stream[streamNo].toFixed(3);
+			}
+		})
+
+
+
+
+
 		console.log(stat);
 
-		notify.notify(stat);
-
+		notify.notify(stat);//email
 		resolve();
 	});
 }

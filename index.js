@@ -24,7 +24,7 @@ Promise.resolve()
  * gen DATA model ---------------
  */
 // .then( () => {
-	// util.logModuleTitle('gen DATA');
+// 	util.logModuleTitle('gen DATA');
 // 	var tmpPromise = genData.run(rootPath);
 // 	tmpPromise.then( (useTime) => {
 // 		console.log('gen DATA ........................................OK');
@@ -70,32 +70,32 @@ Promise.resolve()
 /**
  * power test module ---------------
  */
-.then( (useTime) => {
-	//monetdb
-	util.logModuleTitle('powerTest_monetdb');
-	var tmpPromise = powerTest_monetdb.run(rootPath,statistics);
-	tmpPromise.then( (useTime) => {
-		console.log('powerTest_monetdb................................OK');
-		console.log('powerTest_monetdb time :' + useTime + 's');
-	});
-	return tmpPromise;
-})
+// .then( (useTime) => {
+// 	//monetdb
+// 	util.logModuleTitle('powerTest_monetdb');
+// 	var tmpPromise = powerTest_monetdb.run(rootPath,statistics);
+// 	tmpPromise.then( (useTime) => {
+// 		console.log('powerTest_monetdb................................OK');
+// 		console.log('powerTest_monetdb time :' + useTime + 's');
+// 	});
+// 	return tmpPromise;
+// })
 
 
 
 /**
  * throughput test module ---------------
  */
-// .then( (useTime) => {
-// 	//monetdb
-// 	util.logModuleTitle('throughputTest_monetdb');
-// 	var tmpPromise = throughputTest_monetdb.run(rootPath,statistics);
-// 	tmpPromise.then( (useTime) => {
-// 		console.log('throughputTest_monetdb................................OK');
-// 		console.log('throughputTest_monetdb time :' + useTime + 's');
-// 	});
-// 	return tmpPromise;
-// })
+.then( (useTime) => {
+	//monetdb
+	util.logModuleTitle('throughputTest_monetdb');
+	var tmpPromise = throughputTest_monetdb.run(rootPath,statistics);
+	tmpPromise.then( (useTime) => {
+		console.log('throughputTest_monetdb................................OK');
+		console.log('throughputTest_monetdb time :' + useTime + 's');
+	});
+	return tmpPromise;
+})
 
 
 /**
