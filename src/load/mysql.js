@@ -27,7 +27,8 @@ var load = (file,tableName) => {
 				reject(err);
 			}
 
-			console.log(file + ' 成功导入。'+res+"\n");//monetdb这里还去数据库里做了个count，得到了成功导入多少条这个数据，这里没做
+			console.log(file + ' 成功导入。'+"\n");//monetdb这里还去数据库里做了个count，得到了成功导入多少条这个数据，这里没做
+			util.log(res,'res');
 			success++;
 			resolve();
 		});
