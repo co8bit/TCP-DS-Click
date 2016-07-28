@@ -146,12 +146,6 @@ var notify = (stat) => {
 	            type:'bar',
 	            name:'monetdb',
 	            data:[stat.load_monetdb,stat.powerTest_monetdb,stat.throughputTest_monetdb],
-	            markPoint : {
-	                data : [
-	                    {type : 'max', name: '最大值'},
-	                    {type : 'min', name: '最小值'}
-	                ]
-	            },
 	            markLine : {
 	                data : [
 	                    {type : 'average', name: '平均值'}
@@ -162,12 +156,6 @@ var notify = (stat) => {
 	            type:'bar',
 	            name:'mysql',
 	            data:[2,50,3],
-	            markPoint : {
-	                data : [
-	                    {type : 'max', name: '最大值'},
-	                    {type : 'min', name: '最小值'}
-	                ]
-	            },
 	            markLine : {
 	                data : [
 	                    {type : 'average', name: '平均值'}

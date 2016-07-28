@@ -100,7 +100,8 @@ var run = (statistics) => {
 		var member = stat.avgTotalSqlNum * 1 * 3600 * CONFIG.config.stream_num * CONFIG.config.scale;//分子
 		var denominator = stat.throughputTest_monetdb + (0.01 * CONFIG.config.stream_num * stat.load_monetdb);//分母
 		stat.QphDS = member / denominator;
-		stat.QphDS = parseFloat(stat.QphDS.toFixed(3));
+		// stat.QphDS = parseFloat(stat.QphDS.toFixed(3));
+		stat.QphDS = Math.round(stat.QphDS);
 
 		console.log(stat);
 
