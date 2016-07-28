@@ -19,6 +19,66 @@ var notify = (stat) => {
 		<body>';
 	
 
+	//total result
+	htmlView += '\
+		    <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->\
+		    <div id="result" style="width: 1800px;height:800px;"></div>\
+		    <script type="text/javascript">\
+		        var resultChart = echarts.init(document.getElementById(\'result\'));\
+	';
+	var resultOption = {
+	    title : {
+	        text: 'TCP-DS Click : 总结果图',
+	        subtext: '作者：me@co8bit.com'
+	    },
+	    tooltip : {
+	        trigger: 'axis'
+	    },
+	    legend: {
+	        data:['monetdb','mysql']
+	    },
+	    toolbox: {
+	        show : true,
+	        feature : {
+	            dataView : {show: true, readOnly: false},
+	            magicType : {show: true, type: ['line', 'bar']},
+	            restore : {show: true},
+	            saveAsImage : {show: true}
+	        }
+	    },
+	    calculable : true,
+	    xAxis : [
+	        {
+	            type : 'category',
+	            data : ['Load Test','Power Test','Throughput Test','QphDS@SF'],
+	        }
+	    ],
+	    yAxis : [
+	        {
+	            type : 'value'
+	        }
+	    ],
+	    series : [
+	        {
+	            type:'bar',
+	            name:'monetdb',
+	            data:[stat.load_monetdb,stat.powerTest_monetdb,stat.throughputTest_monetdb,stat.QphDS],
+	        },
+	        {
+	            type:'bar',
+	            name:'mysql',
+	            data:[2,50,3,1],
+	        }
+	    ]
+	};
+	htmlView += 'resultOption = '+JSON.stringify(resultOption)+';';
+	htmlView += 'resultChart.setOption(resultOption);';
+	htmlView += '</script>';
+
+
+
+
+
 
 	//power
 	htmlView += '\
@@ -56,7 +116,7 @@ var notify = (stat) => {
 	    ],
 	    yAxis : [
 	        {
-	        	max : 5,
+	        	max : CONFIG.config.draw_yAxis_max,
 	            type : 'value'
 	        }
 	    ],
@@ -83,18 +143,12 @@ var notify = (stat) => {
 	        {
 	            type:'bar',
 	            name:'mysql',
-	            data:[0.03,0.02,0.51,0.02,3.2,30.2,20.5,2.5],
-	            markPoint : {
-	                data : [
-	                    {type : 'max', name: '最大值'},
-	                    {type : 'min', name: '最小值'}
-	                ]
-	            },
+	            data:[0.025,0.045,0.109,0.162,0.003,0.019,0.169,0.003,0.051,0.086,0.046,0.084,0.004,0.101,30.643,0.002,0.069,0.035,0.003,0.074,0.08,0.054,0.271,0.554,0.025,0.389,0.09,0.13,0.019,0.045,0.036,0.004,0.071,0.197,0.048,0.003,0.116,0.023,1.493,0.032],
 	            markLine : {
 	                data : [
-	                    {type : 'average', name: '平均值'}
+	                    {type : 'average', name : '平均值'}
 	                ]
-	            },
+	            }
 	        }
 	    ]
 	};
@@ -144,7 +198,7 @@ var notify = (stat) => {
 		    ],
 		    yAxis : [
 		        {
-		        	max : 5,
+		        	max : CONFIG.config.draw_yAxis_max,
 		            type : 'value'
 		        }
 		    ],

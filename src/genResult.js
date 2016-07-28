@@ -8,6 +8,7 @@ var run = (statistics) => {
 	return new Promise( (resolve,reject) => {
 		//邮件发送的结果
 		var stat = {
+			totalSqlNum : 0,//sql语句总数
 			powerTest_monetdbArray_X:[],
 			powerTest_monetdbArray_Y:[],
 			powerTest_monetdbFailArray:[],
@@ -35,6 +36,7 @@ var run = (statistics) => {
 				stat.powerTest_monetdbFailArray.push(tmp);
 			}
 			stat.powerTest_monetdb += time;
+			++stat.totalSqlNum;
 		}
 		stat.powerTest_monetdb = stat.powerTest_monetdb.toFixed(3);
 
@@ -79,6 +81,7 @@ var run = (statistics) => {
 			}
 			stat.throughputTest_monetdb += time;
 			stat.throughputTest_monetdb_stream[v.streamNo] += time;
+			++stat.totalSqlNum;
 		}
 		stat.throughputTest_monetdb = stat.throughputTest_monetdb.toFixed(3);
 		streamNumArray.forEach( (streamNo) => {
@@ -90,7 +93,12 @@ var run = (statistics) => {
 
 
 
-
+		//calc QphDS
+		stat.avgTotalSqlNum = Math.round( stat.totalSqlNum / (CONFIG.config.stream_num+1) );
+		var member = stat.avgTotalSqlNum * 1 *3600 * CONFIG.config.stream_num * CONFIG.config.scale;//分子
+		var denominator = stat.throughputTest_monetdb + (0.01 * CONFIG.config.stream_num * stat.load_monetdb);//分母
+		stat.QphDS = member / denominator;
+		stat.QphDS = stat.QphDS.toFixed(3);
 
 		console.log(stat);
 

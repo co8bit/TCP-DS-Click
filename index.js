@@ -53,33 +53,33 @@ Promise.resolve()
 /**
  * load module ---------------
  */
-// .then( () => {
-// 	// monetdb
-// 	util.logModuleTitle('load_monetdb');
-// 	var tmpPromise = load_monetdb.run(rootPath);
-// 	tmpPromise.then( (useTime) => {
-// 		console.log('load_monetdb.....................................OK');
-// 		console.log('load_monetdb time :' + useTime + 's');
-// 		statistics.load_monetdb = useTime;
-// 	});
-// 	return tmpPromise;
-// })
+.then( () => {
+	// monetdb
+	util.logModuleTitle('load_monetdb');
+	var tmpPromise = load_monetdb.run(rootPath);
+	tmpPromise.then( (useTime) => {
+		console.log('load_monetdb.....................................OK');
+		console.log('load_monetdb time :' + useTime + 's');
+		statistics.load_monetdb = useTime;
+	});
+	return tmpPromise;
+})
 
 
 
 /**
  * power test module ---------------
  */
-// .then( (useTime) => {
-// 	//monetdb
-// 	util.logModuleTitle('powerTest_monetdb');
-// 	var tmpPromise = powerTest_monetdb.run(rootPath,statistics);
-// 	tmpPromise.then( (useTime) => {
-// 		console.log('powerTest_monetdb................................OK');
-// 		console.log('powerTest_monetdb time :' + useTime + 's');
-// 	});
-// 	return tmpPromise;
-// })
+.then( (useTime) => {
+	//monetdb
+	util.logModuleTitle('powerTest_monetdb');
+	var tmpPromise = powerTest_monetdb.run(rootPath,statistics);
+	tmpPromise.then( (useTime) => {
+		console.log('powerTest_monetdb................................OK');
+		console.log('powerTest_monetdb time :' + useTime + 's');
+	});
+	return tmpPromise;
+})
 
 
 
@@ -106,8 +106,6 @@ Promise.resolve()
 	var tmpPromise = genResult.run(statistics);
 	tmpPromise.then( (useTime) => {
 		console.log('genResult................................OK');
-		console.log('result:');
-		// console.log(statistics);
 	});
 	return tmpPromise;
 })
