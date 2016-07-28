@@ -101,15 +101,15 @@ Promise.resolve()
 	});
 	return tmpPromise;
 })
-// .then( (useTime) => {//mysql
-// 	util.logModuleTitle('powerTest_mysql');
-// 	var tmpPromise = powerTest_mysql.run(rootPath,statistics);
-// 	tmpPromise.then( (useTime) => {
-// 		console.log('powerTest_mysql..................................OK');
-// 		console.log('powerTest_mysql time :' + useTime + 's');
-// 	});
-// 	return tmpPromise;
-// })
+.then( (useTime) => {//mysql
+	util.logModuleTitle('powerTest_mysql');
+	var tmpPromise = powerTest_mysql.run(rootPath,statistics);
+	tmpPromise.then( (useTime) => {
+		console.log('powerTest_mysql..................................OK');
+		console.log('powerTest_mysql time :' + useTime + 's');
+	});
+	return tmpPromise;
+})
 
 
 
@@ -125,15 +125,15 @@ Promise.resolve()
 	});
 	return tmpPromise;
 })
-// .then( (useTime) => {//mysql
-// 	util.logModuleTitle('throughputTest_mysql');
-// 	var tmpPromise = throughputTest_mysql.run(rootPath,statistics);
-// 	tmpPromise.then( (useTime) => {
-// 		console.log('throughputTest_mysql.................................OK');
-// 		console.log('throughputTest_mysql time :' + useTime + 's');
-// 	});
-// 	return tmpPromise;
-// })
+.then( (useTime) => {//mysql
+	util.logModuleTitle('throughputTest_mysql');
+	var tmpPromise = throughputTest_mysql.run(rootPath,statistics);
+	tmpPromise.then( (useTime) => {
+		console.log('throughputTest_mysql.................................OK');
+		console.log('throughputTest_mysql time :' + useTime + 's');
+	});
+	return tmpPromise;
+})
 
 
 /**
