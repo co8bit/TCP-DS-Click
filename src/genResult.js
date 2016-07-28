@@ -104,6 +104,15 @@ var run = (statistics) => {
 
 		console.log(stat);
 
+		console.log('member:'+member);
+		console.log('stat.avgTotalSqlNum:'+stat.avgTotalSqlNum);
+		console.log('CONFIG.config.stream_num:'+CONFIG.config.stream_num);
+		console.log('CONFIG.config.scale:'+CONFIG.config.scale);
+		console.log('denominator:'+denominator);
+		console.log('stat.throughputTest_monetdb:'+stat.throughputTest_monetdb);
+		console.log('CONFIG.config.stream_num:'+CONFIG.config.stream_num);
+		console.log('stat.load_monetdb:'+stat.load_monetdb);
+
 		notify.notify(stat);//email
 		resolve();
 	});
