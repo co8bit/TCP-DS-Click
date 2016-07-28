@@ -14,7 +14,7 @@ var run = (statistics) => {
 			powerTest_monetdbFailArray:[],
 		};
 
-		stat.load_monetdb = statistics.load_monetdb;
+		stat.load_monetdb = parseFloat(statistics.load_monetdb);
 
 		//powerTest calc
 		stat.powerTest_monetdb = 0;
@@ -40,7 +40,7 @@ var run = (statistics) => {
 			stat.powerTest_monetdb += time;
 			++stat.totalSqlNum;
 		}
-		stat.powerTest_monetdb = stat.powerTest_monetdb.toFixed(3);
+		stat.powerTest_monetdb = parseFloat(stat.powerTest_monetdb.toFixed(3));
 
 		//throughput calc
 		var streamNumArray = [];
@@ -85,11 +85,11 @@ var run = (statistics) => {
 			stat.throughputTest_monetdb_stream[v.streamNo] += time;
 			++stat.totalSqlNum;
 		}
-		stat.throughputTest_monetdb = stat.throughputTest_monetdb.toFixed(3);
+		stat.throughputTest_monetdb = parseFloat(stat.throughputTest_monetdb.toFixed(3));
 		streamNumArray.forEach( (streamNo) => {
 			if (typeof(stat.throughputTest_monetdb_stream[v.streamNo]) !== 'undefined')//允许部分执行
 			{
-				stat.throughputTest_monetdb_stream[streamNo] = stat.throughputTest_monetdb_stream[streamNo].toFixed(3);
+				stat.throughputTest_monetdb_stream[streamNo] = parseFloat(stat.throughputTest_monetdb_stream[streamNo].toFixed(3));
 			}
 		})
 
@@ -97,10 +97,10 @@ var run = (statistics) => {
 
 		//calc QphDS
 		stat.avgTotalSqlNum = Math.round( stat.totalSqlNum / (CONFIG.config.stream_num+1) );
-		var member = stat.avgTotalSqlNum * 1 *3600 * CONFIG.config.stream_num * CONFIG.config.scale;//分子
+		var member = stat.avgTotalSqlNum * 1 * 3600 * CONFIG.config.stream_num * CONFIG.config.scale;//分子
 		var denominator = stat.throughputTest_monetdb + (0.01 * CONFIG.config.stream_num * stat.load_monetdb);//分母
 		stat.QphDS = member / denominator;
-		stat.QphDS = stat.QphDS.toFixed(3);
+		stat.QphDS = parseFloat(stat.QphDS.toFixed(3));
 
 		console.log(stat);
 
