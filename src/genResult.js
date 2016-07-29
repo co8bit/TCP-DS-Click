@@ -48,10 +48,16 @@ var run = (statistics) => {
 		/**
 		 * common
 		 */
-		stat.load_monetdb = parseFloat(statistics.load_monetdb);
-		stat.load_mysql   = parseFloat(statistics.load_mysql);
-		stat.load_monetdb = 33.576;//假数据，因为load时间太久了，中断后很难受
-		stat.load_mysql   = 4280.595;//假数据，因为load时间太久了，中断后很难受
+		if (CONFIG.config.loadbresk.isBreak)//假数据
+		{
+			stat.load_monetdb = CONFIG.config.loadbresk.load_monetdb;
+			stat.load_mysql   = CONFIG.config.loadbresk.load_mysql;
+		}
+		else
+		{
+			stat.load_monetdb = parseFloat(statistics.load_monetdb);
+			stat.load_mysql   = parseFloat(statistics.load_mysql);
+		}
 		if (CONFIG.config.report_display_reciprocal)
 		{
 			stat.load_monetdb = parseFloat((1/stat.load_monetdb).toFixed(3));
