@@ -109,9 +109,12 @@ var notify = (stat) => {
 		    <script type="text/javascript">\
 		        var resultChart = echarts.init(document.getElementById(\'result\'));\
 	';
+	var resultTitleText = 'TCP-DS Click : 各项测试耗时 [单位s]';
+	if (CONFIG.config.report_display_reciprocal)
+		resultTitleText = 'TCP-DS Click : 各项测试耗时的倒数(1/time)';
 	var resultOption = {
 	    title : {
-	        text: 'TCP-DS Click : 各项测试耗时',
+	        text: resultTitleText,
 	        subtext: '作者：me@co8bit.com'
 	    },
 	    tooltip : {
@@ -180,9 +183,12 @@ var notify = (stat) => {
 		    <script type="text/javascript">\
 		        var powerChart = echarts.init(document.getElementById(\'power\'));\
 	';
+	var powerTitleText = 'TCP-DS Click : power 结果图 [耗时，单位s]';
+	if (CONFIG.config.report_display_reciprocal)
+		powerTitleText = 'TCP-DS Click : power 结果图 [耗时的倒数(1/time)]';
 	var powerOption = {
 	    title : {
-	        text: 'TCP-DS Click : power 结果图',
+	        text: powerTitleText,
 	        subtext: '作者：me@co8bit.com'
 	    },
 	    tooltip : {
@@ -271,9 +277,12 @@ var notify = (stat) => {
 			    <script type="text/javascript">\
 			        var throughputChart'+streamNo+' = echarts.init(document.getElementById("throughput'+streamNo+'"));\
 		';
+		var throughputTitleText = 'TCP-DS Click : throughput第'+streamNo+'条流 结果图 [耗时，单位s]';
+		if (CONFIG.config.report_display_reciprocal)
+			throughputTitleText = 'TCP-DS Click : throughput第'+streamNo+'条流 结果图 [耗时的倒数(1/time)]';
 		throughputOption[streamNo] = {
 		    title : {
-		        text: 'TCP-DS Click : throughput第'+streamNo+'条流 结果图',
+		        text: throughputTitleText,
 		        subtext: '作者：me@co8bit.com'
 		    },
 		    tooltip : {

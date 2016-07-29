@@ -49,7 +49,11 @@ var run = (statistics) => {
 		 * common
 		 */
 		stat.load_monetdb = parseFloat(statistics.load_monetdb);
+		if (CONFIG.config.report_display_reciprocal)
+				stat.load_monetdb = parseFloat((1/stat.load_monetdb).toFixed(3));
 		stat.load_mysql   = parseFloat(statistics.load_mysql);
+		if (CONFIG.config.report_display_reciprocal)
+				stat.load_mysql = parseFloat((1/stat.load_mysql).toFixed(3));
 
 		/**
 		 * powerTest calc
@@ -58,6 +62,8 @@ var run = (statistics) => {
 		for (v of statistics.powerTest_monetdbArray)
 		{
 			time = parseFloat(v.time);
+			if (CONFIG.config.report_display_reciprocal)
+				time = parseFloat((1/time).toFixed(3));
 			stat.powerTest_monetdbArray_X.push(v.i);
 			stat.powerTest_monetdbArray_Y.push(time);
 			if (v.type == 'fail')
@@ -83,6 +89,8 @@ var run = (statistics) => {
 		for (v of statistics.powerTest_mysqlArray)
 		{
 			time = parseFloat(v.time);
+			if (CONFIG.config.report_display_reciprocal)
+				time = parseFloat((1/time).toFixed(3));
 			stat.powerTest_mysqlArray_X.push(v.i);
 			stat.powerTest_mysqlArray_Y.push(time);
 			if (v.type == 'fail')
@@ -130,6 +138,8 @@ var run = (statistics) => {
 			}
 
 			time = parseFloat(v.time);
+			if (CONFIG.config.report_display_reciprocal)
+				time = parseFloat((1/time).toFixed(3));
 			stat.throughputTest_monetdbArray_X[v.streamNo].push(v.i);
 			stat.throughputTest_monetdbArray_Y[v.streamNo].push(time);
 			if (v.type == 'fail')
@@ -170,6 +180,8 @@ var run = (statistics) => {
 			}
 
 			time = parseFloat(v.time);
+			if (CONFIG.config.report_display_reciprocal)
+				time = parseFloat((1/time).toFixed(3));
 			stat.throughputTest_mysqlArray_X[v.streamNo].push(v.i);
 			stat.throughputTest_mysqlArray_Y[v.streamNo].push(time);
 			if (v.type == 'fail')
@@ -210,11 +222,25 @@ var run = (statistics) => {
 		var member = stat.avgTotalSqlNum * 1 * 3600 * CONFIG.config.stream_num * CONFIG.config.scale;//分子
 
 		//monetdb
-		var monetdbDenominator = stat.throughputTest_monetdb + (0.01 * CONFIG.config.stream_num * stat.load_monetdb);//分母
+		var throughputTest_monetdb = stat.throughputTest_monetdb;
+		var load_monetdb           = stat.load_monetdb;
+		if (CONFIG.config.report_display_reciprocal)
+		{
+			throughputTest_monetdb = parseFloat((1/stat.throughputTest_monetdb).toFixed(3));
+			load_monetdb           = parseFloat((1/stat.load_monetdb).toFixed(3));
+		}
+		var monetdbDenominator = throughputTest_monetdb + (0.01 * CONFIG.config.stream_num * load_monetdb);//分母
 		stat.monetdbQphDS = Math.round(member / monetdbDenominator);
 
 		//mysql
-		var mysqlDenominator = stat.throughputTest_mysql + (0.01 * CONFIG.config.stream_num * stat.load_mysql);//分母
+		var throughputTest_mysql = stat.throughputTest_mysql;
+		var load_mysql           = stat.load_mysql;
+		if (CONFIG.config.report_display_reciprocal)
+		{
+			throughputTest_mysql = parseFloat((1/stat.throughputTest_mysql).toFixed(3));
+			load_mysql           = parseFloat((1/stat.load_mysql).toFixed(3));
+		}
+		var mysqlDenominator = throughputTest_mysql + (0.01 * CONFIG.config.stream_num * load_mysql);//分母
 		stat.mysqlQphDS = Math.round(member / mysqlDenominator);
 
 
