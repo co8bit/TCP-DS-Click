@@ -58,8 +58,23 @@ var run = (rootPath,statistics) => {
 		totalSql++;
 	}
 
+	// oneByOne :: [Promise a] -> Promise a
+	// allowFail :: Promise a -> Promise a
 	
-	
+
+	// opList
+
+	// oneByOne(map(allowFail)(opList))
+	// opList.map(allowFail)
+
+	//  bind :: (a -> Promise b) -> (b -> Promise c) -> (a -> Promise c)
+	//  foldl1 bind opList
+
+	// map (+1) [1, 2, 3] = ?
+
+	// x -> {success: true, got: "aaa"}
+	// 		{success: false, error: e}
+
 	return new Promise( (resolve,reject) => {
 		var timer = Timer.Timer.create();
 
