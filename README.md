@@ -29,9 +29,11 @@ TCP-DS数据库性能一键自动测试工具。
 已知问题列表
 ----------
 Q：mysql导入dat的时候出现`ERROR 1045 (28000): Access denied for user 'xxx'@'localhost' (using password: YES)`权限拒绝。
+
 A：给相应用户开`load data`权限。
 
 Q: monetdb drop表后重新建出现数据表已经存在。
+
 A：我认为是monetdb的bug，这时候删掉对应的数据库再重建一个。
 
 
